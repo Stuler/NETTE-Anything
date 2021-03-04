@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Nette Web</title>
+</head>
+<body>
+<a n:href="Homepage:default">Jdi na Homepage</a><br/><br/>
+<a n:href="edit">Vytvořit úkol</a>
+
+{form formSearch}{input term} {input send}{/form}
+<ul>
+	{foreach $items as $item}
+	<li>
+		<a n:href="edit id=>$item[id]">{$item[label]}</a>
+		<a href="{link delete! id=>$item[id]}">X</a>
+	</li>
+	{/foreach}
+</ul>
+
+<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+</body>
+</html>
