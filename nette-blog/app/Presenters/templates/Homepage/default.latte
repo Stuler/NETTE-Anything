@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
+{block content}
 
-	<title>Nette Web</title>
-</head>
+    <div>
+        <a n:href="Client:default">Založit klienta</a>
+    </div>
 
-<body>
-<h1>Ahoj Aktuaální datum {$date}</h1>
-<a n:href="Task:default">Jdi na vylepšený seznam</a>
 
-<div class="myForm">
-	{control myForm}
+{*Vyhledat {form formSearch}{input term}{/form}*}
+<div>
+<table>
+    <thead>
+    <tr>
+        <th>Název</th>
+        <th>IČO</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $clients as $item}
+        <tr>
+            <td>{$item[name]}</td>
+            <td>{$item[ico]}</td>
+            <td>{$item[email]}</td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
 </div>
-<ul>
-	{foreach $items as $item}
-	<li>
-		<a n:href="setEditMode! id=>$item[id]">{$item[label]}</a>
-		<a href="{link delete! id=>$item[id]}">X</a>
-	</li>
-	{/foreach}
-</ul>
 
 <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-</body>
-</html>
+{/block}

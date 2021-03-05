@@ -2,6 +2,6 @@ parameters:
 
 
 database:
-	dsn: 'mysql:host=127.0.0.1;dbname=todos'
+	dsn: 'mysql:host=127.0.0.1;dbname=clients'
 	user: root
-	password: root
+	password: null
