@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Models\ProcesManagers;
+namespace App\Models\ProcessManagers;
 
 use App\Models\Repository\TaskRepository;
 

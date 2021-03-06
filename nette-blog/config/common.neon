@@ -25,7 +25,7 @@ services:
 		inject: true
 
 	taskProcessManager:
-		factory: App\Models\ProcesManagers\TaskProcessManager("Pohni")
+		factory: App\Models\ProcessManagers\TaskProcessManager("Pohni")
 		inject: true
 
 	clientRepository:
@@ -33,5 +33,5 @@ services:
 		inject: true
 
 	clientProcessManager:
-		factory: App\Models\ProcesManagers\ClientsProcessManager
+		factory: App\Models\ProcessManagers\ClientsProcessManager
 		inject: true

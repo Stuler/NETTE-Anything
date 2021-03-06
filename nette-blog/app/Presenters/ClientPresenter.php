@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
-use App\Models\ProcesManagers\ClientsProcessManager;
+use App\Models\ProcessManagers\ClientsProcessManager;
 use App\Models\Repository\ClientsRepository;
 use Nette;
 use Nette\Application\UI\Form;

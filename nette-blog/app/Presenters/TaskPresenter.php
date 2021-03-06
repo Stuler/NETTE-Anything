@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
-use App\Models\ProcesManagers\TaskProcessManager;
+use App\Models\ProcessManagers\TaskProcessManager;
 use App\Models\Repository\TaskRepository;
 use Nette;
 use Nette\Application\UI\Form;
