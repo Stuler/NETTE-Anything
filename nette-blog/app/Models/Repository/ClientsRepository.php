@@ -19,8 +19,8 @@ class ClientsRepository {
 		return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
 	}
 
-	public function fetchAllActiveBySearchTerm(string $term): array {
-	    return $this->db->query("SELECT * FROM $this->clientTable WHERE name LIKE '%$term%'")->fetchAll();
+	public function fetchAllActiveBySearchTerm(string $crit, string $term): array {
+	    return $this->db->query("SELECT * FROM $this->clientTable WHERE $crit LIKE '%$term%'")->fetchAll();
 	}
 
 	public function fetchById(int $id): ?Row {

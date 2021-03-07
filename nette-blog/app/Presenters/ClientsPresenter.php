@@ -20,16 +20,27 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function renderDefault()
     {
         $searchTerm = $this->getParameter("term");
+        $searchCrit = $this->getParameter("crit");
+
         if ($searchTerm){
-            $this->template->clients = $this -> clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
+            $this->template->clients = $this -> clientsRepo->fetchAllActiveBySearchTerm($searchCrit, $searchTerm);
         } else {
             $this->template->clients = $this->clientsRepo->fetchAllActive();
         }
     }
 
     public function createComponentFormSearch(): Form {
+
+        $crits = [
+            'name' => 'Název',
+            'ico' => 'IČO',
+            'email' => 'E-mail',
+        ];
+
         $form = new Form();
 
+        $form->addSelect("crit", "Kde", $crits)
+            ->getRawValue();
         $form->addText("term")->setValue($this->getParameter("term"));
         $form->addSubmit("send","Vyhledat");
 
@@ -37,7 +48,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $values = $form->getValues();
 
             $this->redirect("this", [
-                    "term" => $values['term'] ? $values['term'] : null,
+                    "crit" => $values['crit'],
+                    "term" => $values['term'] ? $values['term'] : null
                 ]
             );
         };
