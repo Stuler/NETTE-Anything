@@ -60,7 +60,7 @@ final class ClientPresenter extends Nette\Application\UI\Presenter
             $data = (array)$values;
             $this->clientsPM->addClient($data);
 
-            $this->redirect("Homepage:default");
+            $this->redirect("Clients:default");
         };
 
         return $form;

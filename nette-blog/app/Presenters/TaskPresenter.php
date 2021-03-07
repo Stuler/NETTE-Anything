@@ -18,12 +18,11 @@ final class TaskPresenter extends Nette\Application\UI\Presenter {
 	public $taskRepo;
 
 	public function renderDefault() {
-		$this->template->date = date("d.m.Y");
 		$searchTerm = $this->getParameter("term");
 		if ($searchTerm) {
 			$this->template->items = $this->taskRepo->fetchAllActiveBySearchTerm($searchTerm);
-		} else {
-			$this->template->items = $this->taskRepo->fetchAllActive();
+        } else {
+            $this->template->items = $this->taskRepo->fetchAllActive();
 		}
 	}
 

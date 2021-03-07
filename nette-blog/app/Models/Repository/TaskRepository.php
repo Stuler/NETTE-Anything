@@ -34,7 +34,7 @@ class TaskRepository {
 	}
 
 	public function remove(int $id) {
-		$this->db->query("DELETE FROM client WHERE id=?", $id);
+		$this->db->query("DELETE FROM task WHERE id=?", $id);
 	}
 
 }

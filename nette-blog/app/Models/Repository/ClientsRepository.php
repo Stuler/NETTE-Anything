@@ -19,6 +19,10 @@ class ClientsRepository {
 		return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
 	}
 
+	public function fetchAllActiveBySearchTerm(string $term): array {
+	    return $this->db->query("SELECT * FROM $this->clientTable WHERE name LIKE '%$term%'")->fetchAll();
+	}
+
 	public function fetchById(int $id): ?Row {
 		return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
 	}
@@ -37,7 +41,7 @@ class ClientsRepository {
 	}
 
 	public function remove(int $id) {
-		$this->db->query("DELETE FROM clientTable WHERE id=?", $id);
+		$this->db->query("DELETE FROM $this->clientTable WHERE id=?", $id);
 	}
 
 }
