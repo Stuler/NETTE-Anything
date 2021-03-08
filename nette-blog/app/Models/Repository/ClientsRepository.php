@@ -37,7 +37,7 @@ class ClientsRepository {
 	}
 
 	public function update(int $id, array $data) {
-		$this->db->query("UPDATE $this->clientTable SET ? WHERE id=?", ["data" => $data], $id);
+		$this->db->query("UPDATE $this->clientTable SET ? WHERE id=?", $data, $id);
 	}
 
 	public function remove(int $id) {

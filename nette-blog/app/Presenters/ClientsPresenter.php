@@ -70,7 +70,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $values = $form->getValues();
             $data = (array)$values;
             if ($values['id']) {
-            	$this->clientsPM->updateClient((int)$values['id'], $data);
+            	$this->clientsPM->updateClient((int)$values['id'], (array)$data);
             } else {
 	            $this->clientsPM->addClient($data);
             }
