@@ -6,6 +6,10 @@ namespace App\Models\Repository;
 use Nette\Database\Explorer;
 use Nette\Database\Row;
 
+/* TODO:
+- implementovat tabulku client_persona funkcionalitu
+*/
+
 class ClientsRepository {
 
 	protected $clientTable = "client";
