@@ -22,8 +22,8 @@ class ClientsProcessManager {
         $this->clientsRepo->addClient($data);
     }
 
-	public function updateClient(int $id, string $label) {
-		$this->clientsRepo->update($id, $label);
+	public function updateClient(int $id, array $data) {
+		$this->clientsRepo->update($id, $data);
 	}
 
 	public function removeClient(int $id) {

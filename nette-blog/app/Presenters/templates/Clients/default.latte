@@ -12,17 +12,19 @@
 <table>
     <thead>
     <tr>
+        <th></th>
         <th>Název</th>
         <th>IČO</th>
         <th>Email</th>
     </tr>
     </thead>
     <tbody>
-    {foreach $clients as $item}
+    {foreach $clients as $client}
         <tr>
-            <td>{$item[name]}</td>
-            <td>{$item[ico]}</td>
-            <td>{$item[email]}</td>
+            <td><a href="{link delete! id=>$client[id]}">X</a></td>
+            <td><a n:href="edit id=>$client[id]">{$client[name]}</a></td>
+            <td>{$client[ico]}</td>
+            <td>{$client[email]}</td>
         </tr>
     {/foreach}
     </tbody>

@@ -29,11 +29,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function renderEdit(?int $id)
-    {
-
-    }
-
     public function createComponentMyForm(): form
     {
         $form = new Form();
@@ -74,8 +69,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
             $data = (array)$values;
-            $this->clientsPM->addClient($data);
-
+            if ($values['id']) {
+            	$this->clientsPM->updateClient((int)$values['id'], $data);
+            } else {
+	            $this->clientsPM->addClient($data);
+            }
             $this->redirect("Clients:default");
         };
 
@@ -109,6 +107,19 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         };
 
         return $form;
+    }
+
+	public function renderEdit(?int $id)
+	{
+		if ($id) {
+			$client = $this->clientsRepo->fetchById($id);
+			$this['myForm']->setDefaults($client);
+		}
+	}
+
+    public function handleDelete(int $id) {
+    	$this->clientsPM->removeClient($id);
+    	$this->redirect("this");
     }
 
 }
