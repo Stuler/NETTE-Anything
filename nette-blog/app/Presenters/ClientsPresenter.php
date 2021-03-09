@@ -81,6 +81,12 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     }
 
+    public function createComponentPersonForm(): Form
+    {
+
+
+    }
+
     public function createComponentFormSearch(): Form {
 
         $crits = [
@@ -100,7 +106,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $values = $form->getValues();
 
             $this->redirect("this", [
-                    "crit" => $values['crit'],
+//                  "crit" => $values['crit'],
                     "term" => $values['term'] ? $values['term'] : null
                 ]
             );
@@ -109,13 +115,13 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-	public function renderEdit(?int $id)
-	{
-		if ($id) {
-			$client = $this->clientsRepo->fetchById($id);
-			$this['myForm']->setDefaults($client);
-		}
-	}
+    public function renderEdit(?int $id)
+    {
+        if ($id) {
+            $client = $this->clientsRepo->fetchById($id);
+            $this['myForm']->setDefaults($client);
+        }
+    }
 
     public function handleDelete(int $id) {
     	$this->clientsPM->removeClient($id);

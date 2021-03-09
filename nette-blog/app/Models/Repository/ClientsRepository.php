@@ -7,13 +7,14 @@ use Nette\Database\Explorer;
 use Nette\Database\Row;
 
 /* TODO:
-- implementovat tabulku client_persona funkcionalitu
+- implementovat tabulku client_person a funkcionalitu
 */
 
 class ClientsRepository {
 
-	protected $clientTable = "client";
-    protected $client_personTable = "client_person";
+    protected $clientTable = "client";
+
+    protected $clientPersonTable = "client_person";
 
 
 	/** @var Explorer @inject @internal */
