@@ -22,8 +22,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $searchTerm = $this->getParameter("term");
         $searchCrit = $this->getParameter("crit");
 
-        if ($searchTerm){
-            $this->template->clients = $this -> clientsRepo->fetchAllActiveBySearchTerm($searchCrit, $searchTerm);
+        if ($searchTerm) {
+            $this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchCrit, $searchTerm);
         } else {
             $this->template->clients = $this->clientsRepo->fetchAllActive();
         }
@@ -70,9 +70,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $values = $form->getValues();
             $data = (array)$values;
             if ($values['id']) {
-            	$this->clientsPM->updateClient((int)$values['id'], (array)$data);
+                $this->clientsPM->updateClient((int)$values['id'], (array)$data);
             } else {
-	            $this->clientsPM->addClient($data);
+                $this->clientsPM->addClient($data);
             }
             $this->redirect("Clients:default");
         };
@@ -87,20 +87,21 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     }
 
-    public function createComponentFormSearch(): Form {
+    public function createComponentFormSearch(): Form
+    {
 
-        $crits = [
-            'name' => 'Název',
-            'ico' => 'IČO',
-            'email' => 'E-mail',
-        ];
+//        $crits = [
+//            'name' => 'Název',
+//            'ico' => 'IČO',
+//            'email' => 'E-mail',
+//        ];
 
         $form = new Form();
 
-        $form->addSelect("crit", "Kde", $crits)
-            ->getRawValue();
+//        $form->addSelect("crit", "Kde", $crits)
+//            ->getRawValue();
         $form->addText("term")->setValue($this->getParameter("term"));
-        $form->addSubmit("send","Vyhledat");
+        $form->addSubmit("send", "Vyhledat");
 
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
@@ -123,9 +124,10 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function handleDelete(int $id) {
-    	$this->clientsPM->removeClient($id);
-    	$this->redirect("this");
+    public function handleDelete(int $id)
+    {
+        $this->clientsPM->removeClient($id);
+        $this->redirect("this");
     }
 
 }
