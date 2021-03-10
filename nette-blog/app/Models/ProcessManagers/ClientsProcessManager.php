@@ -11,7 +11,6 @@ class ClientsProcessManager {
 	public $clientsRepo;
 
 	public function __construct() {
-
 	}
 
 	public function add(string $name) {
@@ -22,8 +21,16 @@ class ClientsProcessManager {
         $this->clientsRepo->addClient($data);
     }
 
+	public function addContactPerson(array $data) {
+		$this->clientsRepo->addContactPerson($data);
+	}
+
 	public function updateClient(int $id, array $data) {
-		$this->clientsRepo->update($id, $data);
+		$this->clientsRepo->updateClient($id, $data);
+	}
+
+	public function updateContactPerson(int $id, array $data) {
+		$this->clientsRepo->updateContactPerson($id, $data);
 	}
 
 	public function removeClient(int $id) {

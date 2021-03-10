@@ -29,7 +29,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function createComponentMyForm(): form
+    public function createComponentClientForm(): form
     {
         $form = new Form();
 
@@ -64,7 +64,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
         $form->addText("note", "Note");
 
-        $form->addSubmit("send", "Add client");
+        $form->addSubmit("send", "Založit");
 
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
@@ -83,7 +83,36 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentPersonForm(): Form
     {
+		$form = new Form();
 
+	    $form->addHidden("id");
+
+	    $form->addHidden("client_id");
+
+	    $form->addText("contactName", "Meno")
+		    ->addRule(Form::FILLED, "Uveď meno kontaktnej osoby!");
+
+	    $form->addText("contactEmail", "Email")
+		    ->addRule(Form::FILLED, "Uveď emailovú adresu kontaktnej osoby!");
+
+	    $form->addText("contactPhone", "Telefón");
+
+	    $form->addText("contactStatus", "Pozícia");
+
+	    $form->addSubmit("send", "Pridať kontaktnú osobu");
+
+	    $form->onSuccess[] = function (Form $form) {
+		    $values = $form->getValues();
+		    $data = (array)$values;
+		    if ($values['id'] && $values['client_id']) {
+			    $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
+		    } else {
+			    $this->clientsPM->addContactPerson($data);
+		    }
+		    $this->redirect("Clients:default");
+	    };
+
+	    return $form;
 
     }
 
@@ -120,7 +149,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         if ($id) {
             $client = $this->clientsRepo->fetchById($id);
-            $this['myForm']->setDefaults($client);
+            $this['clientForm']->setDefaults($client);
         }
     }
 
