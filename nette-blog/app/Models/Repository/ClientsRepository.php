@@ -29,8 +29,9 @@ class ClientsRepository
 
     public function fetchAllActiveBySearchTerm(string $term)
     {
-        return $this->db->query("SELECT * FROM $this->clientTable WHERE CONCAT (name, ico, email) LIKE ?", "%$term%")->fetchAll();
-//      SELECT * FROM $this->clientTable WHERE CONCAT (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = clients AND TABLE_NAME = $this->clientTable) LIKE ?", "%$term%"
+        $cols = $this->db->query("select column_name from information_schema.columns where table_name = 'client'")->fetchAll();
+
+        return $this->db->query("SELECT * FROM $this->clientTable WHERE CONCAT ($cols) LIKE ?", "%$term%")->fetchAll();
     }
 
     public function fetchById(int $id): ?Row
