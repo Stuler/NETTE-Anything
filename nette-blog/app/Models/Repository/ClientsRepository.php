@@ -27,9 +27,9 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
     }
 
-    public function fetchAllActiveBySearchTerm(string $term, array $data): array
+    public function fetchAllActiveBySearchTerm(string $term)
     {
-        return $this->db->query("SELECT * FROM $this->clientTable WHERE $this->getColNames-> LIKE ? IN ?", array_keys($data), "%$term%", array_values($data))->fetchAll();
+        return $this->db->query("SELECT * FROM $this->clientTable WHERE CONCAT (name, ico, email) LIKE ?", "%$term%")->fetchAll();
     }
 
     public function fetchById(int $id): ?Row
@@ -60,7 +60,8 @@ class ClientsRepository
 
     public function getColNames()
     {
-        $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='client' ")->fetch();
+        $cols = $this->db->query("SHOW COLUMNS FROM $this->clientTable")->fetch();
+        //("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='client' ")->fetch();
     }
 
 }

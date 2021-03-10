@@ -23,7 +23,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $searchCrit = $this->getParameter("crit");
 
         if ($searchTerm) {
-            $this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchCrit, $searchTerm);
+            $this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
         } else {
             $this->template->clients = $this->clientsRepo->fetchAllActive();
         }
