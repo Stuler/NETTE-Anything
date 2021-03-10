@@ -9,6 +9,8 @@ use Nette\Database\Row;
 
 /* TODO:
 - implementovat tabulku client_person a funkcionalitu
+- refaktorizacia onSucces funkcie!
+- refaktorizacia funkcii add a update
 */
 
 class ClientsRepository
@@ -52,7 +54,7 @@ class ClientsRepository
 
 	public function addContactPerson(array $data)
 	{
-		unset($data['id']);
+		unset($data['client_id']);
 		$this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
 	}
 

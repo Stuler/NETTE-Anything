@@ -89,22 +89,22 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addHidden("client_id");
 
-	    $form->addText("contactName", "Meno")
+	    $form->addText("name", "Meno")
 		    ->addRule(Form::FILLED, "Uveď meno kontaktnej osoby!");
 
-	    $form->addText("contactEmail", "Email")
+	    $form->addText("email", "Email")
 		    ->addRule(Form::FILLED, "Uveď emailovú adresu kontaktnej osoby!");
 
-	    $form->addText("contactPhone", "Telefón");
+	    $form->addText("phone", "Telefón");
 
-	    $form->addText("contactStatus", "Pozícia");
+	    $form->addText("status", "Pozícia");
 
 	    $form->addSubmit("send", "Pridať kontaktnú osobu");
 
 	    $form->onSuccess[] = function (Form $form) {
 		    $values = $form->getValues();
 		    $data = (array)$values;
-		    if ($values['id'] && $values['client_id']) {
+		    if ($values['id']) {
 			    $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
 		    } else {
 			    $this->clientsPM->addContactPerson($data);
