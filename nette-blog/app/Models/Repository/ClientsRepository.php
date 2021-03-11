@@ -31,7 +31,7 @@ class ClientsRepository
 
     public function fetchAllActiveBySearchTerm(string $term): array
     {
-        $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = $this->clientTable AND TABLE_SCHEMA = $this->db")-fetchAll();
+        $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = $this->clientTable AND TABLE_SCHEMA = $this->db")->fetchAll();
         $colNames = implode($cols);
         return $this->db->query("SELECT * FROM $this->clientTable WHERE CONCAT ($colNames) LIKE ?", "%$term%")->fetchAll();
     }
@@ -41,7 +41,7 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
     }
 
-    public function add(string $name, $table)
+    public function add(string $name)
     {
         $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
     }
@@ -54,7 +54,8 @@ class ClientsRepository
 
 	public function addContactPerson(array $data)
 	{
-		unset($data['client_id']);
+		unset($data['id']);
+      $client_id = $this->db->table('client')->get('id');
 		$this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
 	}
 

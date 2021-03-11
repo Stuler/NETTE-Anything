@@ -20,7 +20,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function renderDefault()
     {
         $searchTerm = $this->getParameter("term");
-        $searchCrit = $this->getParameter("crit");
 
         if ($searchTerm) {
             $this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
@@ -87,8 +86,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addHidden("id");
 
-	    $form->addHidden("client_id");
-
+	    $form->addText("client_id"); //sem potrebujem dostat ID klienta!!!
+//            ->setDefaultValue($this->clientForm['id']);
+            
 	    $form->addText("name", "Meno")
 		    ->addRule(Form::FILLED, "Uveď meno kontaktnej osoby!");
 
@@ -103,7 +103,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->onSuccess[] = function (Form $form) {
 		    $values = $form->getValues();
-		    $data = (array)$values;
+            $data = (array)$values;
 		    if ($values['id']) {
 			    $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
 		    } else {
@@ -149,7 +149,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         if ($id) {
             $client = $this->clientsRepo->fetchById($id);
+//            $client_person = $this->clientsRepo->fetchById($id);
             $this['clientForm']->setDefaults($client);
+//            $this['personForm']->setDefaults($client_person);
         }
     }
 
