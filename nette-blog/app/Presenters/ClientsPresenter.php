@@ -86,8 +86,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addHidden("id");
 
-	    $form->addText("client_id"); //sem potrebujem dostat ID klienta!!!
-//            ->setDefaultValue($this->clientForm['id']);
+	    $form->addHidden("client_id"),
+            ->setDefaultValue($this->getParameter("id"));
             
 	    $form->addText("name", "Meno")
 		    ->addRule(Form::FILLED, "Uveď meno kontaktnej osoby!");
