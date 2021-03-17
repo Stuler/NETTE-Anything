@@ -1,0 +1,35 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+di:
+	debugger: false
+	export:
+		parameters: no
+		tags: no
+
+
+services:
+	- App\Router\RouterFactory::createRouter
+	taskRepository:
+		class: App\Models\Repository\TaskRepository
+		inject: true
+
+	taskProcessManager:
+		factory: App\Models\ProcesManagers\TaskProcessManager("Pohni")
+		inject: true
+
+	- App\Components\ClientList\ClientListFactory
+	clientList:
+		class: App\Components\ClientList\ClientList
+		inject: true
+		autowired: false

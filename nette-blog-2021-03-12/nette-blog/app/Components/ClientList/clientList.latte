@@ -1,0 +1,9 @@
+Klienti
+<ul>
+	{foreach $clients as $client}
+		<li>
+			<a href="{plink Client:edit id=>$client[id]}">{$client[name]}</a>
+			<a n:href="delete! id=>$client['id']">Smazat</a>
+		</li>
+	{/foreach}
+</ul>
