@@ -5,13 +5,24 @@
     </div>
 
     <div class="clientForm">
-		<h3>Založení nového klienta</h3>
+		<h3>Založenie nového klienta</h3>
         {control clientForm}
     </div>
 
-	<div class="personForm">
-		<h3>Založenie kontaktnej osoby</h3>
-		{control personForm}
-	</div>
+	{if $isEdit} {*v presenteri v rendri musi byt definovana  premenna isEdit*}
+		<div class="personForm">
+			<h3>Založenie kontaktnej osoby</h3>
+			{control personForm}
+		</div>
+
+		{* Vyrendrovat tabulku kontaktov klienta*}
+{*		<div>*}
+{*			<ul>*}
+{*				<li n:foreach="$contacts as $contact">*}
+{*					<a n:href="editPerson! contactId => $contact['client_id']">{$contact[name]}</a>*}
+{*				</li>*}
+{*			</ul>*}
+{*		</div>*}
+	{/if}
 
 {/block}

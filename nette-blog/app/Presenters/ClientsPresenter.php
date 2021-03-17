@@ -8,6 +8,9 @@ use App\Models\Repository\ClientsRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
+// TODO: pridat zobrazenie kontaktnych osob pre jednotlivych klientov
+// TODO: sfunkcnit vyhladavanie
+
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
 
@@ -16,17 +19,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
-
-    public function renderDefault()
-    {
-        $searchTerm = $this->getParameter("term");
-
-        if ($searchTerm) {
-            $this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
-        } else {
-            $this->template->clients = $this->clientsRepo->fetchAllActive();
-        }
-    }
 
     public function createComponentClientForm(): form
     {
@@ -65,6 +57,12 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
         $form->addSubmit("send", "Založit");
 
+        /*
+         * pri uspesnom zalozeni noveho klienta sa vratim spat do vyplneneho formulara
+         * a zobrazi sa mi formular na vyplnenie kontaktnej osoby
+         * getInsertId mi donesie posledne pridane ID
+         */
+
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
             $data = (array)$values;
@@ -72,12 +70,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
                 $this->clientsPM->updateClient((int)$values['id'], (array)$data);
             } else {
                 $this->clientsPM->addClient($data);
+                $id = $this->clientsRepo->db->getInsertId();
+	            $this->redirect("this", ["id"=>$id]);
             }
-            $this->redirect("Clients:default");
         };
-
         return $form;
-
     }
 
     public function createComponentPersonForm(): Form
@@ -86,7 +83,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addHidden("id");
 
-	    $form->addHidden("client_id"),
+	    $form->addHidden("client_id")
             ->setDefaultValue($this->getParameter("id"));
             
 	    $form->addText("name", "Meno")
@@ -101,7 +98,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addSubmit("send", "Pridať kontaktnú osobu");
 
-	    $form->onSuccess[] = function (Form $form) {
+	    $form->onSuccess[] = function (Form $form, $values) {
 		    $values = $form->getValues();
             $data = (array)$values;
 		    if ($values['id']) {
@@ -109,7 +106,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 		    } else {
 			    $this->clientsPM->addContactPerson($data);
 		    }
-		    $this->redirect("Clients:default");
+		    $this->redirect("this");
 	    };
 
 	    return $form;
@@ -145,14 +142,44 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function renderEdit(?int $id)
+	public function renderDefault()
+	{
+		$searchTerm = $this->getParameter("term");
+
+		if ($searchTerm) {
+			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
+		} else {
+			$this->template->clients = $this->clientsRepo->fetchAllActive();
+		}
+	}
+
+
+	/*
+	* Funkcia vyrenderuje edit formular;
+	* Ak je vyplnene ID, umozni pridat kontaktnu osobu
+	*
+	*/
+    public function renderEdit(?int $id = null)
     {
         if ($id) {
-            $client = $this->clientsRepo->fetchById($id);
-//            $client_person = $this->clientsRepo->fetchById($id);
+        	$client = $this->clientsRepo->fetchById($id);
+//          $client_person = $this->clientsRepo->fetchById($id);
             $this['clientForm']->setDefaults($client);
-//            $this['personForm']->setDefaults($client_person);
+//          $this['personForm']->setDefaults($client_person);
+	        $this->template->contacts = $this->clientsRepo->fetchContactById($id);
+
         }
+         $this->template->isEdit = $id != null;
+    }
+
+
+    /*
+     * Funkcia na vykreslenie a upravu kontaktov klienta
+     * contactId ma doniest id klienta a vypisat potrebne udaje
+     */
+	public function handleEditPerson (int $contactId){
+    	$values = $this->clientsRepo->fetchById($contactId);
+    	$this['personForm']->setDefaults($values);
     }
 
     public function handleDelete(int $id)

@@ -7,12 +7,6 @@ use Nette\Database\Context;
 use Nette\Database\Explorer;
 use Nette\Database\Row;
 
-/* TODO:
-- implementovat tabulku client_person a funkcionalitu
-- refaktorizacia onSucces funkcie!
-- refaktorizacia funkcii add a update
-*/
-
 class ClientsRepository
 {
 
@@ -29,17 +23,31 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
     }
 
-    public function fetchAllActiveBySearchTerm(string $term): array
-    {
-        $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = $this->clientTable AND TABLE_SCHEMA = $this->db")->fetchAll();
-        $colNames = implode($cols);
-        return $this->db->query("SELECT * FROM $this->clientTable WHERE CONCAT ($colNames) LIKE ?", "%$term%")->fetchAll();
+
+    /*
+     * Vyskladanie vyhladavacieho stringu
+     */
+    public function fetchAllActiveBySearchTerm(): array {
+	    $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = $this->clientTable AND TABLE_SCHEMA=$this->db")->fetchPairs(null, "COLUMN_NAME");
+	    $likes = [];
+	    $values = [];
+	    foreach ($cols as $column) {
+		    $likes[] = "`column` LIKE ?";
+		    $values[] = "%term%";
+	    }
+	    $conditionQuery = implode(" OR ",$likes);
+	    return $this->db->query("SELECT * FROM $this->clientTable WHERE $conditionQuery", ...$values)->fetchAll();
     }
 
     public function fetchById(int $id): ?Row
     {
         return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
     }
+
+	public function fetchContactById(int $id): ?Row
+	{
+		return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+	}
 
     public function add(string $name)
     {
