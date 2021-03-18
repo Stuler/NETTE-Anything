@@ -9,7 +9,6 @@ use Nette;
 use Nette\Application\UI\Form;
 
 // TODO: pridat zobrazenie kontaktnych osob pre jednotlivych klientov
-// TODO: sfunkcnit vyhladavanie
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {

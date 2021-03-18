@@ -27,16 +27,16 @@ class ClientsRepository
     /*
      * Vyskladanie vyhladavacieho stringu
      */
-    public function fetchAllActiveBySearchTerm(): array {
-	    $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = $this->clientTable AND TABLE_SCHEMA=$this->db")->fetchPairs(null, "COLUMN_NAME");
-	    $likes = [];
-	    $values = [];
-	    foreach ($cols as $column) {
-		    $likes[] = "`column` LIKE ?";
-		    $values[] = "%term%";
-	    }
-	    $conditionQuery = implode(" OR ",$likes);
-	    return $this->db->query("SELECT * FROM $this->clientTable WHERE $conditionQuery", ...$values)->fetchAll();
+    public function fetchAllActiveBySearchTerm(string $term): array {
+        $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->clientTable' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME"); //preco neberie $this->db?
+        $likes = [];
+        $values = [];
+        foreach ($cols as $column) {
+           $likes[] = "`$column` LIKE ?";
+           $values[] = "%$term%";
+        }
+        $conditionQuery = implode(" OR ", $likes);
+        return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
     }
 
     public function fetchById(int $id): ?Row
