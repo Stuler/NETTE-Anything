@@ -9,11 +9,8 @@ use Nette\Database\Row;
 
 class ClientsRepository
 {
-
     protected $clientTable = "client";
-
     protected $clientPersonTable = "client_person";
-
 
     /** @var Explorer @inject @internal */
     public $db;
@@ -22,7 +19,6 @@ class ClientsRepository
     {
         return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
     }
-
 
     /*
      * Vyskladanie vyhladavacieho stringu
@@ -81,11 +77,4 @@ class ClientsRepository
     {
         $this->db->query("DELETE FROM $this->clientTable WHERE id=?", $id);
     }
-
-    public function getColNames()
-    {
-        $cols = $this->db->query("SHOW COLUMNS FROM $this->clientTable")->fetch();
-        //("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='client' ")->fetch();
-    }
-
 }

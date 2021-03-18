@@ -61,7 +61,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
          * a zobrazi sa mi formular na vyplnenie kontaktnej osoby
          * getInsertId mi donesie posledne pridane ID
          */
-
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
             $data = (array)$values;
@@ -114,30 +113,16 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentFormSearch(): Form
     {
-
-//        $crits = [
-//            'name' => 'Název',
-//            'ico' => 'IČO',
-//            'email' => 'E-mail',
-//        ];
-
         $form = new Form();
-
-//        $form->addSelect("crit", "Kde", $crits)
-//            ->getRawValue();
         $form->addText("term")->setValue($this->getParameter("term"));
         $form->addSubmit("send", "Vyhledat");
-
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
-
             $this->redirect("this", [
-//                  "crit" => $values['crit'],
                     "term" => $values['term'] ? $values['term'] : null
                 ]
             );
         };
-
         return $form;
     }
 
@@ -166,7 +151,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $this['clientForm']->setDefaults($client);
 //          $this['personForm']->setDefaults($client_person);
 	        $this->template->contacts = $this->clientsRepo->fetchContactById($id);
-
         }
          $this->template->isEdit = $id != null;
     }
@@ -180,11 +164,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     	$values = $this->clientsRepo->fetchById($contactId);
     	$this['personForm']->setDefaults($values);
     }
-
     public function handleDelete(int $id)
     {
         $this->clientsPM->removeClient($id);
         $this->redirect("this");
     }
-
 }
