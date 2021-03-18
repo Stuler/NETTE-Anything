@@ -99,14 +99,14 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 	    $form->addSubmit("send", "Pridať kontaktnú osobu");
 
 	    $form->onSuccess[] = function (Form $form, $values) {
-		    //$values = $form->getValues();
             $data = (array)$values;
 		    if ($values['id']) {
 			    $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
+                $this->redirect("this");
 		    } else {
 			    $this->clientsPM->addContactPerson($data);
+                $this->redirect("this");
 		    }
-		    $this->redirect("this");
 	    };
 
 	    return $form;
@@ -149,10 +149,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         if ($id) {
         	$client = $this->clientsRepo->fetchById($id);
-//          $client_person = $this->clientsRepo->fetchById($id);
             $this['clientForm']->setDefaults($client);
-//          $this['personForm']->setDefaults($client_person);
+            
+            $client_person = $this->clientsRepo->fetchContactById($id);
 	        $this->template->contacts = $this->clientsRepo->fetchContactById($id);
+            $this['personForm']->setDefaults($client_person);
         }
          $this->template->isEdit = $id != null;
     }
