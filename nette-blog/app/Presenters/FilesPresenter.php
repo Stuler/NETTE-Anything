@@ -21,10 +21,23 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentFormUpload(): Form {
         $form = new Form();
-        $form->addGroup("Upload");
+        $form->addGroup("Upload souboru");
 
         $form->addUpload("file", "Připni soubor:");
-        $form->addSubmit("save", "Připni");
+        $form->addSubmit("upload", "Připni");
+
+        $form->onSuccess[] = function (Form $form, $file) {
+            $this->redirect("this");
+        };
+        return $form;
+    }
+
+    public function createComponentFormCreate(): Form {
+        $form = new Form();
+        $form->addGroup("Vytvoření složky");
+
+        $form->addText("file", "Vytvoř soubor:");
+        $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $file) {
             $this->redirect("this");
