@@ -27,6 +27,9 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit("upload", "Připni");
 
         $form->onSuccess[] = function (Form $form, $file) {
+            $values = $form->getValues();
+            $path = __DIR__.'/../../www/workDir/' .$values->file->getName();
+            $values->file->move($path);
             $this->redirect("this");
         };
         return $form;
@@ -39,7 +42,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addText("file", "Vytvoř soubor:");
         $form->addSubmit("create", "Vytvoř");
 
-        $form->onSuccess[] = function (Form $form, $file) {
+        $form->onSuccess[] = function (Form $form) {
             $this->redirect("this");
         };
         return $form;
