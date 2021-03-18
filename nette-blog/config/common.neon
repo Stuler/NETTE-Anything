@@ -35,3 +35,11 @@ services:
 	clientProcessManager:
 		factory: App\Models\ProcessManagers\ClientsProcessManager
 		inject: true
+
+	fileProcessManager:
+	    factory: App\Models\ProcessManagers\FilesProcessManager
+	    inject: true
+
+	fileRepository:
+	    factory: App\Models\Repository\FilesRepository
+	    inject: true
