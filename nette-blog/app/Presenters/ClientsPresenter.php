@@ -9,7 +9,8 @@ use Nette;
 use Nette\Application\UI\Form;
 
 // TODO: upravit zobrazenie kontaktnych osob pre jednotlivych klientov
-//tak, aby po kliknuti na kontaktnu osobu sa zobrazili jej udaje v tabulke
+// tak, aby po kliknuti na kontaktnu osobu sa zobrazili jej udaje v tabulke
+// do formulara kontaktov odosiela ID klienta!!
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
@@ -98,7 +99,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 	    $form->addSubmit("send", "Pridať kontaktnú osobu");
 
 	    $form->onSuccess[] = function (Form $form, $values) {
-		    $values = $form->getValues();
+		    //$values = $form->getValues();
             $data = (array)$values;
 		    if ($values['id']) {
 			    $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
