@@ -87,7 +87,7 @@ final class ClientPresenter extends Nette\Application\UI\Presenter {
 		$form->addHidden("client_id")->setDefaultValue($this->getParameter("id"));
 		$form->addText("name", "Jméno");
 		$form->addSubmit("save", "Uložit kontakt");
-		$form->onSuccess[] = function (Form $form, $values)
+		$form->onSuccess[] = function (Form $form, $values){
 			if ($values['id']) {
 				$this->db->table("client_person")->where("id", $values['id'])->update($values);
 				$this->redirect("this");

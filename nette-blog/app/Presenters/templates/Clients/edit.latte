@@ -16,13 +16,13 @@
 		</div>
 
 		{* Vyrendrovat tabulku kontaktov klienta*}
-{*		<div>*}
-{*			<ul>*}
-{*				<li n:foreach="$contacts as $contact">*}
-{*					<a n:href="editPerson! contactId => $contact['client_id']">{$contact[name]}</a>*}
-{*				</li>*}
-{*			</ul>*}
-{*		</div>*}
+		<div>
+			<ul>
+				<li n:foreach="$contacts as $contact">
+					<a n:href="editPerson! contactId => $contact['client_id']">{$contact[name]}</a>
+				</li>
+			</ul>
+		</div>
 	{/if}
 
 {/block}

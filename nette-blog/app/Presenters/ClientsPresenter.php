@@ -8,7 +8,8 @@ use App\Models\Repository\ClientsRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
-// TODO: pridat zobrazenie kontaktnych osob pre jednotlivych klientov
+// TODO: upravit zobrazenie kontaktnych osob pre jednotlivych klientov
+//tak, aby po kliknuti na kontaktnu osobu sa zobrazili jej udaje v tabulke
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
