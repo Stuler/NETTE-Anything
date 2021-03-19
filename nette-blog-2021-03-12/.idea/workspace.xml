@@ -2,25 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.dtd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nette-blog/app/Presenters/ClientPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/nette-blog/app/Presenters/ClientPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/ClientsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/ClientsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/180celkove.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/DSC03190.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/DSC03207.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/RK_gpx _2017-05-30_1532.gpx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/RK_gpx _2017-06-13_1930.gpx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/www/workDir/RK_gpx _2017-06-26_1544.gpx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.dtd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.dtd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/nette-blog-2021-03-12.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nette-blog-2021-03-12.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/nette-blog/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -29,6 +33,36 @@
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/nette-blog/vendor/composer" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/dibi/dibi" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/symfony/thanks" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/forms" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/database" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/finder" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/mail" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/di" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/neon" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/latte/latte" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/component-model" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/bootstrap" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/caching" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/security" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/nette" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/safe-stream" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/php-generator" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/tester" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/application" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/http" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/tracy/tracy" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/tokenizer" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/robot-loader" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/routing" />
+    </include_path>
   </component>
   <component name="ProjectId" id="1ptXOjVrOe8zFgZjWXB9sRORhzG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -60,6 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1616003330265</updated>
       <workItem from="1616003331662" duration="6288000" />
+      <workItem from="1616150267720" duration="1219000" />
     </task>
     <servers />
   </component>

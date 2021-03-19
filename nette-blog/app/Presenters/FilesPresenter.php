@@ -8,6 +8,8 @@ use App\Models\Repository\FilesRepository;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Utils\FileSystem;
+use Nette\SmartObject;
+use Nette\Http\FileUpload;
 
 
 
@@ -31,7 +33,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /*
      * Formular na upload suboru
      * TODO sprava uzivatelovi o uspesnom uploade
-     * TODO export dat do databazy
     */
     public function createComponentFormUpload(): Form {
         $form = new Form();
@@ -40,10 +41,9 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addUpload("file", "Připni soubor:");
         $form->addSubmit("upload", "Připni");
 
-        $form->onSuccess[] = function (Form $form, $file) {
-            $values = $form->getValues();
-            //$path = __DIR__.'/../../www/workDir' .$values->file->getName();
-            $values->file->move($this->path.'/'.$values->file->getName());
+        $form->onSuccess[] = function (Form $form, $values) {
+            // get Session id - ak by som chcel ist cez session
+            $this->filesPM->uploadFile($values['file'], $this->getParameter("id"));
             $this->redirect("this");
         };
         return $form;
@@ -52,18 +52,15 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /*
      * Formular na vytvorenie zlozky
      * TODO sprava uzivatelovi o uspesnom vytvoreni
-     * TODO export dat do databazy
     */
     public function createComponentFormCreate(): Form {
         $form = new Form();
         $form->addGroup("Vytvoření složky");
-
-        $form->addText("file", "Vytvoř soubor:");
+        $form->addText("file", "Vytvoř složku:");
         $form->addSubmit("create", "Vytvoř");
 
-        $form->onSuccess[] = function (Form $form) {
-            $values = $form->getValues();
-            mkdir($this->path.'/'.$values['file']);
+        $form->onSuccess[] = function (Form $form, $values) {
+            $this->filesPM->createDir($values['file'], $this->getParameter("id"));
             $this->redirect("this");
         };
         return $form;

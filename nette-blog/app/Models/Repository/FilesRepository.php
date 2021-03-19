@@ -15,4 +15,12 @@ class FilesRepository
     public $db;
 
 
+    // INSERT functions
+    public function add(array $data){
+        $this->db->query("INSERT INTO $this->fileTable ?", $data);
+    }
+
+
+
+
 }

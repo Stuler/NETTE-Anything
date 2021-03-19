@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/nette-blog/vendor/composer" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/dibi/dibi" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/symfony/thanks" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/forms" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/database" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/finder" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/mail" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/di" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/neon" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/latte/latte" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/component-model" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/bootstrap" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/caching" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/security" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/nette" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/safe-stream" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/php-generator" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/tester" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/application" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/http" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/tracy/tracy" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/tokenizer" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/robot-loader" />
+      <path value="$PROJECT_DIR$/nette-blog/vendor/nette/routing" />
+    </include_path>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
