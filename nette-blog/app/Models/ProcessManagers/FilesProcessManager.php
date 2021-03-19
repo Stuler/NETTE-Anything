@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models\ProcessManagers;
 
 use App\Models\Repository\FilesRepository;
+use Nette\Http\FileUpload;
 
 class FilesProcessManager
 {

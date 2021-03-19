@@ -12,7 +12,6 @@ use Nette\SmartObject;
 use Nette\Http\FileUpload;
 
 
-
 final class FilesPresenter extends Nette\Application\UI\Presenter
 {
 
@@ -22,22 +21,25 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    private $path;
-
-    public function __construct()
+    public function renderDefault()
     {
-        parent::__construct();
-        $this->path = __DIR__.'/../../www/workDir';
+        $items = [
+            ["id" => 1, "name" => "složka", "level" => 1],
+            ["id" => 2, "name" => "soubor", "level" => 2],
+            ["id" => 3, "name" => "soubor 2", "level" => 2],
+            ["id" => 4, "name" => "složka 5", "level" => 2],
+            ["id" => 5, "name" => "složka XX", "level" => 3],
+        ];
     }
 
     /*
      * Formular na upload suboru
      * TODO sprava uzivatelovi o uspesnom uploade
     */
-    public function createComponentFormUpload(): Form {
+    public function createComponentFormUpload(): Form
+    {
         $form = new Form();
         $form->addGroup("Upload souboru");
-
         $form->addUpload("file", "Připni soubor:");
         $form->addSubmit("upload", "Připni");
 
@@ -53,7 +55,8 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
      * Formular na vytvorenie zlozky
      * TODO sprava uzivatelovi o uspesnom vytvoreni
     */
-    public function createComponentFormCreate(): Form {
+    public function createComponentFormCreate(): Form
+    {
         $form = new Form();
         $form->addGroup("Vytvoření složky");
         $form->addText("file", "Vytvoř složku:");
@@ -65,11 +68,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         };
         return $form;
     }
-
-	public function renderDefault()
-	{
-
-	}
 
     public function handleDelete(int $id)
     {
