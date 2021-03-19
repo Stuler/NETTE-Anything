@@ -15,12 +15,27 @@ class FilesRepository
     public $db;
 
 
+    public function findAllItemByLevel(int $level)
+    {
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE level=?", $level);
+    }
+
     // INSERT functions
-    public function add(array $data){
+    public function add(array $data)
+    {
         $this->db->query("INSERT INTO $this->fileTable ?", $data);
     }
 
+    // SELECT functions
+    public function fetchTree(): array
+    {
+        return $this->db->query("SELECT * from $this->fileTable")->fetchAll();
+    }
 
+    public function fetchAllChildren(int $parentId): array
+    {
+        return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $parentId)->fetchAll();
+    }
 
 
 }

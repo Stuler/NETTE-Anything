@@ -13,14 +13,38 @@
     </div>
 
     <div>
+        <h3>Strom</h3>
         {*TODO pridat zobrazenie suborov a zloziek*}
-{*        <a n:href="default id=>1">složka 1</a>*}
+        {*
+        postup?
+        -??napisat funkciu, ktora vrati vsetky deti s danym parent_id (get_childs(1)) - return parent_id(1)??
+        -??napisat funkciu, ktora vrati vsetky levely a podla levelu zoradi subory a zlozky??
 
-{*        <ul>*}
-{*            {foreach $items as $item}*}
-{*                <li class="level{$item[level]}">{$item[name]}</li>*}
-{*            {/foreach}*}
-{*        </ul>*}
+        pre zvyraznenie zlozky si porovnam id v URL s id zlozky -> pripisem styl
+        *}
+
+        <ul>
+            {foreach $items as $item}
+                <li>
+                    {if $item[is_dir]}
+                        <a n:href="default id=>$item[id]">{$item[name]}</a>
+                        <ul>
+                            {foreach $item[items] as $subItem}
+                                <li>
+                                    {if $subItem[is_dir]}
+                                        <a n:href="default id=>$subItem[id]">{$subItem[name]}</a>
+                                    {else}
+                                        {$subItem[name]}
+                                    {/if}
+                                </li>
+                            {/foreach}
+                        </ul>
+                    {else}
+                        {$item[name]}
+                    {/if}
+                </li>
+            {/foreach}
+        </ul>
     </div>
 
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>

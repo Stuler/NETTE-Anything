@@ -7,9 +7,6 @@ use App\Models\ProcessManagers\FilesProcessManager;
 use App\Models\Repository\FilesRepository;
 use Nette;
 use Nette\Application\UI\Form;
-use Nette\Utils\FileSystem;
-use Nette\SmartObject;
-use Nette\Http\FileUpload;
 
 
 final class FilesPresenter extends Nette\Application\UI\Presenter
@@ -23,13 +20,8 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function renderDefault()
     {
-        $items = [
-            ["id" => 1, "name" => "složka", "level" => 1],
-            ["id" => 2, "name" => "soubor", "level" => 2],
-            ["id" => 3, "name" => "soubor 2", "level" => 2],
-            ["id" => 4, "name" => "složka 5", "level" => 2],
-            ["id" => 5, "name" => "složka XX", "level" => 3],
-        ];
+        $this->template->items = $this->filesPM->getFilesAdDirs();
+        $this->template->selectedId = $this->getParameter("id");
     }
 
     /*

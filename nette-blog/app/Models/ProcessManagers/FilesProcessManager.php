@@ -13,6 +13,22 @@ class FilesProcessManager
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
+
+    public function getFilesAdDirs()
+    {
+        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1)->fetchAssoc("[]");
+        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2)->fetchAssoc("parent_id[]");
+        foreach ($itemsByLevel1 as &$item) {
+            if (isset($itemsByLevel2[$item['id']])) {
+                $item['items'] = $itemsByLevel2[$item['id']];
+            } else {
+                $item['items'] = [];
+            }
+        }
+        return $itemsByLevel1;
+    }
+
+
     public function uploadFile(FileUpload $file, ?int $parentId = null, ?int $level = null)
     {
         $filePath = self::PATH . '/' . $file->getUntrustedName();
