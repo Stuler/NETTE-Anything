@@ -14,15 +14,15 @@ class FilesProcessManager
     public $filesRepo;
 
 
-    public function getFilesAdDirs()
+    public function getFilesAndDirs()
     {
-        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1)->fetchAssoc("[]");
-        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2)->fetchAssoc("parent_id[]");
+        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1)->fetchAssoc("[]"); // vrati pole poli - vsetky data
+        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2)->fetchAssoc("parent_id[]"); //vrati asociativne pole poli, ak maju vyplnene parent_id
         foreach ($itemsByLevel1 as &$item) {
-            if (isset($itemsByLevel2[$item['id']])) {
-                $item['items'] = $itemsByLevel2[$item['id']];
+            if (isset($itemsByLevel2[$item['id']])) { //ak maju itemy 2. levelu nastavene id itemu z 1. levelu
+                $item['items'] = $itemsByLevel2[$item['id']]; //priradi item do druheho levelu
             } else {
-                $item['items'] = [];
+                $item['items'] = []; //priradi item do levelu 1
             }
         }
         return $itemsByLevel1;
