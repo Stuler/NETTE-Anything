@@ -29,7 +29,7 @@ class FilesProcessManager
     }
 
 
-    public function uploadFile(FileUpload $file, ?int $parentId = null, ?int $level = null)
+    public function uploadFile(FileUpload $file, ?int $parentId = null, ?int $level = 1)
     {
         $filePath = self::PATH . '/' . $file->getUntrustedName();
         $file->move($filePath);
