@@ -14,7 +14,7 @@ class FilesRepository
     /** @var Explorer @inject @internal */
     public $db;
 
-
+	// FIND functions
     public function findAllItemByLevel(int $level)
     {
         return $this->db->query("SELECT * FROM $this->fileTable WHERE level=?", $level);
@@ -36,6 +36,4 @@ class FilesRepository
     {
         return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $parentId)->fetchAll();
     }
-
-
 }

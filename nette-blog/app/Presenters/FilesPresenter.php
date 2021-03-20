@@ -33,11 +33,14 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form = new Form();
         $form->addGroup("Upload souboru");
         $form->addUpload("file", "Připni soubor:");
+	    $form->addHidden("id");
+	    $form->addHidden("parent_id")
+		    ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("upload", "Připni");
 
         $form->onSuccess[] = function (Form $form, $values) {
             // get Session id - ak by som chcel ist cez session
-            $this->filesPM->uploadFile($values['file'], $this->getParameter("id"));
+            $this->filesPM->uploadFile($values['file'], (int) $values['parent_id']);
             $this->redirect("this");
         };
         return $form;
@@ -52,10 +55,12 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form = new Form();
         $form->addGroup("Vytvoření složky");
         $form->addText("file", "Vytvoř složku:");
+	    $form->addHidden("parent_id")
+		    ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
-            $this->filesPM->createDir($values['file'], $this->getParameter("id"));
+            $this->filesPM->createDir($values['file'], $values['parent_id']);
             $this->redirect("this");
         };
         return $form;

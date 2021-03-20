@@ -43,3 +43,4 @@ services:
 	fileRepository:
 	    factory: App\Models\Repository\FilesRepository
 	    inject: true
+

@@ -13,7 +13,6 @@ class FilesProcessManager
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-
     public function getFilesAndDirs()
     {
         $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1)->fetchAssoc("[]"); // vrati pole poli - vsetky data
@@ -28,11 +27,17 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 
-
-    public function uploadFile(FileUpload $file, ?int $parentId = null, ?int $level = 1)
+/*
+ * Zakomponovat funckiu/podmienku na pridanie suboru/zlozky, ak mam subor oznaceny
+ * - na to musim zoskat ID zo sablony
+ * - id sa zapise ako parent_id pre pridavany subor/zlozku
+ * - pomocou id a css stylu zvyraznim oznacenu zlozku
+ * */
+    public function uploadFile(FileUpload $file, int $id, ?int $level = 1)
     {
-        $filePath = self::PATH . '/' . $file->getUntrustedName();
+    	$filePath = self::PATH . '/' . $file->getUntrustedName();
         $file->move($filePath);
+        //$parent_id = $this->getQuery('id')
 
         $this->filesRepo->add([
             "name" => $file->getUntrustedName(),
@@ -40,18 +45,18 @@ class FilesProcessManager
             "size" => $file->getSize(),
             "date_created" => new \DateTime(),
             "is_dir" => 0,
-            "parent_id" => $parentId,
+            "parent_id" => $id, //tu predat ID z url ked oznacim zlozku
             "level" => $level,
         ]);
     }
 
-    public function createDir(string $file, ?int $parentId = null)
+    public function createDir(string $file, $parent_id)
     {
         $this->filesRepo->add([
             "name" => $file,
             "date_created" => new \DateTime(),
             "is_dir" => 1,
-            "parent_id" => $parentId,
+            "parent_id" => $parent_id,
         ]);
     }
 }
