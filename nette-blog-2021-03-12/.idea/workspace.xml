@@ -2,31 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/cykly_1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/doleva.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/dolu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/doprava.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/dum.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/kopec.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/les2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/nahoru.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/pole_cykly_1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/pole_cykly_2.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/pole_cykly_3.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/ryba.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/rybnik.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/les.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/config/common.neon" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/config/common.neon" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/vendor/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/vendor/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/vendor/composer/InstalledVersions.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/vendor/composer/InstalledVersions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/vendor/composer/autoload_real.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/vendor/composer/installed.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Files/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Files/default.latte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +84,7 @@
       <updated>1616003330265</updated>
       <workItem from="1616003331662" duration="6288000" />
       <workItem from="1616150267720" duration="1219000" />
-      <workItem from="1616214111001" duration="5977000" />
+      <workItem from="1616214111001" duration="7048000" />
     </task>
     <servers />
   </component>

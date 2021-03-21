@@ -33,15 +33,31 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form = new Form();
         $form->addGroup("Upload souboru");
         $form->addUpload("file", "Připni soubor:");
-	    $form->addHidden("id");
 	    $form->addHidden("parent_id")
 		    ->setDefaultValue($this->getParameter("id"));
+	    $form->addHidden("level")
+		    ->setDefaultValue($this->getParameter("level"));
+	    $form->addHidden("is_dir")
+		    ->setDefaultValue($this->getParameter("is_dir"));
         $form->addSubmit("upload", "Připni");
 
+        /*
+         * Pre pridanie levelu:
+         * kontrolujem, ci mam v URL priradene ID a level
+         * ak mam ID, level a mam oznacenu zlozku, level sa zvysi o hodnotu 1
+         * ak nemam ani ID, ani level, vytvorim do levelu 1
+         * */
+
         $form->onSuccess[] = function (Form $form, $values) {
-            // get Session id - ak by som chcel ist cez session
-            $this->filesPM->uploadFile($values['file'], (int) $values['parent_id']);
-            $this->redirect("this");
+        	if ($values['is_dir']==1){ //ak nie je zlozka, zatial sa neda oznacit, ale mozno v buducnosti sa bude dat - osetrit!!
+        		$levelInc = $values['level']+=1;
+		        $this->filesPM->uploadFile($values['file'], (int) $values['parent_id'], (int) $levelInc);
+	        }
+        	else {
+        		$values['level'] = 1;
+		        $this->filesPM->uploadFile($values['file'], (int) $values['parent_id'], (int) $values['level']);
+	        }
+        	$this->redirect("this");
         };
         return $form;
     }
@@ -57,10 +73,21 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addText("file", "Vytvoř složku:");
 	    $form->addHidden("parent_id")
 		    ->setDefaultValue($this->getParameter("id"));
+	    $form->addHidden("level")
+		    ->setDefaultValue($this->getParameter("level"));
+	    $form->addHidden("is_dir")
+		    ->setDefaultValue($this->getParameter("is_dir"));
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
-            $this->filesPM->createDir($values['file'], $values['parent_id']);
+	        if ($values['is_dir']==1){ //ak nie je zlozka, zatial sa neda oznacit, ale mozno v buducnosti sa bude dat - osetrit!!
+		        $levelInc = $values['level']+=1;
+		        $this->filesPM->createDir($values['file'], (int) $values['parent_id'], (int) $levelInc);
+	        }
+	        else {
+		        $values['level'] = 1;
+		        $this->filesPM->createDir($values['file'], (int) $values['parent_id'], (int) $values['level']);
+	        }
             $this->redirect("this");
         };
         return $form;

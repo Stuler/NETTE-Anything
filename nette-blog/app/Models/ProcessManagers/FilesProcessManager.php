@@ -33,7 +33,7 @@ class FilesProcessManager
  * - id sa zapise ako parent_id pre pridavany subor/zlozku
  * - pomocou id a css stylu zvyraznim oznacenu zlozku
  * */
-    public function uploadFile(FileUpload $file, int $id, ?int $level = 1)
+    public function uploadFile(FileUpload $file, int $id, ?int $level)
     {
     	$filePath = self::PATH . '/' . $file->getUntrustedName();
         $file->move($filePath);
@@ -50,13 +50,14 @@ class FilesProcessManager
         ]);
     }
 
-    public function createDir(string $file, $parent_id)
+    public function createDir(string $file, int $id, ?int $level)
     {
         $this->filesRepo->add([
             "name" => $file,
             "date_created" => new \DateTime(),
             "is_dir" => 1,
-            "parent_id" => $parent_id,
+            "parent_id" => $id,
+            "level" => $level,
         ]);
     }
 }
