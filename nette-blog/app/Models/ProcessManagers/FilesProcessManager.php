@@ -60,4 +60,8 @@ class FilesProcessManager
             "level" => $level,
         ]);
     }
+
+    /*TODO
+     * Jednotna funkcia pre uploat aj create
+     * */
 }

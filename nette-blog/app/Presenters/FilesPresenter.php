@@ -92,6 +92,14 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         };
         return $form;
     }
+    /*
+     * Zjednotena funkcia pre onSucces na formular;
+     * okem dat z formulara na vstupe potrebuje data, ci sa jedna o funckiu createDir alebo uploadFile
+     * */
+    private function addElement($form, $values)
+    {
+// TODO
+    }
 
     public function handleDelete(int $id)
     {
