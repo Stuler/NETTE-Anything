@@ -33,7 +33,7 @@
                             {foreach $item[items] as $subItem}
                                 <li>
                                     {if $subItem[is_dir]}
-                                        <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]">{$subItem[name]}</a>
+                                        <a n:class="$selectedId == $subItem[id] ? selected" n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]">{$subItem[name]}</a>
                                     {else}
                                         {$subItem[name]}
                                     {/if}
