@@ -1,5 +1,10 @@
 {block content}
 
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/css/normalize.css">
+	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+
+	<main>
     <div>
         <p><a n:href="Homepage:default">Zpět na homepage</a></p>
     </div>
@@ -23,7 +28,7 @@
             {foreach $items as $item}
                 <li>
                     {if $item[is_dir]}
-                        <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]">{$item[name]}</a>
+                        <a n:class="$selectedId == $item[id] ? selected" n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]">{$item[name]}</a>
                         <ul>
                             {foreach $item[items] as $subItem}
                                 <li>
@@ -42,6 +47,7 @@
             {/foreach}
         </ul>
     </div>
+	</main>
 
 	{* Riesenie rekurziou:
 		- zistim level elementu
