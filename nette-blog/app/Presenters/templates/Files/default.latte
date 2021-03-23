@@ -29,7 +29,7 @@
                 <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >                   
                         <div class="line">
                             <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]"><h5 class="mb-1">{$item[name]}</h5></a>
-                            <button type="button" class="hide">Odstranit</button>
+                            <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                         </div>
                         <ul class="list-group">
                             {foreach $item[items] as $subItem}
@@ -38,11 +38,11 @@
                                     {if $subItem[is_dir]}
                                         
                                             <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
-                                            <button type="button" class="hide btn-sm">Odstranit</button>
+                                            <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                                         
                                     {else}
                                         <i>{$subItem[name]}</i>
-                                        <button type="button" class="hide btn-sm">Odstranit</button>
+                                        <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                                     {/if}   
                                     </div>
                                 </li>
@@ -51,7 +51,7 @@
                     {else}
                         <div class="line">
                             <i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}
-                            <button type="button" class="hide btn-sm">Odstranit</button></i>
+                                <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a></i>
                         </div>
                     {/if}
                 </li>

@@ -103,6 +103,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function handleDelete(int $id)
     {
-
+        $this->filesPM->remove($id);
+        $this->redirect("this");
     }
 }

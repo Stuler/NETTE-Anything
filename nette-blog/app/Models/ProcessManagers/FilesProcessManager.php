@@ -61,6 +61,11 @@ class FilesProcessManager
         ]);
     }
 
+    public function remove(int $id, int $parent_id)
+    {
+        $this->filesRepo->remove($id, $parent_id);
+    }
+
     /*TODO
      * Jednotna funkcia pre uploat aj create
      * */

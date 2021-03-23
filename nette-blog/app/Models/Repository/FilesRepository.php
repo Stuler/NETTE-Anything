@@ -36,4 +36,10 @@ class FilesRepository
     {
         return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $parentId)->fetchAll();
     }
+
+    // DELETE functions
+    public function remove(int $id, int $parent_id)
+    {
+        $this->db->query("DELETE FROM $this->fileTable WHERE id=? OR WHERE parent_id=?", $id, $parent_id=$id);
+    }
 }
