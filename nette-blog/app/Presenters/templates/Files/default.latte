@@ -9,31 +9,30 @@
         <p><a n:href="Homepage:default">Zpět na homepage</a></p>
     </div>
 
-    <div>
+    <div class="form-group">
         {control formUpload}
     </div>
 
-    <div>
+    <div class="form-group">
         {control formCreate}
     </div>
 
     <div>
         <h3 class="display-6">Strom</h3>
-        {*TODO pridat zobrazenie suborov a zloziek*}
-        {*
-        pre zvyraznenie zlozky si porovnam id v URL s id zlozky -> pripisem styl
-        *}
+
+        {* Po uploadnuti/vytvoreni sa stranka presmeruje na vybranu zlozku
+        cez perzistentne parametre? *}
 
         <ul class="list-group">
             {foreach $items as $item}
                 <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
                     {if $item[is_dir]}
-                        <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]">{$item[name]}</a>
+                        <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]"><h5 class="mb-1">{$item[name]}</h5></a>
                         <ul class="list-group">
                             {foreach $item[items] as $subItem}
                                 <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
                                     {if $subItem[is_dir]}
-                                        <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]">{$subItem[name]}</a>
+                                        <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
                                     {else}
                                         {$subItem[name]}
                                     {/if}
