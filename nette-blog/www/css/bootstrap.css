@@ -11696,7 +11696,7 @@ select.form-control[multiple] {
 .list-group-item-action.active h4,
 .list-group-item-action.active h5,
 .list-group-item-action.active h6 {
-  color: #fff;
+  color: rgb(41, 36, 36);
 }
 
 .modal-content {
