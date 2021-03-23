@@ -37,7 +37,6 @@ class FilesProcessManager
     {
     	$filePath = self::PATH . '/' . $file->getUntrustedName();
         $file->move($filePath);
-        //$parent_id = $this->getQuery('id')
 
         $this->filesRepo->add([
             "name" => $file->getUntrustedName(),
@@ -61,9 +60,10 @@ class FilesProcessManager
         ]);
     }
 
-    public function remove(int $id, int $parent_id)
+    public function remove(int $id)
     {
-        $this->filesRepo->remove($id, $parent_id);
+        $this->filesRepo->remove($id);
+        // pouzit unlink($file['name']);
     }
 
     /*TODO

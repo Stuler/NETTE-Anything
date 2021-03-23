@@ -38,8 +38,8 @@ class FilesRepository
     }
 
     // DELETE functions
-    public function remove(int $id, int $parent_id)
+    public function remove(int $id)
     {
-        $this->db->query("DELETE FROM $this->fileTable WHERE id=? OR WHERE parent_id=?", $id, $parent_id=$id);
+        $this->db->query("DELETE FROM $this->fileTable WHERE id=? OR parent_id=?", $id, $id);
     }
 }

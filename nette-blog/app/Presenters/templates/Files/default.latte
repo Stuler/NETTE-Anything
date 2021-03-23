@@ -38,11 +38,11 @@
                                     {if $subItem[is_dir]}
                                         
                                             <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
-                                            <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
+                                            <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
                                         
                                     {else}
                                         <i>{$subItem[name]}</i>
-                                        <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
+                                        <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
                                     {/if}   
                                     </div>
                                 </li>
