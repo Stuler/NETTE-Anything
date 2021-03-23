@@ -34,10 +34,11 @@
                         <ul class="list-group">
                             {foreach $item[items] as $subItem}
                                 <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
-                                <div class="line">
-                                    {if $subItem[is_dir]}
-                                        
-                                            <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
+                                    <div class="line">
+                                        {if $subItem[is_dir]}
+                                            <a n:href="default id=>$subItem[id]">
+                                                <h6 class="mb-1">{$subItem[name]}</h6>
+                                            </a>
                                             <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
                                         
                                     {else}

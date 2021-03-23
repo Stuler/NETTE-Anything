@@ -62,6 +62,7 @@ class FilesProcessManager
 
     public function remove(int $id)
     {
+        //$this->filesRepo
         $this->filesRepo->remove($id);
         // pouzit unlink($file['name']);
     }
