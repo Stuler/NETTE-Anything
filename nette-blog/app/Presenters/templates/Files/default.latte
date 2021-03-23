@@ -25,22 +25,26 @@
 
         <ul class="list-group">
             {foreach $items as $item}
-                <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
-                    {if $item[is_dir]}
-                        <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]"><h5 class="mb-1">{$item[name]}</h5></a>
+            {if $item[is_dir]}
+                <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >                   
+                        <a n:class="line" n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]"><h5 class="mb-1">{$item[name]}</h5></a>
+                        <button type="button" class="hide">Odstranit</button>
                         <ul class="list-group">
                             {foreach $item[items] as $subItem}
-                                <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
+                                <li n:class="line, list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
                                     {if $subItem[is_dir]}
                                         <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
+                                        <button type="button" class="hide btn-sm">Odstranit</button>
                                     {else}
-                                        {$subItem[name]}
-                                    {/if}
+                                        <i>{$subItem[name]}</i>
+                                        <button type="button" class="hide btn-sm">Odstranit</button>
+                                    {/if}   
                                 </li>
                             {/foreach}
                         </ul>
                     {else}
-                        {$item[name]}
+                        <i n:class="line, list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}</i>
+                        <button type="button" class="hide btn-sm">Odstranit</button>
                     {/if}
                 </li>
             {/foreach}
