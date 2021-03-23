@@ -66,13 +66,18 @@ class FilesProcessManager
         /*Zistit, ci mazem zlozku alebo subor
          * Nacitat si pole suborov s konkretnym parent_id
          * foreach unlink
+         * Vytvorit metodu unlinkFileByName
         */
         //$this->filesRepo
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file){
             $filePath = self::PATH . '/' . $file['name'];
             unlink($filePath);
-        }
+            }
+
+        $file = $this->filesRepo->fetchById($id);
+        $filePath = self::PATH . '/' . $file['name'];
+        unlink($filePath);
         $this->filesRepo->remove($id);
     }
 

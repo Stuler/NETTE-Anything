@@ -27,6 +27,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /*
      * Formular na upload suboru
      * TODO sprava uzivatelovi o uspesnom uploade
+     * TODO Premenovanie suboru - bude sa dat oznacit subor
     */
     public function createComponentFormUpload(): Form
     {
