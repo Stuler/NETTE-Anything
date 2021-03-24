@@ -72,13 +72,6 @@ class FilesProcessManager
 
     public function remove(int $id)
     {
-
-        /*Zistit, ci mazem zlozku alebo subor
-         * Nacitat si pole suborov s konkretnym parent_id
-         * foreach unlink
-         * Vytvorit metodu unlinkFileByName
-        */
-
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file){
             $filePath = self::PATH . '/' . $file['name'];
@@ -91,6 +84,12 @@ class FilesProcessManager
         // unlink($filePath);
         
         $this->filesRepo->remove($id);
+    }
+
+    public function rename(int $id)
+    {
+        $filename = $this->filesRepo->fetchById($id);
+        
     }
 
     /*TODO

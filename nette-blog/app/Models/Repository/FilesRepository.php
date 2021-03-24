@@ -48,4 +48,10 @@ class FilesRepository
         $this->db->query("DELETE FROM $this->fileTable WHERE id=? OR parent_id=?", $id, $id);
     }
 
+    // UPDATE functions
+    public function rename(string $name, int $id)
+    {
+        $this->db->query("UPDATE $this->fileTable SET ? WHERE id=?", ["name" => $name], $id);
+    }
+
 }
