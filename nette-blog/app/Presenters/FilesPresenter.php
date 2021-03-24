@@ -18,10 +18,16 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    public function renderDefault()
+    public function renderDefault(?int $id)
     {
         $this->template->items = $this->filesPM->getFilesAndDirs();
         $this->template->selectedId = $this->getParameter("id");
+
+        if ($id) {
+	        $fileName = $this->filesRepo->fetchById($id);
+	        $this['formRename']->setDefaults($fileName);
+        }
+
     }
 
     /*
@@ -77,6 +83,23 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
             $this->redirect("this");
         };
         return $form;
+    }
+
+    public function createComponentFormRename(): Form
+    {
+    	$form = new Form();
+	    $form->addGroup("Přejmenování");
+	    $form->addText("file", "Nový název: ");
+	    $form->addButton("rename", "Přejmenuj");
+
+	    $form->onSuccess[] = function (Form $form, $values) {
+	    	$this->filesPM->rename(
+	    		$values['file'],
+			    $values['id']
+		    );
+	    	$this->redirect("this");
+	    };
+	    return $form;
     }
 
     /*

@@ -86,10 +86,16 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
-    public function rename(int $id)
+    public function rename(string $name, int $id)
     {
         $filename = $this->filesRepo->fetchById($id);
-        
+
+    }
+
+    public function getFileName(?int $id)
+    {
+    	$fileName = $this->filesRepo->fetchById($id);
+    	return $fileName['name'];
     }
 
     /*TODO
