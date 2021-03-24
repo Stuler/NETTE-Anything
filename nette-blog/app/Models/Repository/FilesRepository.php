@@ -37,9 +37,9 @@ class FilesRepository
         return $this->db->query("SELECT * from $this->fileTable WHERE id=?", $id)->fetch();
     }
 
-    public function fetchAllChildren(int $parentId): array
+    public function fetchAllChildren(int $id): array
     {
-        return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $parentId)->fetchAll();
+        return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=? OR id=?", $id, $id)->fetchAll();
     }
 
     // DELETE functions

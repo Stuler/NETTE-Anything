@@ -58,6 +58,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /*
      * Formular na vytvorenie zlozky
      * TODO sprava uzivatelovi o uspesnom vytvoreni
+     * TODO Zamedzit vytvoreniu prazdnej zlozky!!
     */
     public function createComponentFormCreate(): Form
     {

@@ -78,16 +78,18 @@ class FilesProcessManager
          * foreach unlink
          * Vytvorit metodu unlinkFileByName
         */
-        //$this->filesRepo
+
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file){
             $filePath = self::PATH . '/' . $file['name'];
+            if (!$file['is_dir'])
             unlink($filePath);
             }
-
-        $file = $this->filesRepo->fetchById($id);
-        $filePath = self::PATH . '/' . $file['name'];
-        unlink($filePath);
+       
+        // $file = $this->filesRepo->fetchById($id);
+        // $filePath = self::PATH . '/' . $file['name'];
+        // unlink($filePath);
+        
         $this->filesRepo->remove($id);
     }
 
