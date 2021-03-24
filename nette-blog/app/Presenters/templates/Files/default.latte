@@ -1,52 +1,49 @@
 {block content}
 
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
-	<link rel="stylesheet" href="{$basePath}/css/normalize.css">
-	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+    <link rel="stylesheet" href="{$basePath}/css/normalize.css">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
 
-	<main class="jumbotron col-sm-4">
-    <div>
-        <p><a n:href="Homepage:default">Zpět na homepage</a></p>
-    </div>
+    <main class="jumbotron col-sm-4">
+        <div>
+            <p><a n:href="Homepage:default">Zpět na homepage</a></p>
+        </div>
 
-    <div class="form-group">
-        {control formUpload}
-    </div>
+        <div class="form-group">
+            {control formUpload}
+        </div>
 
-    <div class="form-group">
-        {control formCreate}
-    </div>
+        <div class="form-group">
+            {control formCreate}
+        </div>
 
-    <div>
-        <h3 class="display-6">Strom</h3>
+        <div>
+            <h3 class="display-6">Strom</h3>
 
-        {* Po uploadnuti/vytvoreni sa stranka presmeruje na vybranu zlozku
-        cez perzistentne parametre? 
-        TODO: zobrazit tlacitko ODSTRANIT po hoveri na <li> element
-        TODO: po kliknuti na oznacenu zlozku sa stranka refreshne na default state
-        *}
+            {* Po uploadnuti/vytvoreni sa stranka presmeruje na vybranu zlozku
+            cez perzistentne parametre? *}
 
-        <ul class="list-group">
-            {foreach $items as $item}
-            {if $item[is_dir]}
-                <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >                   
+            <ul class="list-group">
+                {foreach $items as $item}
+                    {if $item[is_dir]}
+                        <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
                         <div class="line">
-                            <a n:href="default id=>$item[id],level=>$item[level],is_dir=>$item[is_dir]"><h5 class="mb-1">{$item[name]}</h5></a>
-                            <button type="button" class="hide">Odstranit</button>
+                            <a n:href="default id=>$item[id]"><h5 class="mb-1">{$item[name]}</h5></a>
+                            <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                         </div>
                         <ul class="list-group">
                             {foreach $item[items] as $subItem}
                                 <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
-                                <div class="line">
-                                    {if $subItem[is_dir]}
-                                        
-                                            <a n:href="default id=>$subItem[id],level=>$subItem[level], is_dir=>$subItem[is_dir]"><h6 class="mb-1">{$subItem[name]}</h6></a>
-                                            <button type="button" class="hide btn-sm">Odstranit</button>
-                                        
-                                    {else}
-                                        <i>{$subItem[name]}</i>
-                                        <button type="button" class="hide btn-sm">Odstranit</button>
-                                    {/if}   
+                                    <div class="line">
+                                        {if $subItem[is_dir]}
+                                            <a n:href="default id=>$subItem[id]">
+                                                <h6 class="mb-1">{$subItem[name]}</h6>
+                                            </a>
+                                            <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
+                                        {else}
+                                            <i>{$subItem[name]}</i>
+                                            <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
+                                        {/if}
                                     </div>
                                 </li>
                             {/foreach}
@@ -54,21 +51,21 @@
                     {else}
                         <div class="line">
                             <i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}
-                            <button type="button" class="hide btn-sm">Odstranit</button></i>
+                                <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a></i>
                         </div>
                     {/if}
-                </li>
-            {/foreach}
-        </ul>
-    </div>
-	</main>
+                    </li>
+                {/foreach}
+            </ul>
+        </div>
+    </main>
 
-	{* Riesenie rekurziou:
-		- zistim level elementu
-		- ak ma level 1, necham tak
-		- ak nema level 1, zistim rodica
-		- zistujem level rodicov, kym nedojdem na level1
-	*}
+    {* Riesenie rekurziou:
+        - zistim level elementu
+        - ak ma level 1, necham tak
+        - ak nema level 1, zistim rodica
+        - zistujem level rodicov, kym nedojdem na level1
+    *}
 
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 {/block}

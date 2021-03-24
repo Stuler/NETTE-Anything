@@ -27,18 +27,15 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /*
      * Formular na upload suboru
      * TODO sprava uzivatelovi o uspesnom uploade
+     * TODO Premenovanie suboru - bude sa dat oznacit subor
     */
     public function createComponentFormUpload(): Form
     {
         $form = new Form();
         $form->addGroup("Upload souboru");
         $form->addUpload("file", "Připni soubor:");
-	    $form->addHidden("parent_id")
-		    ->setDefaultValue($this->getParameter("id"));
-	    $form->addHidden("level")
-		    ->setDefaultValue($this->getParameter("level"));
-	    $form->addHidden("is_dir")
-		    ->setDefaultValue($this->getParameter("is_dir"));
+        $form->addHidden("parent_id")
+            ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("upload", "Připni");
 
         /*
@@ -49,15 +46,11 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
          * */
 
         $form->onSuccess[] = function (Form $form, $values) {
-        	if ($values['is_dir']==1){ //ak nie je zlozka, zatial sa neda oznacit, ale mozno v buducnosti sa bude dat - osetrit!!
-        		$levelInc = $values['level']+=1;
-		        $this->filesPM->uploadFile($values['file'], (int) $values['parent_id'], (int) $levelInc);
-	        }
-        	else {
-        		$values['level'] = 1;
-		        $this->filesPM->uploadFile($values['file'], (int) $values['parent_id'], (int) $values['level']);
-	        }
-        	$this->redirect("this");
+            $this->filesPM->uploadFile(
+                $values['file'],
+                $values['parent_id'] ? (int)$values['parent_id'] : null
+            );
+            $this->redirect("this");
         };
         return $form;
     }
@@ -71,27 +64,20 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form = new Form();
         $form->addGroup("Vytvoření složky");
         $form->addText("file", "Vytvoř složku:");
-	    $form->addHidden("parent_id")
-		    ->setDefaultValue($this->getParameter("id"));
-	    $form->addHidden("level")
-		    ->setDefaultValue($this->getParameter("level"));
-	    $form->addHidden("is_dir")
-		    ->setDefaultValue($this->getParameter("is_dir"));
+        $form->addHidden("parent_id")
+            ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
-	        if ($values['is_dir']==1){ //ak nie je zlozka, zatial sa neda oznacit, ale mozno v buducnosti sa bude dat - osetrit!!
-		        $levelInc = $values['level']+=1;
-		        $this->filesPM->createDir($values['file'], (int) $values['parent_id'], (int) $levelInc);
-	        }
-	        else {
-		        $values['level'] = 1;
-		        $this->filesPM->createDir($values['file'], (int) $values['parent_id'], (int) $values['level']);
-	        }
+            $this->filesPM->createDir(
+                $values['file'],
+                $values['parent_id'] ? (int)$values['parent_id'] : null
+             );
             $this->redirect("this");
         };
         return $form;
     }
+
     /*
      * Zjednotena funkcia pre onSucces na formular;
      * okem dat z formulara na vstupe potrebuje data, ci sa jedna o funckiu createDir alebo uploadFile
@@ -103,6 +89,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function handleDelete(int $id)
     {
-
+        $this->filesPM->remove($id);
+        $this->redirect("this");
     }
 }

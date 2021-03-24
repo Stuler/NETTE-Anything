@@ -27,17 +27,16 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 
-/*
- * Zakomponovat funckiu/podmienku na pridanie suboru/zlozky, ak mam subor oznaceny
- * - na to musim zoskat ID zo sablony
- * - id sa zapise ako parent_id pre pridavany subor/zlozku
- * - pomocou id a css stylu zvyraznim oznacenu zlozku
- * */
-    public function uploadFile(FileUpload $file, int $id, ?int $level)
+    /*
+     * Zakomponovat funckiu/podmienku na pridanie suboru/zlozky, ak mam subor oznaceny
+     * - na to musim zoskat ID zo sablony
+     * - id sa zapise ako parent_id pre pridavany subor/zlozku
+     * - pomocou id a css stylu zvyraznim oznacenu zlozku
+     * */
+    public function uploadFile(FileUpload $file, ?int $parentId)
     {
-    	$filePath = self::PATH . '/' . $file->getUntrustedName();
+        $filePath = self::PATH . '/' . $file->getUntrustedName();
         $file->move($filePath);
-        //$parent_id = $this->getQuery('id')
 
         $this->filesRepo->add([
             "name" => $file->getUntrustedName(),
@@ -45,20 +44,51 @@ class FilesProcessManager
             "size" => $file->getSize(),
             "date_created" => new \DateTime(),
             "is_dir" => 0,
-            "parent_id" => $id, //tu predat ID z url ked oznacim zlozku
-            "level" => $level,
+            "parent_id" => $parentId, //tu predat ID z url ked oznacim zlozku
+            "level" => $this->getNextLevelByFileId($parentId),
         ]);
     }
 
-    public function createDir(string $file, int $id, ?int $level)
+    private function getNextLevelByFileId(?int $id)
+    {
+        if ($id) {
+            $parentFile = $this->filesRepo->fetchById($id);
+            return $parentFile['level']+1;
+        } else {
+            return 1;
+        }
+    }
+
+    public function createDir(string $file, ?int $parentId)
     {
         $this->filesRepo->add([
             "name" => $file,
             "date_created" => new \DateTime(),
             "is_dir" => 1,
-            "parent_id" => $id,
-            "level" => $level,
+            "parent_id" => $parentId,
+            "level" => $this->getNextLevelByFileId($parentId),
         ]);
+    }
+
+    public function remove(int $id)
+    {
+
+        /*Zistit, ci mazem zlozku alebo subor
+         * Nacitat si pole suborov s konkretnym parent_id
+         * foreach unlink
+         * Vytvorit metodu unlinkFileByName
+        */
+        //$this->filesRepo
+        $matchedFiles = $this->filesRepo->fetchAllChildren($id);
+        foreach ($matchedFiles as $file){
+            $filePath = self::PATH . '/' . $file['name'];
+            unlink($filePath);
+            }
+
+        $file = $this->filesRepo->fetchById($id);
+        $filePath = self::PATH . '/' . $file['name'];
+        unlink($filePath);
+        $this->filesRepo->remove($id);
     }
 
     /*TODO
