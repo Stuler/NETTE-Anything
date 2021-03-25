@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Models\ProcessManagers\FileException;
 use App\Models\ProcessManagers\FilesProcessManager;
 use App\Models\Repository\FilesRepository;
 use Nette;
@@ -90,16 +91,22 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addGroup("Přejmenování");
         $form->addText("name", "Nový název: ");
         $form->addHidden("id")
-             ->setDefaultValue($this->getParameter("id"));
+            ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("rename", "Přejmenuj");
 
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
-            $this->filesPM->rename(
-                $values['name'],
-                (int)$values['id']
-            );
-            $this->redirect("this");
+            try {
+                $this->filesPM->rename(
+                    $values['name'],
+                    (int)$values['id']
+                );
+                $this->flashMessage("Soubor byl přejmenován.", "ok");
+
+                $this->redirect("this");
+            } catch (FileException $e) {
+                $this->flashMessage($e->getMessage(), "err");
+            }
         };
         return $form;
     }

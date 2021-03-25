@@ -53,7 +53,7 @@ class FilesProcessManager
     {
         if ($id) {
             $parentFile = $this->filesRepo->fetchById($id);
-            return $parentFile['level']+1;
+            return $parentFile['level'] + 1;
         } else {
             return 1;
         }
@@ -73,37 +73,33 @@ class FilesProcessManager
     public function remove(int $id)
     {
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
-        foreach ($matchedFiles as $file){
+        foreach ($matchedFiles as $file) {
             $filePath = self::PATH . '/' . $file['name'];
             if (!$file['is_dir'])
-            unlink($filePath);
-            }
-       
-        // $file = $this->filesRepo->fetchById($id);
-        // $filePath = self::PATH . '/' . $file['name'];
-        // unlink($filePath);
-        
+                unlink($filePath);
+        }
         $this->filesRepo->remove($id);
     }
 
     public function rename(string $name, int $id)
     {
-        $file = $this->filesRepo->fetchById($id);
-        if (!$file['is_dir'])
-        {
-        $filePath = self::PATH . '/' . $file['name'];
-        $newFilePath = self::PATH . '/' .$name;
-        rename($filePath, $newFilePath);
-        $this->filesRepo->rename($name, $id);
+        if (1 > 0) {
+            throw new FileException("Složka již existuje");
         }
-        else
+        $file = $this->filesRepo->fetchById($id);
+        if (!$file['is_dir']) {
+            $filePath = self::PATH . '/' . $file['name'];
+            $newFilePath = self::PATH . '/' . $name;
+            rename($filePath, $newFilePath);
+            $this->filesRepo->rename($name, $id);
+        } else
             $this->filesRepo->rename($name, $id);
     }
 
     public function getFileName(?int $id)
     {
-    	$fileName = $this->filesRepo->fetchById($id);
-    	return $fileName['name'];
+        $fileName = $this->filesRepo->fetchById($id);
+        return $fileName['name'];
     }
 
     public function getFilePath(?int $id)
@@ -114,4 +110,9 @@ class FilesProcessManager
     /*TODO
      * Jednotna funkcia pre uploat aj create
      * */
+}
+
+
+class FileException extends \Exception
+{
 }

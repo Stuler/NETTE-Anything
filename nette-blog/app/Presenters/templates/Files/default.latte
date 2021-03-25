@@ -1,5 +1,5 @@
 {block content}
-
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
     <link rel="stylesheet" href="{$basePath}/css/style.css">
     <link rel="stylesheet" href="{$basePath}/css/normalize.css">
     <link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
@@ -17,11 +17,11 @@
             {control formCreate}
         </div>
 
-		<div>
-			{if $selectedId}
-			{control formRename}
-			{/if}
-		</div>
+        <div>
+            {if $selectedId}
+                {control formRename}
+            {/if}
+        </div>
 
         <div>
             <h3 class="display-6">Strom</h3>
