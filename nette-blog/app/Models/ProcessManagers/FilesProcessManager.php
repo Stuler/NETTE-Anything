@@ -88,7 +88,7 @@ class FilesProcessManager
         $folders = $this->filesRepo->fetchByParent($fileParent);
 
         $folderName = [];
-        foreach ($folders as $folder){
+        foreach ($folders as $folder) {
             $folderName[] = $folder['name'];
         }
         bdump($folderName);
@@ -101,10 +101,11 @@ class FilesProcessManager
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
         } else
-            if (!in_array($name,$folderName))
+            if (!in_array($name, $folderName)) {
                 $this->filesRepo->rename($name, $id);
-            else
+            } else {
                 throw new FileException("Složka již existuje");
+            }
     }
 
     public function getFileName(?int $id)
