@@ -108,7 +108,7 @@ class FilesProcessManager
 
     public function getFilePath(?int $id)
     {
-
+        return self::PATH . '/' . $file['name'];
     }
 
     /*TODO
