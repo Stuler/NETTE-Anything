@@ -28,8 +28,8 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $this->template->selectedId = $this->getParameter("id");
 
         if ($id) {
-	        $selectedFile = $this->filesRepo->fetchById($id);
-	        $this['formRename']->setDefaults($selectedFile);
+            $selectedFile = $this->filesRepo->fetchById($id);
+            $this['formRename']->setDefaults($selectedFile);
         }
     }
 
@@ -78,7 +78,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
             $this->filesPM->createDir(
                 $values['file'],
                 $values['parent_id'] ? (int)$values['parent_id'] : null
-             );
+            );
             $this->redirect("this");
         };
         return $form;
@@ -86,22 +86,22 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function createComponentFormRename(): Form
     {
-    	$form = new Form();
-	    $form->addGroup("Přejmenování");
-	    $form->addText("name", "Nový název: ");
-        // $form->addHidden("id")
-        //     ->setDefaultValue($this->getParameter("id"));
-	    $form->addButton("rename", "Přejmenuj");
+        $form = new Form();
+        $form->addGroup("Přejmenování");
+        $form->addText("name", "Nový název: ");
+        $form->addHidden("id")
+             ->setDefaultValue($this->getParameter("id"));
+        $form->addSubmit("rename", "Přejmenuj");
 
-	    $form->onSuccess[] = function (Form $form) {
+        $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
-	    	$this->filesPM->rename(
-	    		$values['name'],
-			    $values['id']
-		    );
-	    	$this->redirect("this");
-	    };
-	    return $form;
+            $this->filesPM->rename(
+                $values['name'],
+                (int)$values['id']
+            );
+            $this->redirect("this");
+        };
+        return $form;
     }
 
     /*
