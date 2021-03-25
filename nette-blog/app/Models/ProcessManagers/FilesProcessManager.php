@@ -59,6 +59,7 @@ class FilesProcessManager
         }
     }
 
+//  TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke/na rovnakom rodicovi
     public function createDir(string $file, ?int $parentId)
     {
         $this->filesRepo->add([
@@ -81,10 +82,8 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
-//  TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke/na rovnakom rodicovi
     public function rename(string $name, int $id)
     {
-//      Vytvori pole nazvov zloziek
         $fileParent = $this->getParentId($id);
         $folders = $this->filesRepo->fetchByParent($fileParent);
 
