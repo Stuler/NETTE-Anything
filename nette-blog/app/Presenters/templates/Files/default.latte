@@ -47,7 +47,9 @@
                                             </a>
                                             <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
                                         {else}
-                                            <i>{$subItem[name]}</i>
+                                            <a n:href="default id=>$subItem[id]">
+                                                <i>{$subItem[name]}</i>
+                                            </a>
                                             <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
                                         {/if}
                                     </div>
@@ -56,8 +58,10 @@
                         </ul>
                     {else}
                         <div class="line">
-                            <i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}
-                                <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a></i>
+                            <a n:href="default id=>$item[id]">
+                                <i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}</i>
+                            </a>
+                            <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                         </div>
                     {/if}
                     </li>

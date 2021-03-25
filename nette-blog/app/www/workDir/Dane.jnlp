@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<jnlp spec="1.6+" codebase="http://edane.drsr.sk/install/java/" href="eDane.jnlp">
+    <information>
+		<title>eDANE/Java – aplikácia sekcie daňovej FR SR pre podávanie daňových dokumentov</title>
+		<vendor>Finančné riaditeľstvo SR</vendor>
+		<description>eDane</description>
+		<description kind="short">eDane</description>
+
+		<icon href="edane16.png" width="16" height="16"/>
+		<icon href="edane32.png" width="32" height="32"/>
+		<icon href="edane48.png" width="48" height="48"/>
+		<icon href="edane128.png" width="128" height="128"/>
+		<icon href="edane256.png" width="256" height="256"/>
+
+		<offline-allowed /> 
+
+		<shortcut online="true" install="true">
+			<desktop/>
+			<menu submenu="Finančné riaditeľstvo SR - Sekcia daňová"/>
+		</shortcut>                
+	</information>
+	<security>
+		<all-permissions />
+	</security>
+	<resources>
+		<java version="1.6.0+" max-heap-size ="512m" href="http://java.sun.com/products/autodl/j2se"/>
+
+		<property name="jnlp.versionEnabled" value="true" />
+	    <property name="jnlp.packEnabled" value="false" />
+
+		<extension name="dsigner" href="dsigner.jnlp" />
+		<jfx:javafx-runtime version="2.1+"/>
+
+		<jar href="edane.jar" main="true" version="2017.02.17.1000" />
+		<jar href="DatePicker.jar" version="1.1b" />
+		<jar href="proxy-vole.jar" version="1.1b" />
+		<jar href="iText.jar" version="1.1b" />
+		<jar href="commons-io-2.4.jar" version="1.1b" />
+		<jar href="commons-logging-1.1.3.jar" version="1.1b" />
+		<jar href="mes.jar" version="1.5b" />
+		<jar href="dtcwebbrowser.jar" version="1.3b"/>	
+		<jar href="dsignerauto.jar" version="1.2b" />
+	</resources>
+	
+	<application-desc main-class="sk.ditec.pki.edane.objects.EDaneRunner" />
+</jnlp>

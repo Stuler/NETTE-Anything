@@ -86,18 +86,29 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
-    public function renameFolder(string $name, int $id)
+    public function rename(string $name, int $id)
     {
-        // $file = $this->filesRepo->fetchById($id);
-        // $fileName = $file['name'];
+        $file = $this->filesRepo->fetchById($id);
+        if (!$file['is_dir'])
+        {
+        $filePath = self::PATH . '/' . $file['name'];
+        $newFilePath = self::PATH . '/' .$name;
+        rename($filePath, $newFilePath);
         $this->filesRepo->rename($name, $id);
-
+        }
+        else
+            $this->filesRepo->rename($name, $id);
     }
 
     public function getFileName(?int $id)
     {
     	$fileName = $this->filesRepo->fetchById($id);
     	return $fileName['name'];
+    }
+
+    public function getFilePath(?int $id)
+    {
+
     }
 
     /*TODO
