@@ -81,16 +81,21 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
-//    TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke
+//  TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke/na rovnakom rodicovi
     public function rename(string $name, int $id)
     {
-        $folders = $this->filesRepo->fetchTree();
+//      Vytvori pole nazvov zloziek
+        $fileParent = $this->getParentId($id);
+        $folders = $this->filesRepo->fetchByParent($fileParent);
+
         $folderName = [];
         foreach ($folders as $folder){
             $folderName[] = $folder['name'];
         }
+        bdump($folderName);
 
         $file = $this->filesRepo->fetchById($id);
+
         if (!$file['is_dir']) {
             $filePath = self::PATH . '/' . $file['name'];
             $newFilePath = self::PATH . '/' . $name;
@@ -107,6 +112,12 @@ class FilesProcessManager
     {
         $fileName = $this->filesRepo->fetchById($id);
         return $fileName['name'];
+    }
+
+    public function getParentId(?int $id)
+    {
+        $fileName = $this->filesRepo->fetchById($id);
+        return $fileName['parent_id'];
     }
 
     public function getFilePath(?int $id)
