@@ -81,11 +81,15 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
+//    TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke
     public function rename(string $name, int $id)
     {
-        if (1 > 0) {
-            throw new FileException("Složka již existuje");
+        $folders = $this->filesRepo->fetchTree();
+        $folderName = [];
+        foreach ($folders as $folder){
+            $folderName[] = $folder['name'];
         }
+
         $file = $this->filesRepo->fetchById($id);
         if (!$file['is_dir']) {
             $filePath = self::PATH . '/' . $file['name'];
@@ -93,7 +97,10 @@ class FilesProcessManager
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
         } else
-            $this->filesRepo->rename($name, $id);
+            if (!in_array($name,$folderName))
+                $this->filesRepo->rename($name, $id);
+            else
+                throw new FileException("Složka již existuje");
     }
 
     public function getFileName(?int $id)
