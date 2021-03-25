@@ -8,6 +8,10 @@ use App\Models\Repository\FilesRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
+// TODO sprava uzivatelovi o uspesnom vytvoreni
+// TODO Zamedzit vytvoreniu prazdnej zlozky!!
+// TODO sprava uzivatelovi o uspesnom uploade
+// TODO Premenovanie suboru - bude sa dat oznacit subor
 
 final class FilesPresenter extends Nette\Application\UI\Presenter
 {
@@ -24,16 +28,14 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $this->template->selectedId = $this->getParameter("id");
 
         if ($id) {
-	        $fileName = $this->filesRepo->fetchById($id);
-	        $this['formRename']->setDefaults($fileName);
+	        $selectedFile = $this->filesRepo->fetchById($id);
+	        $this['formRename']->setDefaults($selectedFile);
         }
 
     }
 
     /*
      * Formular na upload suboru
-     * TODO sprava uzivatelovi o uspesnom uploade
-     * TODO Premenovanie suboru - bude sa dat oznacit subor
     */
     public function createComponentFormUpload(): Form
     {
@@ -63,8 +65,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     /*
      * Formular na vytvorenie zlozky
-     * TODO sprava uzivatelovi o uspesnom vytvoreni
-     * TODO Zamedzit vytvoreniu prazdnej zlozky!!
     */
     public function createComponentFormCreate(): Form
     {
@@ -89,12 +89,12 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     {
     	$form = new Form();
 	    $form->addGroup("Přejmenování");
-	    $form->addText("file", "Nový název: ");
+	    $form->addText("name", "Nový název: ");
 	    $form->addButton("rename", "Přejmenuj");
 
 	    $form->onSuccess[] = function (Form $form, $values) {
 	    	$this->filesPM->rename(
-	    		$values['file'],
+	    		$values['name'],
 			    $values['id']
 		    );
 	    	$this->redirect("this");

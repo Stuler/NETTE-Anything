@@ -88,7 +88,9 @@ class FilesProcessManager
 
     public function rename(string $name, int $id)
     {
-        $filename = $this->filesRepo->fetchById($id);
+        $fileName = $this->filesRepo->fetchById($id);
+        $name = $fileName['name'];
+        $this->filesRepo->rename($name, $id);
 
     }
 
