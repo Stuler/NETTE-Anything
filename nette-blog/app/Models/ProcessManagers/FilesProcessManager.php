@@ -84,15 +84,7 @@ class FilesProcessManager
 
     public function rename(string $name, int $id)
     {
-        $fileParent = $this->getParentId($id);
-        $folders = $this->filesRepo->fetchByParent($fileParent);
-
-        $folderName = [];
-        foreach ($folders as $folder) {
-            $folderName[] = $folder['name'];
-        }
-        bdump($folderName);
-
+        $folderName = $this->filesRepo->findAllSimilarFolders($name);
         $file = $this->filesRepo->fetchById($id);
 
         if (!$file['is_dir']) {
@@ -101,7 +93,7 @@ class FilesProcessManager
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
         } else
-            if (!in_array($name, $folderName)) {
+            if (empty($folderName)) {
                 $this->filesRepo->rename($name, $id);
             } else {
                 throw new FileException("Složka již existuje");

@@ -20,6 +20,11 @@ class FilesRepository
         return $this->db->query("SELECT * FROM $this->fileTable WHERE level=?", $level);
     }
 
+    public function findAllSimilarFolders(string $name)
+    {
+    	return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ?", $name )->fetchAll();
+    }
+
     // INSERT functions
     public function add(array $data)
     {
