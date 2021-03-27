@@ -73,6 +73,12 @@ class FilesProcessManager
         $this->filesRepo->remove($id);
     }
 
+	/*
+    * - Funkcia na premenovanie - prijme z presentera novy nazov z formulara a hidden ID
+    * - zavola pomocnu funkciu getSimilar, ktora vytiahne z DB vsetky polozky s rovnakym nazvom
+		a rovnakym rodicom
+	* - vyvola vynimku, ak zlozka uz existuje
+	*/
     public function rename(string $name, int $id)
     {
 	    $similar = $this->getSimilar($name, $id);
