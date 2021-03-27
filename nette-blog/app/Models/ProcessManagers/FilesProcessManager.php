@@ -37,11 +37,12 @@ class FilesProcessManager
      * */
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
-        $filePath = self::PATH . '/' . $file->getUntrustedName();
+    	$fileName = $file->getUntrustedName();
+        $filePath = $this->setFilePath($fileName);
         $file->move($filePath);
 
         $this->filesRepo->add([
-            "name" => $file->getUntrustedName(),
+            "name" => $fileName,
             "file_path" => $filePath,
             "size" => $file->getSize(),
             "date_created" => new \DateTime(),
@@ -66,7 +67,7 @@ class FilesProcessManager
     {
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file) {
-            $filePath = self::PATH . '/' . $file['name'];
+	        $filePath = $this->getFilePath($id);
             if (!$file['is_dir'])
                 unlink($filePath);
         }
@@ -86,8 +87,8 @@ class FilesProcessManager
 
 
         if (!$file['is_dir']) {
-            $filePath = self::PATH . '/' . $file['name'];
-            $newFilePath = self::PATH . '/' . $name;
+	        $filePath = $this->getFilePath($id);
+            $newFilePath = $this->setFilePath($name);
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
         } else
@@ -114,9 +115,15 @@ class FilesProcessManager
         return $fileName['name'];
     }
 
-	private function getFilePath(?int $id)
+	private function getFilePath(?int $id): string
 	{
-		return self::PATH . '/' . $file['name'];
+		$fileName = $this->getFileName($id);
+		return self::PATH . '/' . $fileName;
+	}
+
+	public function setFilePath($fileName): string
+	{
+		return self::PATH . '/' . $fileName;
 	}
 
 	private function getParentId(?int $id)
