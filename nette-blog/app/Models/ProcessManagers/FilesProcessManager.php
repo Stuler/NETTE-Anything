@@ -51,16 +51,6 @@ class FilesProcessManager
         ]);
     }
 
-    private function getNextLevelByFileId(?int $id)
-    {
-        if ($id) {
-            $parentFile = $this->filesRepo->fetchById($id);
-            return $parentFile['level'] + 1;
-        } else {
-            return 1;
-        }
-    }
-
     public function createDir(string $file, ?int $parentId)
     {
         $this->filesRepo->add([
@@ -85,12 +75,9 @@ class FilesProcessManager
 
     public function rename(string $name, int $id)
     {
-        $fileParent = $this->getParentId($id);
-        $folders = $this->filesRepo->fetchByParent($fileParent);
-
-        $folderName = $this->filesRepo->findAllSimilarFolders($name, $fileParent);
+	    $similar = $this->getSimilar($name, $id);
 	    $file = $this->filesRepo->fetchById($id);
-        bdump($folderName);
+
 
         if (!$file['is_dir']) {
             $filePath = self::PATH . '/' . $file['name'];
@@ -98,28 +85,44 @@ class FilesProcessManager
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
         } else
-            if (empty($folderName)) {
+            if (empty($similar)) {
                 $this->filesRepo->rename($name, $id);
             } else {
                 throw new FileException("Složka již existuje");
             }
     }
 
-    public function getFileName(?int $id)
+	private function getNextLevelByFileId(?int $id): int
+	{
+		if ($id) {
+			$parentFile = $this->filesRepo->fetchById($id);
+			return $parentFile['level'] + 1;
+		} else {
+			return 1;
+		}
+	}
+
+    private function getFileName(?int $id)
     {
         $fileName = $this->filesRepo->fetchById($id);
         return $fileName['name'];
     }
 
-    public function getParentId(?int $id)
+	private function getFilePath(?int $id)
+	{
+		return self::PATH . '/' . $file['name'];
+	}
+
+	private function getParentId(?int $id)
     {
         $fileName = $this->filesRepo->fetchById($id);
         return $fileName['parent_id'];
     }
 
-    public function getFilePath(?int $id)
+    private function getSimilar($name, $id): array
     {
-        return self::PATH . '/' . $file['name'];
+	    $fileParent = $this->getParentId($id);
+	    return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
     }
 
     /*TODO
