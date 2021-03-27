@@ -20,9 +20,13 @@ class FilesRepository
         return $this->db->query("SELECT * FROM $this->fileTable WHERE level=?", $level);
     }
 
-    public function findAllSimilarFolders(string $name)
+    public function findAllSimilarFolders(string $name, ?int $parent_id)
     {
-    	return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ?", $name )->fetchAll();
+    	if (!is_null($parent_id)) {
+		    return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id LIKE ?", $name, $parent_id)->fetchAll();
+	    } else {
+		    return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id IS NULL", $name)->fetchAll();
+	    }
     }
 
     // INSERT functions
@@ -47,7 +51,7 @@ class FilesRepository
         return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=? OR id=?", $id, $id)->fetchAll();
     }
 
-    public function fetchByParent(int $id): array
+    public function fetchByParent(?int $id): array
     {
         return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $id)->fetchAll();
     }

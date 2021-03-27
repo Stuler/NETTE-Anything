@@ -6,6 +6,8 @@ namespace App\Models\ProcessManagers;
 use App\Models\Repository\FilesRepository;
 use Nette\Http\FileUpload;
 
+// TODO pri vytvoreni zlozky check, ci uz neexistuje
+
 class FilesProcessManager
 {
     const PATH = __DIR__ . '/../../www/workDir';
@@ -59,7 +61,6 @@ class FilesProcessManager
         }
     }
 
-//  TODO: osetrit, aby bola kontrola len na rovnaku zlozku na tej istej urovni/v tej istej zlozke/na rovnakom rodicovi
     public function createDir(string $file, ?int $parentId)
     {
         $this->filesRepo->add([
@@ -84,8 +85,12 @@ class FilesProcessManager
 
     public function rename(string $name, int $id)
     {
-        $folderName = $this->filesRepo->findAllSimilarFolders($name);
-        $file = $this->filesRepo->fetchById($id);
+        $fileParent = $this->getParentId($id);
+        $folders = $this->filesRepo->fetchByParent($fileParent);
+
+        $folderName = $this->filesRepo->findAllSimilarFolders($name, $fileParent);
+	    $file = $this->filesRepo->fetchById($id);
+        bdump($folderName);
 
         if (!$file['is_dir']) {
             $filePath = self::PATH . '/' . $file['name'];
@@ -121,7 +126,6 @@ class FilesProcessManager
      * Jednotna funkcia pre uploat aj create
      * */
 }
-
 
 class FileException extends \Exception
 {
