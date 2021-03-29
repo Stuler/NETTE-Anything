@@ -7,6 +7,7 @@ use App\Models\Repository\FilesRepository;
 use Nette\Http\FileUpload;
 
 // TODO pri vytvoreni zlozky check, ci uz neexistuje
+// TODO Jednotna funkcia pre uploat aj create
 
 class FilesProcessManager
 {
@@ -29,12 +30,6 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 
-    /*
-     * Zakomponovat funckiu/podmienku na pridanie suboru/zlozky, ak mam subor oznaceny
-     * - na to musim zoskat ID zo sablony
-     * - id sa zapise ako parent_id pre pridavany subor/zlozku
-     * - pomocou id a css stylu zvyraznim oznacenu zlozku
-     * */
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
     	$fileName = $file->getUntrustedName();
@@ -67,11 +62,13 @@ class FilesProcessManager
     {
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file) {
-	        $filePath = $this->getFilePath($id);
-            if (!$file['is_dir'])
+            $fileName = $file['name'];
+	        $filePath = $this->setFilePath($fileName);
+            if (!$file['is_dir']) {
                 unlink($filePath);
+            }           
+            $this->filesRepo->remove($id);
         }
-        $this->filesRepo->remove($id);
     }
 
 	/*
@@ -137,10 +134,6 @@ class FilesProcessManager
 	    $fileParent = $this->getParentId($id);
 	    return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
     }
-
-    /*TODO
-     * Jednotna funkcia pre uploat aj create
-     * */
 }
 
 class FileException extends \Exception
