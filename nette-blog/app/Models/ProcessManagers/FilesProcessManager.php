@@ -96,6 +96,8 @@ class FilesProcessManager
             }
     }
 
+//  Utility functions
+
 	private function getNextLevelByFileId(?int $id): int
 	{
 		if ($id) {
