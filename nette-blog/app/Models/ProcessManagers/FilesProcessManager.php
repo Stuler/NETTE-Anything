@@ -41,25 +41,27 @@ class FilesProcessManager
     	$fileName = $file->getUntrustedName();
         
         // potrebujem ziskat rovnake subory:
-        $similar = $this->filesRepo->findAllByName($fileName);      
-        
+        $similar = $this->filesRepo->findAllByName($fileName);
+//        $itemsCount = count($similar);
         if ($similar){
-            $fileName = $fileName.'1'; // uprava nazvu suboru
-            $filePath = $this->setFilePath($fileName);
-            $file->move($filePath); // potrebujem fyzicky uploadnut premenovany subor
-            
-            $this->filesRepo->add([
-                "name" => $fileName,
-                "file_path" => $filePath,
-                "size" => $file->getSize(),
-                "date_created" => new \DateTime(),
-                "is_dir" => 0,
-                "parent_id" => $parentId, //tu predat ID z url ked oznacim zlozku
-                "level" => $this->getNextLevelByFileId($parentId),
-            ]);
+            $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
+            $baseName = substr($fileName, 0, strrpos($fileName,'.')); // basename = nazov bez koncovky
+            $itemsCount = count($this->filesRepo->findAllByName($baseName)); // pocet rovnakych suborov s basename
+            $fileName = $baseName.'('.++$itemsCount.')'.$ext; // pridam por. cislo a koncovku
         }
-    
-      
+
+        $filePath = $this->setFilePath($fileName);
+        $file->move($filePath); // potrebujem fyzicky uploadnut premenovany subor
+
+        $this->filesRepo->add([
+            "name" => $fileName,
+            "file_path" => $filePath,
+            "size" => $file->getSize(),
+            "date_created" => new \DateTime(),
+            "is_dir" => 0,
+            "parent_id" => $parentId, //tu predat ID z url ked oznacim zlozku
+            "level" => $this->getNextLevelByFileId($parentId),
+        ]);
     }
 
     public function createDir(string $file, ?int $parentId)

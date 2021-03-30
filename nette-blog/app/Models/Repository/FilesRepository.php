@@ -31,8 +31,13 @@ class FilesRepository
 
     public function findAllByName(string $name)
     {
-        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE?", $name)->fetchAll();
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name%'" )->fetchAll();
     }
+
+/*    public function findAllByBaseName(string $name)
+    {
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name(%)'" )->fetchAll();
+    }*/
 
     // INSERT functions
     public function add(array $data)
