@@ -42,11 +42,11 @@ class FilesProcessManager
         
         // potrebujem ziskat rovnake subory:
         $similar = $this->filesRepo->findAllByName($fileName);
-//        $itemsCount = count($similar);
+
         if ($similar){
             $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
             $baseName = substr($fileName, 0, strrpos($fileName,'.')); // basename = nazov bez koncovky
-            $itemsCount = count($this->filesRepo->findAllByName($baseName)); // pocet rovnakych suborov s basename
+            $itemsCount = count($this->filesRepo->findAllByBaseName($baseName, $ext)); // pocet rovnakych suborov s basename
             $fileName = $baseName.'('.++$itemsCount.')'.$ext; // pridam por. cislo a koncovku
         }
 
@@ -152,6 +152,8 @@ class FilesProcessManager
 	    $fileParent = $this->getParentId($id);
 	    return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
     }
+
+
 }
 
 class FileException extends \Exception
