@@ -32,19 +32,34 @@ class FilesProcessManager
 
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
+        /*  1. potrebujem zistit, ci v DB uz podobny subor nemam
+            2. ak mam, nastavim nazov noveho suboru "nazov_suboru"+_1
+            3. ak uz je to druha a vyssia kopia, musim hodit podmienku aj na cislo za podtrzitkom
+            4. cislo za podtrzitkom hodim do premennej, ktoru navysim o hodnotu 1
+        */
+        
     	$fileName = $file->getUntrustedName();
-        $filePath = $this->setFilePath($fileName);
-        $file->move($filePath);
-
-        $this->filesRepo->add([
-            "name" => $fileName,
-            "file_path" => $filePath,
-            "size" => $file->getSize(),
-            "date_created" => new \DateTime(),
-            "is_dir" => 0,
-            "parent_id" => $parentId, //tu predat ID z url ked oznacim zlozku
-            "level" => $this->getNextLevelByFileId($parentId),
-        ]);
+        
+        // potrebujem ziskat rovnake subory:
+        $similar = $this->filesRepo->findAllByName($fileName);      
+        
+        if ($similar){
+            $fileName = $fileName.'1'; // uprava nazvu suboru
+            $filePath = $this->setFilePath($fileName);
+            $file->move($filePath); // potrebujem fyzicky uploadnut premenovany subor
+            
+            $this->filesRepo->add([
+                "name" => $fileName,
+                "file_path" => $filePath,
+                "size" => $file->getSize(),
+                "date_created" => new \DateTime(),
+                "is_dir" => 0,
+                "parent_id" => $parentId, //tu predat ID z url ked oznacim zlozku
+                "level" => $this->getNextLevelByFileId($parentId),
+            ]);
+        }
+    
+      
     }
 
     public function createDir(string $file, ?int $parentId)
@@ -81,7 +96,6 @@ class FilesProcessManager
     {
 	    $similar = $this->getSimilar($name, $id);
 	    $file = $this->filesRepo->fetchById($id);
-
 
         if (!$file['is_dir']) {
 	        $filePath = $this->getFilePath($id);

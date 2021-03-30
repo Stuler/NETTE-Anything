@@ -1,0 +1,17 @@
+S rozšířením internetu nejprve vzniklo obrovské množství statických webových stránek. Určitě jste si nějaké webové stránky někdy zkusili vytvořit, jedná se o textový soubor, kde pomocí značek označíte určitou část jako nadpis, odstavec, obrázek a podobně. Výsledná stránka je (jak již bylo řečeno) statická. Nemůže se tedy měnit, je to pouze elektronický dokument, který můžeme jen číst.
+
+HTML stránky jsou jednoduše uložené na serveru. Jakmile klient (uživatel s webovým prohlížečem) pošle požadavek na server, server mu jednoduše vrátí přesně tu stránku, co má uloženou. Této architektuře se říká klient-server.
+
+Architektura se nápadně podobá mainframům. Vracíme se tedy ke kořenům a získáváme následující výhody:
+
+- Malá zátěž - Server pouze zasílá HTML stránky a již neřeší jejich zobrazení, ovládání klávesnice uživatele, jeho monitoru a podobně. To vše se děje na klientském počítači.
+- Snadná správa - Jakmile změníme obsah na serveru (např. přidáme nějaký dokument), uvidí ho tam okamžitě všichni uživatelé.
+- Vysoká bezpečnost - Pokud chceme zakázat přístup k nějakým dokumentům, klient se k nim prostě nemá jak dostat, jelikož jsou na serveru.
+
+Nevýhodou je samozřejmě to, že server umí zasílat jen statické HTML stránky. Není způsob, jak serveru odeslat nějaká data a na jejich základě dostat výstup (třeba nechat na stránce vzkaz v diskuzi, hlasovat v anketě nebo zobrazit ve stránce kdo má dnes svátek).
+
+Webové aplikace
+***************
+Po obrovském rozmachu internetu a webových stránek se hledaly způsoby, jak do stránek přidávat nějakou dynamickou funkčnost. Tyto pokusy došly postupem času tak daleko, že v dnešní době jsme schopni dosáhnout toho, aby se webová stránka chovala úplně stejně, jako desktopová aplikace (třeba MS Word, všichni určitě znáte např. Google Docs nebo Skydrive). Takové webové stránce se říká **webová aplikace**.
+
+Webové aplikace fungují tak, že se klient zeptá serveru na určitý dokument. Na serveru ale běží tzv. CGI skript, což je program, který dokáže vygenerovat do stránky to, co uživatel požaduje. Stránka tedy na serveru již neleží, ale je dynamicky vytvářena podle toho, co uživatel chce. Právě PHP je nejpoužívanějším CGI skriptovacím jazykem, ve kterém se webové aplikace píší. 
