@@ -29,7 +29,8 @@ class FilesProcessManager
         }
         return $itemsByLevel1;
     }
-
+// TODO: aplikovat nie na hladanie v databazi, ale fyzicky na disku
+// TODO: hash namiesto mena suboru
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
         /*  1. potrebujem zistit, ci v DB uz podobny subor nemam
