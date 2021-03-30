@@ -22,21 +22,21 @@ class FilesRepository
 
     public function findAllSimilarFolders(string $name, ?int $parent_id)
     {
-    	if (!is_null($parent_id)) {
-		    return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id LIKE ?", $name, $parent_id)->fetchAll();
-	    } else {
-		    return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id IS NULL", $name)->fetchAll();
-	    }
+        if (!is_null($parent_id)) {
+            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id LIKE ?", $name, $parent_id)->fetchAll();
+        } else {
+            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id IS NULL", $name)->fetchAll();
+        }
     }
 
     public function findAllByName(string $name)
     {
-        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name%'" )->fetchAll();
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name%'")->fetchAll();
     }
 
-    public function findAllByBaseName(string $name, $ext)
+    public function countByBaseName(string $name, $ext)
     {
-        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name%$ext'" )->fetchAll();
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE '$name%$ext'")->getRowCount();
     }
 
     // INSERT functions

@@ -37,17 +37,24 @@ class FilesProcessManager
             3. ak uz je to druha a vyssia kopia, musim hodit podmienku aj na cislo za podtrzitkom
             4. cislo za podtrzitkom hodim do premennej, ktoru navysim o hodnotu 1
         */
-        
-    	$fileName = $file->getUntrustedName();
-        
+
+        $fileName = $file->getUntrustedName();
+
         // potrebujem ziskat rovnake subory:
         $similar = $this->filesRepo->findAllByName($fileName);
 
-        if ($similar){
+        if ($similar) {
             $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
-            $baseName = substr($fileName, 0, strrpos($fileName,'.')); // basename = nazov bez koncovky
-            $itemsCount = count($this->filesRepo->findAllByBaseName($baseName, $ext)); // pocet rovnakych suborov s basename
-            $fileName = $baseName.'('.++$itemsCount.')'.$ext; // pridam por. cislo a koncovku
+            $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
+            $itemsCount = $this->filesRepo->countByBaseName($baseName, $ext); // pocet rovnakych suborov s basename
+            $fileName = $baseName . '(' . ++$itemsCount . ')' . $ext; // pridam por. cislo a koncovku
+
+            // nahraji soubory takto:
+            // jabko.jpg
+            // jabko.jpg
+            // jabko(2).jpg
+            // jabko(3).jpg
+            // jabko.jpg
         }
 
         $filePath = $this->setFilePath($fileName);
@@ -80,27 +87,27 @@ class FilesProcessManager
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file) {
             $fileName = $file['name'];
-	        $filePath = $this->setFilePath($fileName);
+            $filePath = $this->setFilePath($fileName);
             if (!$file['is_dir']) {
                 unlink($filePath);
-            }           
+            }
             $this->filesRepo->remove($id);
         }
     }
 
-	/*
+    /*
     * - Funkcia na premenovanie - prijme z presentera novy nazov z formulara a hidden ID
     * - zavola pomocnu funkciu getSimilar, ktora vytiahne z DB vsetky polozky s rovnakym nazvom
-		a rovnakym rodicom
-	* - vyvola vynimku, ak zlozka uz existuje
-	*/
+        a rovnakym rodicom
+    * - vyvola vynimku, ak zlozka uz existuje
+    */
     public function rename(string $name, int $id)
     {
-	    $similar = $this->getSimilar($name, $id);
-	    $file = $this->filesRepo->fetchById($id);
+        $similar = $this->getSimilar($name, $id);
+        $file = $this->filesRepo->fetchById($id);
 
         if (!$file['is_dir']) {
-	        $filePath = $this->getFilePath($id);
+            $filePath = $this->getFilePath($id);
             $newFilePath = $this->setFilePath($name);
             rename($filePath, $newFilePath);
             $this->filesRepo->rename($name, $id);
@@ -114,15 +121,15 @@ class FilesProcessManager
 
 //  Utility functions
 
-	private function getNextLevelByFileId(?int $id): int
-	{
-		if ($id) {
-			$parentFile = $this->filesRepo->fetchById($id);
-			return $parentFile['level'] + 1;
-		} else {
-			return 1;
-		}
-	}
+    private function getNextLevelByFileId(?int $id): int
+    {
+        if ($id) {
+            $parentFile = $this->filesRepo->fetchById($id);
+            return $parentFile['level'] + 1;
+        } else {
+            return 1;
+        }
+    }
 
     private function getFileName(?int $id)
     {
@@ -130,18 +137,18 @@ class FilesProcessManager
         return $fileName['name'];
     }
 
-	private function getFilePath(?int $id): string
-	{
-		$fileName = $this->getFileName($id);
-		return self::PATH . '/' . $fileName;
-	}
+    private function getFilePath(?int $id): string
+    {
+        $fileName = $this->getFileName($id);
+        return self::PATH . '/' . $fileName;
+    }
 
-	public function setFilePath($fileName): string
-	{
-		return self::PATH . '/' . $fileName;
-	}
+    public function setFilePath($fileName): string
+    {
+        return self::PATH . '/' . $fileName;
+    }
 
-	private function getParentId(?int $id)
+    private function getParentId(?int $id)
     {
         $fileName = $this->filesRepo->fetchById($id);
         return $fileName['parent_id'];
@@ -149,8 +156,8 @@ class FilesProcessManager
 
     private function getSimilar($name, $id): array
     {
-	    $fileParent = $this->getParentId($id);
-	    return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
+        $fileParent = $this->getParentId($id);
+        return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
     }
 
 
