@@ -5,6 +5,7 @@ namespace App\Models\ProcessManagers;
 
 use App\Models\Repository\FilesRepository;
 use Nette\Http\FileUpload;
+use Nette\Utils\Random;
 
 // TODO pri vytvoreni zlozky check, ci uz neexistuje
 // TODO Jednotna funkcia pre uploat aj create
@@ -30,35 +31,39 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 // TODO: aplikovat nie na hladanie v databazi, ale fyzicky na disku
-// TODO: hash namiesto mena suboru
+// TODO: prekopat remove funkciu
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
-        /*  1. potrebujem zistit, ci v DB uz podobny subor nemam
-            2. ak mam, nastavim nazov noveho suboru "nazov_suboru"+_1
-            3. ak uz je to druha a vyssia kopia, musim hodit podmienku aj na cislo za podtrzitkom
-            4. cislo za podtrzitkom hodim do premennej, ktoru navysim o hodnotu 1
+        /*  1. potrebujem zistit, ci na disku uz podobny subor nemam
+            2. ak mam, nastavim nazov noveho suboru "nazov_suboru"+random hash
+            3. subor s novym nazvom ulozim na disk
+            4. subor s povodnym nazvom ulozim do db
         */
 
         $fileName = $file->getUntrustedName();
-
+/*--------------------------------------------------------------------- 
+Procedura pri prioritazcii DB namiesto suborov na disku:
         // potrebujem ziskat rovnake subory:
-        $similar = $this->filesRepo->findAllByName($fileName);
+        // $similar = $this->filesRepo->findAllByName($fileName);
 
-        if ($similar) {
+        // if ($similar) {
+        //     $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
+        //     $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
+        //     $itemsCount = $this->filesRepo->countByBaseName($baseName, $ext); // pocet rovnakych suborov s basename
+        //     $fileName = $baseName . '(' . ++$itemsCount . ')' . $ext; // pridam por. cislo a koncovku
+        // }
+---------------------------------------------------------------------*/
+      
+        $files = scandir(self::PATH);
+        if (in_array($fileName, $files )){
             $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
             $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
-            $itemsCount = $this->filesRepo->countByBaseName($baseName, $ext); // pocet rovnakych suborov s basename
-            $fileName = $baseName . '(' . ++$itemsCount . ')' . $ext; // pridam por. cislo a koncovku
-
-            // nahraji soubory takto:
-            // jabko.jpg
-            // jabko.jpg
-            // jabko(2).jpg
-            // jabko(3).jpg
-            // jabko.jpg
-        }
-
+            $nameHash = Random::generate(7, '0-9a-z');
+            $baseNameMod = $baseName.$nameHash.$ext;
+            $filePath = $this->setFilePath($baseNameMod);
+        } else{
         $filePath = $this->setFilePath($fileName);
+        }
         $file->move($filePath); // potrebujem fyzicky uploadnut premenovany subor
 
         $this->filesRepo->add([
