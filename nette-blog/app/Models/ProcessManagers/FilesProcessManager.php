@@ -9,6 +9,10 @@ use Nette\Utils\Random;
 
 // TODO pri vytvoreni zlozky check, ci uz neexistuje
 // TODO Jednotna funkcia pre uploat aj create
+/* OTAZKY
+1. mazanie suborov s rovnakym nazvom ( a s hashom)
+2. po vymazani mi v URL ostane id vymazanej zlozky- ako odstranit?
+*/
 
 class FilesProcessManager
 {
@@ -30,7 +34,6 @@ class FilesProcessManager
         }
         return $itemsByLevel1;
     }
-// TODO: aplikovat nie na hladanie v databazi, ale fyzicky na disku
 // TODO: prekopat remove funkciu
     public function uploadFile(FileUpload $file, ?int $parentId)
     {
@@ -88,6 +91,7 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
         ]);
     }
 
+//    Funkcia nefunguje na viacnasobny vyskyt suboru (subor s hashom nevymaze)
     public function remove(int $id)
     {
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
@@ -165,8 +169,6 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
         $fileParent = $this->getParentId($id);
         return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
     }
-
-
 }
 
 class FileException extends \Exception

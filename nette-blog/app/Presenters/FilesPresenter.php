@@ -31,6 +31,8 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         if ($id) {
             $selectedFile = $this->filesRepo->fetchById($id);
             $this['formRename']->setDefaults($selectedFile);
+        } else {
+        	$selectedFile = null;
         }
     }
 
