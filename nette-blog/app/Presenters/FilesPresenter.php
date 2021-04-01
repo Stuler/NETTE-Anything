@@ -75,14 +75,20 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addText("file", "Vytvoř složku:");
         $form->addHidden("parent_id")
             ->setDefaultValue($this->getParameter("id"));
+        $form->addHidden("id");
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
-            $this->filesPM->createDir(
-                $values['file'],
-                $values['parent_id'] ? (int)$values['parent_id'] : null
-            );
-            $this->redirect("this");
+            try {
+                $this->filesPM->createDir(
+                    $values['file'],
+                    $values['parent_id'] ? (int)$values['parent_id'] : null
+                );
+                $this->flashMessage("Složka byla vytvořena.", "ok");
+                $this->redirect("this");
+            } catch (FileException $e) {
+                $this->flashMessage($e->getMessage(), "err");
+            }
         };
         return $form;
     }

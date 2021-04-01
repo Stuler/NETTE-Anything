@@ -82,24 +82,30 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
 
     public function createDir(string $file, ?int $parentId)
     {
-        $this->filesRepo->add([
-            "name" => $file,
-            "date_created" => new \DateTime(),
-            "is_dir" => 1,
-            "parent_id" => $parentId,
-            "level" => $this->getNextLevelByFileId($parentId),
-        ]);
+        $similar = $this->filesRepo->findAllSimilarFolders($file, $parentId);
+
+        if (!$similar){
+            $this->filesRepo->add([
+                "name" => $file,
+                "date_created" => new \DateTime(),
+                "is_dir" => 1,
+                "parent_id" => $parentId,
+                "level" => $this->getNextLevelByFileId($parentId),
+            ]);
+        } else {
+            throw new FileException("Složka již existuje");
+        }
     }
 
-//    Funkcia nefunguje na viacnasobny vyskyt suboru (subor s hashom nevymaze)
     public function remove(int $id)
     {
         $matchedFiles = $this->filesRepo->fetchAllChildren($id);
         foreach ($matchedFiles as $file) {
             $fileName = $file['name'];
             $filePath = $this->setFilePath($fileName);
+            $origPath = $file['file_path'];
             if (!$file['is_dir']) {
-                unlink($filePath);
+                unlink($origPath);
             }
             $this->filesRepo->remove($id);
         }

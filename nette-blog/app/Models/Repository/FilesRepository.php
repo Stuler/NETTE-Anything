@@ -51,7 +51,7 @@ class FilesRepository
         return $this->db->query("SELECT * from $this->fileTable")->fetchAll();
     }
 
-    public function fetchById(int $id)
+    public function fetchById(?int $id)
     {
         return $this->db->query("SELECT * from $this->fileTable WHERE id=?", $id)->fetch();
     }

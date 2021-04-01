@@ -42,7 +42,7 @@
                                 <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
                                     <div class="line">
                                         {if $subItem[is_dir]}
-                                            <a n:href="default id=>$subItem[id]">
+                                            <a n:href="default id=>($selectedId == null ? $subItem[id]: null)">
                                                 <h6 class="mb-1">{$subItem[name]}</h6>
                                             </a>
                                             <a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
