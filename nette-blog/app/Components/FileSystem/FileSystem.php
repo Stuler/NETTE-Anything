@@ -19,19 +19,19 @@ class FileSystem extends Control
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    public function render(?int $id) {
+    public function render() {
         $this->template->items = $this->filesPM->getFilesAndDirs();
-        $this->template->selectedId = $this->getParameter("id");
+        $this->template->selectedId = "fileSystem-id";
 
-        if ($id) {
+/*        if ($id) {
             $selectedFile = $this->filesRepo->fetchById($id);
             $this['formRename']->setDefaults($selectedFile);
         } else {
             $selectedFile = null;
-        }
+        }*/
 
         $this->template->setFile(__DIR__ . "/fileSystem.latte");
-        $this->template->render;
+        $this->template->render();
     }
 
     public function createComponentFormUpload(): Form

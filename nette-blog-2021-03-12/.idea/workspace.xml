@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystemFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/config/common.neon" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/config/common.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/www/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/www/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/www/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/www/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/www/workDir/4x_Sv_Antoninek.gpx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/www/workDir/Bojkovice_Kunovice (3).gpx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/config/local.neon" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/config/local.neon" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,10 +93,22 @@
       <workItem from="1616214111001" duration="7048000" />
       <workItem from="1616613951919" duration="1637000" />
       <workItem from="1617282943990" duration="2170000" />
+      <workItem from="1617301137509" duration="3059000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/nette-blog/app/Presenters/HomepagePresenter.php</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

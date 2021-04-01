@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Presenters;
 
+use App\Components\FileSystem\FileSystem;
+use App\Components\FileSystem\FileSystemFactory;
 use App\Models\ProcessManagers\ClientsProcessManager;
 use App\Models\Repository\ClientsRepository;
 use Nette;
@@ -20,6 +22,39 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
+
+    /** @var FileSystemFactory @inject @internal */
+	public $fileSystemFactory;
+
+	public function renderDefault()
+	{
+		$searchTerm = $this->getParameter("term");
+
+		if ($searchTerm) {
+			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
+		} else {
+			$this->template->clients = $this->clientsRepo->fetchAllActive();
+		}
+	}
+
+
+	/*
+	* Funkcia vyrenderuje edit formular;
+	* Ak je vyplnene ID, umozni pridat kontaktnu osobu
+	*
+	*/
+	public function renderEdit(?int $id = null)
+	{
+		if ($id) {
+			$client = $this->clientsRepo->fetchById($id);
+			$this['clientForm']->setDefaults($client);
+
+			$client_person = $this->clientsRepo->fetchContactById($id);
+			$this->template->contacts = $this->clientsRepo->fetchContactById($id);
+			$this['personForm']->setDefaults($client_person);
+		}
+		$this->template->isEdit = $id != null;
+	}
 
     public function createComponentClientForm(): form
     {
@@ -110,7 +145,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 	    };
 
 	    return $form;
-
     }
 
     public function createComponentFormSearch(): Form
@@ -128,36 +162,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-	public function renderDefault()
-	{
-		$searchTerm = $this->getParameter("term");
-
-		if ($searchTerm) {
-			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
-		} else {
-			$this->template->clients = $this->clientsRepo->fetchAllActive();
-		}
-	}
-
-
-	/*
-	* Funkcia vyrenderuje edit formular;
-	* Ak je vyplnene ID, umozni pridat kontaktnu osobu
-	*
-	*/
-    public function renderEdit(?int $id = null)
-    {
-        if ($id) {
-        	$client = $this->clientsRepo->fetchById($id);
-            $this['clientForm']->setDefaults($client);
-            
-            $client_person = $this->clientsRepo->fetchContactById($id);
-	        $this->template->contacts = $this->clientsRepo->fetchContactById($id);
-            $this['personForm']->setDefaults($client_person);
-        }
-         $this->template->isEdit = $id != null;
+    public function createComponentFileSystem(): FileSystem {
+		return $this->fileSystemFactory->create();
     }
-
 
     /*
      * Funkcia na vykreslenie a upravu kontaktov klienta
