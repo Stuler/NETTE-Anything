@@ -44,3 +44,8 @@ services:
 	    factory: App\Models\Repository\FilesRepository
 	    inject: true
 
+	- App\Components\FileSystem\FileSystemFactory
+	fileSystem:
+		class: App\Components\FileSystem\FileSystem
+		inject: true
+		autowired: false

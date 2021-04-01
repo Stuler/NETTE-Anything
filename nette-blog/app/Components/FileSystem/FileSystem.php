@@ -1,20 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Presenters;
+namespace App\Components\FileSystem;
 
+use Nette\Application\UI\Control;
 use App\Models\ProcessManagers\FileException;
 use App\Models\ProcessManagers\FilesProcessManager;
 use App\Models\Repository\FilesRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
-// TODO sprava uzivatelovi o uspesnom vytvoreni
-// TODO Zamedzit vytvoreniu prazdnej zlozky!!
-// TODO sprava uzivatelovi o uspesnom uploade
-// TODO Premenovanie suboru - bude sa dat oznacit subor
-
-final class FilesPresenter extends Nette\Application\UI\Presenter
+class FileSystem extends Control
 {
 
     /** @var FilesProcessManager @inject @internal */
@@ -23,8 +19,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    public function renderDefault(?int $id)
-    {
+    public function render(?int $id) {
         $this->template->items = $this->filesPM->getFilesAndDirs();
         $this->template->selectedId = $this->getParameter("id");
 
@@ -32,13 +27,13 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
             $selectedFile = $this->filesRepo->fetchById($id);
             $this['formRename']->setDefaults($selectedFile);
         } else {
-        	$selectedFile = null;
+            $selectedFile = null;
         }
+
+        $this->template->setFile(__DIR__ . "/fileSystem.latte");
+        $this->template->render;
     }
 
-    /*
-     * Formular na upload suboru
-    */
     public function createComponentFormUpload(): Form
     {
         $form = new Form();
@@ -47,13 +42,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         $form->addHidden("parent_id")
             ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("upload", "Připni");
-
-        /*
-         * Pre pridanie levelu:
-         * kontrolujem, ci mam v URL priradene ID a level
-         * ak mam ID, level a mam oznacenu zlozku, level sa zvysi o hodnotu 1
-         * ak nemam ani ID, ani level, vytvorim do levelu 1
-         */
 
         $form->onSuccess[] = function (Form $form, $values) {
             $this->filesPM->uploadFile(
@@ -65,9 +53,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    /*
-     * Formular na vytvorenie zlozky
-    */
     public function createComponentFormCreate(): Form
     {
         $form = new Form();
@@ -119,18 +104,11 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    /*
-     * Zjednotena funkcia pre onSucces na formular;
-     * okem dat z formulara na vstupe potrebuje data, ci sa jedna o funckiu createDir alebo uploadFile
-     * */
-    private function addElement($form, $values)
-    {
-// TODO
-    }
-
     public function handleDelete(int $id)
     {
         $this->filesPM->remove($id);
-        $this->redirect("this");
+        $this->redirect("this", ["fileSystem-id" => null]);
     }
+
 }
+

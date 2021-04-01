@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystemFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/FilesPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/config/common.neon" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/config/common.neon" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +87,7 @@
       <workItem from="1616150267720" duration="1219000" />
       <workItem from="1616214111001" duration="7048000" />
       <workItem from="1616613951919" duration="1637000" />
+      <workItem from="1617282943990" duration="2170000" />
     </task>
     <servers />
   </component>

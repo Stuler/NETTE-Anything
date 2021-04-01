@@ -34,7 +34,7 @@
                     {if $item[is_dir]}
                         <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
                         <div class="line">
-                            <a n:href="default id=>$item[id]"><h5 class="mb-1">{$item[name]}</h5></a>
+                            <a n:href="default id=>($selectedId == null ? $item[id]: null)"><h5 class="mb-1">{$item[name]}</h5></a>
                             <a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
                         </div>
                         <ul class="list-group">
