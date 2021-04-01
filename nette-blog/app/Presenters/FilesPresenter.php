@@ -32,7 +32,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
             $selectedFile = $this->filesRepo->fetchById($id);
             $this['formRename']->setDefaults($selectedFile);
         } else {
-        	$selectedFile = null;
+            $selectedFile = null;
         }
     }
 
@@ -131,6 +131,6 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
     public function handleDelete(int $id)
     {
         $this->filesPM->remove($id);
-        $this->redirect("this");
+        $this->redirect("this", ["id" => null]);
     }
 }
