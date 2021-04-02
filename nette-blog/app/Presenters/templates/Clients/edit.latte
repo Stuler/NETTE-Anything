@@ -15,21 +15,21 @@
 		</div>
 
 		{if $isEdit} {*v presenteri v rendri musi byt definovana  premenna isEdit*}
-			<div class="form-group">
-				<h3>Založenie kontaktnej osoby</h3>
-				{control personForm}
-			</div>
 
-			{* Vyrendrovat tabulku kontaktov klienta*}
-			<div>
-				<ul>
-					<li n:foreach="$contacts as $contact">
-						<a n:href="editPerson! contactId => $contact['id']">
-						{$contact[name]}
-						</a>
-					</li>
-				</ul>
-			</div>
+				<div class="form-group">
+					<h3>Založenie kontaktnej osoby</h3>
+					{control personForm}
+				</div>
+
+				<div>
+					<ul>
+						<li n:foreach="$contacts as $contact">
+							<a n:href="editPerson! contactId => $contact['id']">
+							{$contact[name]}
+							</a>
+						</li>
+					</ul>
+				</div>
 		{/if}
 	</main>
 

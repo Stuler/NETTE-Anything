@@ -40,12 +40,18 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
     }
 
-	public function fetchContactById(int $id): array
+	public function fetchContactById(?int $id): array
 	{
 		return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE client_id=?", $id)->fetchAll();
 	}
 
-    public function add(string $name)
+	public function fetchContact(?int $id)
+	{
+		return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+	}
+
+
+	public function add(string $name)
     {
         $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
     }

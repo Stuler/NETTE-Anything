@@ -12,7 +12,6 @@ use Nette\Application\UI\Form;
 
 // TODO: upravit zobrazenie kontaktnych osob pre jednotlivych klientov
 // tak, aby po kliknuti na kontaktnu osobu sa zobrazili jej udaje v tabulke
-// do formulara kontaktov odosiela ID klienta!!
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
@@ -37,21 +36,21 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-
 	/*
 	* Funkcia vyrenderuje edit formular;
 	* Ak je vyplnene ID, umozni pridat kontaktnu osobu
 	*
 	*/
-	public function renderEdit(?int $id = null)
+	public function renderEdit(?int $id)
 	{
 		if ($id) {
 			$client = $this->clientsRepo->fetchById($id);
 			$this['clientForm']->setDefaults($client);
 
 			$client_person = $this->clientsRepo->fetchContactById($id);
-			$this->template->contacts = $this->clientsRepo->fetchContactById($id);
-			$this['personForm']->setDefaults($client_person);
+			$this->template->contacts = $client_person;
+//			$this['personForm']->setDefaults($client_person);
+
 		}
 		$this->template->isEdit = $id != null;
 	}
@@ -118,6 +117,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->addHidden("id");
 
+
 	    $form->addHidden("client_id")
             ->setDefaultValue($this->getParameter("id"));
             
@@ -143,7 +143,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
                 $this->redirect("this");
 		    }
 	    };
-
 	    return $form;
     }
 
@@ -171,9 +170,10 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
      * contactId ma doniest id klienta a vypisat potrebne udaje
      */
 	public function handleEditPerson (int $contactId){
-    	$values = $this->clientsRepo->fetchById($contactId);
+		$values = $this->clientsRepo->fetchContact($contactId);
     	$this['personForm']->setDefaults($values);
     }
+
     public function handleDelete(int $id)
     {
         $this->clientsPM->removeClient($id);
