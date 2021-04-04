@@ -15,9 +15,9 @@ class FilesRepository
     public $db;
 
     // FIND functions
-    public function findAllItemByLevel(int $level)
+    public function findAllItemByLevel(int $level, int $id)
     {
-        return $this->db->query("SELECT * FROM $this->fileTable WHERE level=?", $level);
+        return $this->db->query("SELECT * FROM $this->fileTable WHERE level=? AND client_id=?", $level, $id);
     }
 
     public function findAllSimilarFolders(string $name, ?int $parent_id)
@@ -55,6 +55,11 @@ class FilesRepository
     {
         return $this->db->query("SELECT * from $this->fileTable WHERE id=?", $id)->fetch();
     }
+
+	public function fetchByClientId(?int $id)
+	{
+		return $this->db->query("SELECT * from $this->fileTable WHERE client_id=?", $id)->fetchAll();
+	}
 
     public function fetchAllChildren(int $id): array
     {

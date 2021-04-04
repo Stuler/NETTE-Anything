@@ -29,6 +29,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 	{
 		$searchTerm = $this->getParameter("term");
 
+
+
 		if ($searchTerm) {
 			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
 		} else {
@@ -116,7 +118,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 		$form = new Form();
 
 	    $form->addHidden("id");
-
 
 	    $form->addHidden("client_id")
             ->setDefaultValue($this->getParameter("id"));

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components\FileSystem;
 
+use App\Presenters\ClientsPresenter;
 use Nette\Application\UI\Control;
 use App\Models\ProcessManagers\FileException;
 use App\Models\ProcessManagers\FilesProcessManager;
@@ -20,7 +21,8 @@ class FileSystem extends Control
     public $filesRepo;
 
     public function render() {
-        $this->template->items = $this->filesPM->getFilesAndDirs();
+	    $clientId = $this->getPresenter()->getParameter("id");
+        $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
         $this->template->selectedId = "fileSystem-id";
 
 /*        if ($id) {
@@ -39,13 +41,17 @@ class FileSystem extends Control
         $form = new Form();
         $form->addGroup("Upload souboru");
         $form->addUpload("file", "Připni soubor:");
-        $form->addHidden("parent_id")
-            ->setDefaultValue($this->getParameter("id"));
+        $form->addHidden("id");
+        $form->addHidden("client_id")
+	        ->setDefaultValue($this->getPresenter()->getParameter("id"));
+        $form->addHidden("parent_id");
+//            ->setDefaultValue($this->getParameter("id"));
         $form->addSubmit("upload", "Připni");
 
         $form->onSuccess[] = function (Form $form, $values) {
             $this->filesPM->uploadFile(
                 $values['file'],
+	            (int)$values['client_id'],
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
             $this->redirect("this");
@@ -56,17 +62,24 @@ class FileSystem extends Control
     public function createComponentFormCreate(): Form
     {
         $form = new Form();
+
         $form->addGroup("Vytvoření složky");
+
         $form->addText("file", "Vytvoř složku:");
-        $form->addHidden("parent_id")
-            ->setDefaultValue($this->getParameter("id"));
-        $form->addHidden("id");
+
+	    $form->addHidden("client_id")
+		    ->setDefaultValue($this->getPresenter()->getParameter("id")); //??
+
+        $form->addHidden("parent_id");
+//            ->setDefaultValue($this->getParameter("id"));
+
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
             try {
                 $this->filesPM->createDir(
                     $values['file'],
+	                (int)$values['client_id'],
                     $values['parent_id'] ? (int)$values['parent_id'] : null
                 );
                 $this->flashMessage("Složka byla vytvořena.", "ok");

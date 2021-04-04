@@ -21,11 +21,12 @@ class FilesProcessManager
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    public function getFilesAndDirs()
+    public function getFilesAndDirs($id)
     {
-        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1)->fetchAssoc("[]"); // vrati pole poli - vsetky data
-        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2)->fetchAssoc("parent_id[]"); //vrati asociativne pole poli, ak maju vyplnene parent_id
-        foreach ($itemsByLevel1 as &$item) {
+        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1, (int) $id)->fetchAssoc("[]"); // vrati pole poli - vsetky data
+        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2, (int) $id)->fetchAssoc("parent_id[]"); //vrati asociativne pole poli, ak maju vyplnene parent_id
+
+	    foreach ($itemsByLevel1 as &$item) {
             if (isset($itemsByLevel2[$item['id']])) { //ak maju itemy 2. levelu nastavene id itemu z 1. levelu
                 $item['items'] = $itemsByLevel2[$item['id']]; //priradi item do druheho levelu
             } else {
@@ -35,7 +36,7 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 // TODO: prekopat remove funkciu
-    public function uploadFile(FileUpload $file, ?int $parentId)
+    public function uploadFile(FileUpload $file, ?int $client_id, ?int $parentId)
     {
         /*  1. potrebujem zistit, ci na disku uz podobny subor nemam
             2. ak mam, nastavim nazov noveho suboru "nazov_suboru"+random hash
@@ -71,6 +72,7 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
 
         $this->filesRepo->add([
             "name" => $fileName,
+            "client_id" => $client_id,
             "file_path" => $filePath,
             "size" => $file->getSize(),
             "date_created" => new \DateTime(),
@@ -80,13 +82,14 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
         ]);
     }
 
-    public function createDir(string $file, ?int $parentId)
+    public function createDir(string $file, ?int $client_id, ?int $parentId)
     {
         $similar = $this->filesRepo->findAllSimilarFolders($file, $parentId);
 
         if (!$similar){
             $this->filesRepo->add([
                 "name" => $file,
+                "client_id" => $client_id,
                 "date_created" => new \DateTime(),
                 "is_dir" => 1,
                 "parent_id" => $parentId,

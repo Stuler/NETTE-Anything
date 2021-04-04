@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/nahoru.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/rybnik.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/rybnikeo3kuh9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/Repository/FilesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/default.latte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +93,7 @@
       <workItem from="1616613951919" duration="1637000" />
       <workItem from="1617282943990" duration="2170000" />
       <workItem from="1617301137509" duration="4642000" />
-      <workItem from="1617351999201" duration="2982000" />
+      <workItem from="1617351999201" duration="4351000" />
     </task>
     <servers />
   </component>
