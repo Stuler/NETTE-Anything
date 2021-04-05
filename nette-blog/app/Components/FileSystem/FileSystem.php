@@ -23,7 +23,7 @@ class FileSystem extends Control
     public function render() {
 	    $clientId = $this->getPresenter()->getParameter("id");
         $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
-        $this->template->selectedId = "fileSystem-id";
+        $this->template->selectedId = "fileSystem->id";
 
 /*        if ($id) {
             $selectedFile = $this->filesRepo->fetchById($id);
