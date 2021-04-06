@@ -27,7 +27,7 @@ class FileSystem extends Control
         $this->template->selectedId = (int)$fileId;
 
         if ($fileId) {
-            $selectedFile = $this->filesRepo->fetchById($fileId);
+            $selectedFile = $this->filesRepo->fetchById((int)$fileId);
             $this['formRename']->setDefaults($selectedFile);
         } else {
             $selectedFile = null;
@@ -105,6 +105,8 @@ class FileSystem extends Control
 
         $form->addText("name", "Nový název: ");
 
+        $form->addHidden("client_id");
+
         $form->addHidden("id")
             ->setDefaultValue($this->getParameter("id"));
 
@@ -115,6 +117,7 @@ class FileSystem extends Control
             try {
                 $this->filesPM->rename(
                     $values['name'],
+                    $values['client_id'],
                     (int)$values['id']
                 );
                 $this->flashMessage("Soubor byl přejmenován.", "ok");

@@ -120,9 +120,9 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
         a rovnakym rodicom
     * - vyvola vynimku, ak zlozka uz existuje
     */
-    public function rename(string $name, int $id)
+    public function rename(string $name, $clientId, int $id)
     {
-        $similar = $this->getSimilar($name, $id);
+        $similar = $this->getSimilar($name, $clientId, $id);
         $file = $this->filesRepo->fetchById($id);
 
         if (!$file['is_dir']) {
@@ -173,10 +173,10 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
         return $fileName['parent_id'];
     }
 
-    private function getSimilar($name, $id): array
+    private function getSimilar($name, $clientId, $id): array
     {
         $fileParent = $this->getParentId($id);
-        return $this->filesRepo->findAllSimilarFolders($name, $fileParent);
+        return $this->filesRepo->findAllSimilarFolders($name, (int) $clientId, $fileParent);
     }
 }
 
