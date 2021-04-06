@@ -24,6 +24,7 @@
 				<div>
 					<ul>
 						<li n:foreach="$contacts as $contact">
+							<td><a href="{link deleteContact! contactId=>$contact[id]}">X</a></td>
 							<a n:href="editPerson! contactId => $contact['id']">
 							{$contact[name]}
 							</a>

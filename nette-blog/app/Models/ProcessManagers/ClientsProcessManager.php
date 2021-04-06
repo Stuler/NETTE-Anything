@@ -37,4 +37,8 @@ class ClientsProcessManager {
 		$this->clientsRepo->remove($id);
 	}
 
+	public function removeContact(int $id) {
+		$this->clientsRepo->removeContact($id);
+	}
+
 }

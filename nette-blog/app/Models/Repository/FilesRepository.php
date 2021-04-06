@@ -20,12 +20,12 @@ class FilesRepository
         return $this->db->query("SELECT * FROM $this->fileTable WHERE level=? AND client_id=?", $level, $id);
     }
 
-    public function findAllSimilarFolders(string $name, ?int $parent_id)
+    public function findAllSimilarFolders(string $name, int $client_id, ?int $parent_id)
     {
         if (!is_null($parent_id)) {
-            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id LIKE ?", $name, $parent_id)->fetchAll();
+            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND client_id LIKE ? AND parent_id LIKE ?", $name, $client_id, $parent_id)->fetchAll();
         } else {
-            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND parent_id IS NULL", $name)->fetchAll();
+            return $this->db->query("SELECT * FROM $this->fileTable WHERE name LIKE ? AND client_id LIKE ? AND parent_id IS NULL", $name, $client_id)->fetchAll();
         }
     }
 

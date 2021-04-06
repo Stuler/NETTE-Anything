@@ -84,7 +84,7 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
 
     public function createDir(string $file, ?int $client_id, ?int $parentId)
     {
-        $similar = $this->filesRepo->findAllSimilarFolders($file, $parentId);
+        $similar = $this->filesRepo->findAllSimilarFolders($file, $client_id, $parentId);
 
         if (!$similar){
             $this->filesRepo->add([

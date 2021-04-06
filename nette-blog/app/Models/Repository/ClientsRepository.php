@@ -83,4 +83,9 @@ class ClientsRepository
     {
         $this->db->query("DELETE FROM $this->clientTable WHERE id=?", $id);
     }
+
+    public function removeContact(int $id)
+    {
+        $this->db->query("DELETE FROM $this->clientPersonTable WHERE id=?", $id);
+    }
 }

@@ -25,7 +25,7 @@ final class FilesPresenter extends Nette\Application\UI\Presenter
 
     public function renderDefault(?int $id)
     {
-        $this->template->items = $this->filesPM->getFilesAndDirs();
+        $this->template->items = $this->filesPM->getFilesAndDirs("id");
         $this->template->selectedId = $this->getParameter("id");
 
         if ($id) {

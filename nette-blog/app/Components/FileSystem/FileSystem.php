@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Components\FileSystem;
 
-use App\Presenters\ClientsPresenter;
 use Nette\Application\UI\Control;
 use App\Models\ProcessManagers\FileException;
 use App\Models\ProcessManagers\FilesProcessManager;
@@ -23,14 +22,16 @@ class FileSystem extends Control
     public function render() {
 	    $clientId = $this->getPresenter()->getParameter("id");
         $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
-        $this->template->selectedId = "fileSystem->id";
+        
+        $fileId = $this->getParameter("fileId");
+        $this->template->selectedId = (int)$fileId;
 
-/*        if ($id) {
-            $selectedFile = $this->filesRepo->fetchById($id);
+        if ($fileId) {
+            $selectedFile = $this->filesRepo->fetchById($fileId);
             $this['formRename']->setDefaults($selectedFile);
         } else {
             $selectedFile = null;
-        }*/
+        }
 
         $this->template->setFile(__DIR__ . "/fileSystem.latte");
         $this->template->render();
@@ -39,13 +40,19 @@ class FileSystem extends Control
     public function createComponentFormUpload(): Form
     {
         $form = new Form();
+
         $form->addGroup("Upload souboru");
+        
         $form->addUpload("file", "Připni soubor:");
+
         $form->addHidden("id");
+
         $form->addHidden("client_id")
 	        ->setDefaultValue($this->getPresenter()->getParameter("id"));
+
         $form->addHidden("parent_id");
 //            ->setDefaultValue($this->getParameter("id"));
+
         $form->addSubmit("upload", "Připni");
 
         $form->onSuccess[] = function (Form $form, $values) {
@@ -95,9 +102,12 @@ class FileSystem extends Control
     {
         $form = new Form();
         $form->addGroup("Přejmenování");
+
         $form->addText("name", "Nový název: ");
+
         $form->addHidden("id")
             ->setDefaultValue($this->getParameter("id"));
+
         $form->addSubmit("rename", "Přejmenuj");
 
         $form->onSuccess[] = function (Form $form) {
@@ -122,6 +132,4 @@ class FileSystem extends Control
         $this->filesPM->remove($id);
         $this->redirect("this", ["fileSystem-id" => null]);
     }
-
 }
-

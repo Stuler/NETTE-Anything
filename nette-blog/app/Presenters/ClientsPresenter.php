@@ -28,9 +28,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 	public function renderDefault()
 	{
 		$searchTerm = $this->getParameter("term");
-
-
-
 		if ($searchTerm) {
 			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
 		} else {
@@ -51,7 +48,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 			$client_person = $this->clientsRepo->fetchContactById($id);
 			$this->template->contacts = $client_person;
-//			$this['personForm']->setDefaults($client_person);
 
 		}
 		$this->template->isEdit = $id != null;
@@ -150,8 +146,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function createComponentFormSearch(): Form
     {
         $form = new Form();
+
         $form->addText("term")->setValue($this->getParameter("term"));
+
         $form->addSubmit("send", "Vyhledat");
+
         $form->onSuccess[] = function (Form $form) {
             $values = $form->getValues();
             $this->redirect("this", [
@@ -178,6 +177,12 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function handleDelete(int $id)
     {
         $this->clientsPM->removeClient($id);
+        $this->redirect("this");
+    }
+
+    public function handleDeleteContact(int $contactId)
+    {
+        $this->clientsPM->removeContact($contactId);
         $this->redirect("this");
     }
 }

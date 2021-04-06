@@ -25,23 +25,23 @@
 					{if $item[is_dir]}
 						<li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
 						<div class="line">
-							<a href="{plink Clients:edit id=>($selectedId == null ? $item[id]: null)}"><h5 class="mb-1">{$item[name]}</h5></a>
-							<a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
+							<a href="{plink Clients:edit fileId=>($selectedId == null ? $item[id]: null)}"><h5 class="mb-1">{$item[name]}</h5></a>
+							<a href="{link delete! fileId=>$item[id]}" class="hide btn-sm">Odstranit</a>
 						</div>
 						<ul class="list-group">
 							{foreach $item[items] as $subItem}
 								<li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
 									<div class="line">
 										{if $subItem[is_dir]}
-											<a href="{plink Clients:edit id=>($selectedId == null ? $subItem[id]: null)}">
+											<a href="{plink Clients:edit fileId=>($selectedId == null ? $subItem[id]: null)}">
 												<h6 class="mb-1">{$subItem[name]}</h6>
 											</a>
-											<a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
+											<a href="{link delete! fileId=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
 										{else}
-											<a href="{plink Clients:edit  id=>($selectedId == null ? $subItem[id]: null)}">
+											<a href="{plink Clients:edit  fileId=>($selectedId == null ? $subItem[id]: null)}">
 												<i>{$subItem[name]}</i>
 											</a>
-											<a href="{link delete! id=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
+											<a href="{link delete! fileId=>$subItem[id]}" class="hide btn-sm">Odstranit</a>
 										{/if}
 									</div>
 								</li>
@@ -49,10 +49,10 @@
 						</ul>
 					{else}
 						<div class="line">
-							<a href="{plink Clients:edit id=>($selectedId == null ? $item[id]: null)}">
+							<a href="{plink Clients:edit fileId=>($selectedId == null ? $item[id]: null)}">
 								<i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}</i>
 							</a>
-							<a href="{link delete! id=>$item[id]}" class="hide btn-sm">Odstranit</a>
+							<a href="{link delete! fileId=>$item[id]}" class="hide btn-sm">Odstranit</a>
 						</div>
 					{/if}
 					</li>
