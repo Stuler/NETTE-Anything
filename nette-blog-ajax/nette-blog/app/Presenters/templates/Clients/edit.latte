@@ -1,0 +1,44 @@
+{block content}
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/css/normalize.css">
+	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+
+	<main class="jumbotron col-sm-4 float-left">
+		<div>
+			<p><a n:href="default">Zpět na výpis klientů</a></p>
+		</div>
+
+		<div class="form-group">
+			<h3>Založenie nového klienta</h3>
+			{control clientForm}
+		</div>
+
+		{if $isEdit} {*v presenteri v rendri musi byt definovana  premenna isEdit*}
+
+				<div class="form-group">
+					<h3>Založenie kontaktnej osoby</h3>
+					{control personForm}
+				</div>
+
+				<div>
+					<ul>
+						<li n:foreach="$contacts as $contact">
+							<td><a href="{link deleteContact! contactId=>$contact[id]}">X</a></td>
+							<a n:href="editPerson! contactId => $contact['id']">
+							{$contact[name]}
+							</a>
+						</li>
+					</ul>
+				</div>
+		{/if}
+	</main>
+
+	<main class="jumbotron col-sm-4 float-left">
+		<div>
+			{control fileSystem}
+		</div>
+	</main>
+
+
+{/block}

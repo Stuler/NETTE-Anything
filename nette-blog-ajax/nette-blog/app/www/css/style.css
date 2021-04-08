@@ -1,0 +1,66 @@
+/* GENERAL */
+html {
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	font-size: 100%;
+	font-family: 'Source Sans Pro', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	text-decoration: none;
+}
+
+.container:before,
+.group:before,
+.menu:before,
+.container:after,
+.group:after,
+.menu:after  {
+	content: " ";
+	display: table;
+}
+
+.container:after,
+.group:after,
+.menu:after {
+	clear: both;
+}
+
+.container,
+.group,
+.menu {
+	*zoom: 1;
+}
+
+.container {
+	max-width: 1170px;
+	margin: 0 auto;
+}
+
+.selected {
+	background: #333333;
+	color: #ffffff;
+}
+
+.hide {
+	display: none;
+}
+
+.line:hover .hide {
+	display: inline;
+	color: brown;
+}
+
+.filesystem {
+	float: right;
+}
+
+
