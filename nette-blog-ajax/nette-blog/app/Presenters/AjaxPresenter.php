@@ -14,6 +14,7 @@ final class AjaxPresenter extends Nette\Application\UI\Presenter
 
     private $number = 0;
 
+
     /** @var AjaxComponentFactory @inject @internal */
     public $ajaxComponentFactory;
 
@@ -56,10 +57,10 @@ final class AjaxPresenter extends Nette\Application\UI\Presenter
         $this->redrawControl("form");
     }
 
-    public function handleDelete(array $messageList)
-    {
-        unset($messageList[$])
-    }
+//    public function handleDelete(array $messageList)
+//    {
+//        unset($messageList[$])
+//    }
 
     public function createComponentForm(): Form
     {

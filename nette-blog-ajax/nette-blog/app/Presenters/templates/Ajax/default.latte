@@ -25,8 +25,9 @@
 <h2 n:snippet="list">
 	{ifset $messageList}
 		{foreach $messageList as $message}
-			<a n:href="delete!" class="ajax">X</a>
-			<a n:href="edit!" class="ajax">{$message}</a><br/>
+{*			<a n:href="delete!" class="ajax">X</a>*}
+{*			<a n:href="edit!" class="ajax">{$message}</a><br/>*}
+			{$message}
 		{/foreach}
 	{/ifset}
 </h2>

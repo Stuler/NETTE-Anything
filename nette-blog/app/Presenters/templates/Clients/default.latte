@@ -5,15 +5,14 @@
 - funkciu na zoradenie pohladu podla kriteria
 *}
 
-
-
     <div>
         <p><a n:href="Homepage:default">Zpět na homepage</a></p>
         <p><a n:href="edit">Založit klienta</a></p>
     </div>
 
-<div>
+
 {form formSearch} {input term} {input send}{/form}
+{snippet clientList}
 <table>
     <thead>
     <tr>
@@ -23,20 +22,25 @@
         <th>Email</th>
     </tr>
     </thead>
-    <tbody>
-    {foreach $clients as $client}
-        <tr>
-            <td><a href="{link delete! id=>$client[id]}">X</a></td>
-            <td><a n:href="edit id=>$client[id]">{$client[name]}</a></td>
-            <td>{$client[ico]}</td>
-            <td>{$client[email]}</td>
-        </tr>
-    {/foreach}
-    </tbody>
+
+
+	<tbody>
+		{foreach $clients as $client}
+			<tr>
+				<td><a class="ajax" n:href="delete! id=>$client[id]" >X</a></td>
+				<td><a n:href="edit id=>$client[id]">{$client[name]}</a></td>
+				<td>{$client[ico]}</td>
+				<td>{$client[email]}</td>
+			</tr>
+		{/foreach}
+	</tbody>
+{/snippet}
+
 </table>
-</div>
 
 
 
-<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
 {/block}
