@@ -19,12 +19,23 @@ class FileSystem extends Control
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
-    public function render() {
-	    $clientId = $this->getPresenter()->getParameter("id");
+    public $clientId;
+
+    public function render()
+    {
+        $clientId = $this->clientId;
         $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
-        
-        $fileId = $this->getParameter("fileId");
+
+        $fileId = $this->getParameter("id");
         $this->template->selectedId = (int)$fileId;
+
+        $this->template->linkSelectDir = function (int $dirId) use ($fileId) {
+            return $this->link("selectDir!", ["id" => (($fileId == null || $fileId != $dirId) ? $dirId : null)]);
+        };
+
+        $this->template->linkDelete = function (int $dirId) {
+            return $this->link("delete!", ["id" => $dirId]);
+        };
 
         if ($fileId) {
             $selectedFile = $this->filesRepo->fetchById((int)$fileId);
@@ -42,13 +53,13 @@ class FileSystem extends Control
         $form = new Form();
 
         $form->addGroup("Upload souboru");
-        
+
         $form->addUpload("file", "Připni soubor:");
 
         $form->addHidden("id");
 
-        $form->addHidden("client_id")
-	        ->setDefaultValue($this->getPresenter()->getParameter("id"));
+        $form->addHidden("client_id");
+//            ->setDefaultValue($this->getPresenter()->getParameter("id"));
 
         $form->addHidden("parent_id");
 //            ->setDefaultValue($this->getParameter("id"));
@@ -58,7 +69,7 @@ class FileSystem extends Control
         $form->onSuccess[] = function (Form $form, $values) {
             $this->filesPM->uploadFile(
                 $values['file'],
-	            (int)$values['client_id'],
+                (int)$values['client_id'],
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
             $this->redirect("this");
@@ -74,8 +85,8 @@ class FileSystem extends Control
 
         $form->addText("file", "Vytvoř složku:");
 
-	    $form->addHidden("client_id")
-		    ->setDefaultValue($this->getPresenter()->getParameter("id")); //??
+        $form->addHidden("client_id");
+//            ->setDefaultValue($this->getPresenter()->getParameter("id")); //??
 
         $form->addHidden("parent_id");
 //            ->setDefaultValue($this->getParameter("id"));
@@ -86,7 +97,7 @@ class FileSystem extends Control
             try {
                 $this->filesPM->createDir(
                     $values['file'],
-	                (int)$values['client_id'],
+                    (int)$this->clientId,
                     $values['parent_id'] ? (int)$values['parent_id'] : null
                 );
                 $this->flashMessage("Složka byla vytvořena.", "ok");
@@ -130,9 +141,14 @@ class FileSystem extends Control
         return $form;
     }
 
+    public function handleSelectDir(?int $id = null)
+    {
+        $this->redirect("this", ["id" => $id]);
+    }
+
     public function handleDelete(int $id)
     {
         $this->filesPM->remove($id);
-        $this->redirect("this", ["fileSystem-id" => null]);
+        $this->redirect("this", [$this->getName() . "-id" => null]);
     }
 }

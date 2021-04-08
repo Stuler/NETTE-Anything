@@ -1,10 +1,16 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+//require __DIR__ . '/../vendor/autoload.php';
+//
+//$container = App\Bootstrap::boot()->createContainer();
+//
+//$pm = $container->getByType(\App\Models\ProcessManagers\FilesProcessManager::class);
+//$data = $pm->getFilesAndDirs();
+//
+//var_dump($data);
+//echo "abb";
 
-$container = App\Bootstrap::boot()->createContainer();
+$linkSelectDir = function ($label) {
+    echo "Text:" . $label;
+};
 
-$pm = $container->getByType(\App\Models\ProcessManagers\FilesProcessManager::class);
-$data = $pm->getFilesAndDirs();
-
-var_dump($data);
-echo "abb";
+$linkSelectDir("Ahoj");

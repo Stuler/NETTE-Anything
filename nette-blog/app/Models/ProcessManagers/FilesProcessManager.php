@@ -23,10 +23,10 @@ class FilesProcessManager
 
     public function getFilesAndDirs($id)
     {
-        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1, (int) $id)->fetchAssoc("[]"); // vrati pole poli - vsetky data
-        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2, (int) $id)->fetchAssoc("parent_id[]"); //vrati asociativne pole poli, ak maju vyplnene parent_id
+        $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1, (int)$id)->fetchAssoc("[]"); // vrati pole poli - vsetky data
+        $itemsByLevel2 = $this->filesRepo->findAllItemByLevel(2, (int)$id)->fetchAssoc("parent_id[]"); //vrati asociativne pole poli, ak maju vyplnene parent_id
 
-	    foreach ($itemsByLevel1 as &$item) {
+        foreach ($itemsByLevel1 as &$item) {
             if (isset($itemsByLevel2[$item['id']])) { //ak maju itemy 2. levelu nastavene id itemu z 1. levelu
                 $item['items'] = $itemsByLevel2[$item['id']]; //priradi item do druheho levelu
             } else {
@@ -35,6 +35,7 @@ class FilesProcessManager
         }
         return $itemsByLevel1;
     }
+
 // TODO: prekopat remove funkciu
     public function uploadFile(FileUpload $file, ?int $client_id, ?int $parentId)
     {
@@ -45,28 +46,28 @@ class FilesProcessManager
         */
 
         $fileName = $file->getUntrustedName();
-/*--------------------------------------------------------------------- 
-Procedura pri prioritazcii DB namiesto suborov na disku:
-        // potrebujem ziskat rovnake subory:
-        // $similar = $this->filesRepo->findAllByName($fileName);
+        /*---------------------------------------------------------------------
+        Procedura pri prioritazcii DB namiesto suborov na disku:
+                // potrebujem ziskat rovnake subory:
+                // $similar = $this->filesRepo->findAllByName($fileName);
 
-        // if ($similar) {
-        //     $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
-        //     $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
-        //     $itemsCount = $this->filesRepo->countByBaseName($baseName, $ext); // pocet rovnakych suborov s basename
-        //     $fileName = $baseName . '(' . ++$itemsCount . ')' . $ext; // pridam por. cislo a koncovku
-        // }
----------------------------------------------------------------------*/
-      
+                // if ($similar) {
+                //     $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
+                //     $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
+                //     $itemsCount = $this->filesRepo->countByBaseName($baseName, $ext); // pocet rovnakych suborov s basename
+                //     $fileName = $baseName . '(' . ++$itemsCount . ')' . $ext; // pridam por. cislo a koncovku
+                // }
+        ---------------------------------------------------------------------*/
+
         $files = scandir(self::PATH);
-        if (in_array($fileName, $files )){
+        if (in_array($fileName, $files)) {
             $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
             $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
             $nameHash = Random::generate(7, '0-9a-z');
-            $baseNameMod = $baseName.$nameHash.$ext;
+            $baseNameMod = $baseName . $nameHash . $ext;
             $filePath = $this->setFilePath($baseNameMod);
-        } else{
-        $filePath = $this->setFilePath($fileName);
+        } else {
+            $filePath = $this->setFilePath($fileName);
         }
         $file->move($filePath); // potrebujem fyzicky uploadnut premenovany subor
 
@@ -86,7 +87,7 @@ Procedura pri prioritazcii DB namiesto suborov na disku:
     {
         $similar = $this->filesRepo->findAllSimilarFolders($file, $client_id, $parentId);
 
-        if (!$similar){
+        if (!$similar) {
             $this->filesRepo->add([
                 "name" => $file,
                 "client_id" => $client_id,
