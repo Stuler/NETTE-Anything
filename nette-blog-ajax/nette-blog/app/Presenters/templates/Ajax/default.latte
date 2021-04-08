@@ -10,7 +10,7 @@
 <body n:snippet="body">
 <h1>Ajax sandbox</h1>
 {snippet mySnippet}
-<a n:href="increment! number=>$number" class="ajax">Increment {$number}</a>
+	<a n:href="increment! number=>$number" class="ajax">Increment {$number}</a>
 {/snippet}
 <br/>
 <br/>
@@ -18,14 +18,23 @@
 
 <h2 n:snippet="message">
 	{ifset $messageText}
-{$messageText}<br/>
-{/ifset}
+		{$messageText}<br/>
+	{/ifset}
+</h2>
+
+<h2 n:snippet="list">
+	{ifset $messageList}
+		{foreach $messageList as $message}
+			<a n:href="delete!" class="ajax">X</a>
+			<a n:href="edit!" class="ajax">{$message}</a><br/>
+		{/foreach}
+	{/ifset}
 </h2>
 
 <br/>
 <br/>
 {snippet form}
-{control form}
+	{control form}
 {/snippet}
 
 <br/>
