@@ -1,10 +1,16 @@
 <h2>Seznam klientů</h2>
 
-<ul>
-	{foreach $clients as $client}
-		<li>
-			<a href="{plink Clients:default id=>$client[id]}">{$client[name]}</a>
-			<a n:href="delete! id=>$client['id']">Smazat</a>
-		</li>
-	{/foreach}
-</ul>
+{snippet list}
+    <table>
+        <tbody>
+            {foreach $clients as $client}
+                <tr>
+                    <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>
+                    <td>{$client[name]}</td>
+                    <td>{$client[ico]}</td>
+                    <td>{$client[email]}</td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+{/snippet}

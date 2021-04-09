@@ -12,7 +12,8 @@
 
 
 {form formSearch} {input term} {input send}{/form}
-{snippet list}
+
+{* {snippet list}
 <table>
     <thead>
     <tr>
@@ -34,15 +35,11 @@
 			</tr>
 		{/foreach}
 	</tbody>
-{/snippet}
+{/snippet} *}
+
 
 {control clientList}
 
-</table>
-
-
-
-
-	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
+<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
 {/block}
