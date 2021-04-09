@@ -13,31 +13,6 @@
 
 {form formSearch} {input term} {input send}{/form}
 
-{* {snippet list}
-<table>
-    <thead>
-    <tr>
-        <th></th>
-        <th>Název</th>
-        <th>IČO</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-
-
-	<tbody>
-		{foreach $clients as $client}
-			<tr>
-				<td><a class="ajax" n:href="delete! id=>$client[id]" >X</a></td>
-				<td><a n:href="edit id=>$client[id]">{$client[name]}</a></td>
-				<td>{$client[ico]}</td>
-				<td>{$client[email]}</td>
-			</tr>
-		{/foreach}
-	</tbody>
-{/snippet} *}
-
-
 {control clientList}
 
 <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
