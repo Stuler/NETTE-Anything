@@ -49,3 +49,9 @@ services:
 		class: App\Components\FileSystem\FileSystem
 		inject: true
 		autowired: false
+
+	- App\Components\ClientList\ClientListFactory
+	clientList:
+		class: App\Components\ClientList\ClientList
+		inject: true
+		autowired: false

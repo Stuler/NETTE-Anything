@@ -5,6 +5,8 @@ namespace App\Presenters;
 
 use App\Components\FileSystem\FileSystem;
 use App\Components\FileSystem\FileSystemFactory;
+use App\Components\ClientList\ClientList;
+use App\Components\ClientList\ClientListFactory;
 use App\Models\ProcessManagers\ClientsProcessManager;
 use App\Models\Repository\ClientsRepository;
 use Nette;
@@ -24,6 +26,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     /** @var FileSystemFactory @inject @internal */
     public $fileSystemFactory;
+
+    /** @var ClientListFactory @inject @internal */
+	public $clientListFactory;
 
 	protected function startup()
 	{
@@ -178,6 +183,10 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $fileSystem;
     }
 
+	public function createComponentClientList(): ClientList {
+		$clientList = $this->clientListFactory->create();
+        return $clientList;
+	}
     /*
      * Funkcia na vykreslenie a upravu kontaktov klienta
      * contactId ma doniest id klienta a vypisat potrebne udaje
@@ -191,7 +200,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function handleDelete(int $id)
     {
         $this->clientsPM->removeClient($id);
-        $this->redrawControl("clientList");
+        $this->redrawControl("list");
     }
 
     public function handleDeleteContact(int $contactId)

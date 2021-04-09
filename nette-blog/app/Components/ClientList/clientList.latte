@@ -1,0 +1,10 @@
+<h2>Seznam klientů</h2>
+
+<ul>
+	{foreach $clients as $client}
+		<li>
+			<a href="{plink Clients:default id=>$client[id]}">{$client[name]}</a>
+			<a n:href="delete! id=>$client['id']">Smazat</a>
+		</li>
+	{/foreach}
+</ul>
