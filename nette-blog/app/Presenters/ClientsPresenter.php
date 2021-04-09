@@ -158,7 +158,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function createComponentFormSearch(): Form
+/*    public function createComponentFormSearch(): Form
     {
         $form = new Form();
 
@@ -174,7 +174,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             );
         };
         return $form;
-    }
+    }*/
 
     public function createComponentFileSystem(): FileSystem
     {
@@ -196,12 +196,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $values = $this->clientsRepo->fetchContact($contactId);
         $this['personForm']->setDefaults($values);
     }
-
-    // public function handleDelete(int $id)
-    // {
-    //     $this->clientsPM->removeClient($id);
-    //     $this->redrawControl("list");
-    // }
 
     public function handleDeleteContact(int $contactId)
     {
