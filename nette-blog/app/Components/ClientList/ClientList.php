@@ -37,4 +37,5 @@ class ClientList extends Control {
         $this->clientsPM->removeClient($id);
         $this->redrawControl("list");
 	}
+    
 }

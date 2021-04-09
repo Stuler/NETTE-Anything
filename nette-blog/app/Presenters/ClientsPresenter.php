@@ -197,11 +197,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $this['personForm']->setDefaults($values);
     }
 
-    public function handleDelete(int $id)
-    {
-        $this->clientsPM->removeClient($id);
-        $this->redrawControl("list");
-    }
+    // public function handleDelete(int $id)
+    // {
+    //     $this->clientsPM->removeClient($id);
+    //     $this->redrawControl("list");
+    // }
 
     public function handleDeleteContact(int $contactId)
     {
