@@ -69,7 +69,7 @@ class FileSystem extends Control
         $form->onSuccess[] = function (Form $form, $values) {
             $this->filesPM->uploadFile(
                 $values['file'],
-                (int)$values['client_id'],
+                (int)$this->clientId,
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
             $this->redirect("this");
