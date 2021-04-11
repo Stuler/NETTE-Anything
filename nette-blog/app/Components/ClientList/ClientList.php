@@ -21,6 +21,7 @@ class ClientList extends Control {
     public $clientsRepo;
 
 	private $count = null;
+	private $id;
 
 	public function showOnlyFirst(int $count) {
 		$this->count = $count;
@@ -37,6 +38,13 @@ class ClientList extends Control {
 		$this->template->setFile(__DIR__ . "/clientList.latte");
 		$this->template->render();
 	}
+
+/*	public function renderContacts() {
+		$id = $this->id;
+		$this->template->contacts = $this->clientsRepo->fetchContactById($id);
+		$this->template->setFile(__DIR__ . "/clientList.latte");
+		$this->template->render();
+	}*/
 
 	public function createComponentFormSearch(): Form
 	{

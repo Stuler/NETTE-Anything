@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/clients6k2d6yg.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/clientsdg2fers.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/clientsszriy06.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/init78d563i.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/initeg8wk9k.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/ryba.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/rybnikhzzuirg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/FileSystem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/FileSystem/fileSystem.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Models/ProcessManagers/FilesProcessManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/ClientList/ClientList.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/ClientList/ClientList.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/ClientsPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/app/script.php" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/script.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nette-blog/config/local.neon" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/config/local.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Presenters/templates/Clients/edit.latte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +91,7 @@
       <workItem from="1617301137509" duration="4642000" />
       <workItem from="1617351999201" duration="5539000" />
       <workItem from="1617712839196" duration="1417000" />
+      <workItem from="1618143822692" duration="616000" />
     </task>
     <servers />
   </component>
