@@ -15,23 +15,26 @@
 		</div>
 
 		{if $isEdit} {*v presenteri v rendri musi byt definovana  premenna isEdit*}
-			{snippet contactList}
+
 				<div class="form-group">
 					<h3>Založenie kontaktnej osoby</h3>
-					{control personForm}
+					{snippet contactForm}
+						{control personForm}
+					{/snippet}
 				</div>
 
-				<div>
-					<ul>
+
+				<ul>
+					{snippet contactList}
 						<li n:foreach="$contacts as $contact">
-							<td><a href="{link deleteContact! contactId=>$contact[id]}">X</a></td>
-							<a n:href="editPerson! contactId => $contact['id']">
+							<a href="{link deleteContact! contactId=>$contact[id]}">X</a>
+							<a class="ajax" n:href="editPerson! contactId => $contact['id']">
 							{$contact[name]}
 							</a>
 						</li>
-					</ul>
-				</div>
-			{/snippet}
+					{/snippet}
+				</ul>
+
 		{/if}
 	</main>
 
@@ -41,5 +44,6 @@
 		</div>
 	</main>
 
-
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
 {/block}
