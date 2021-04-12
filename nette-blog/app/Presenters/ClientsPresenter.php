@@ -149,10 +149,10 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $data = (array)$values;
             if ($values['id']) {
                 $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
-                $this->redrawControl("contactList");
+                $this->redirect("this");
             } else {
                 $this->clientsPM->addContactPerson($data);
-                $this->redrawControl("contactList");
+                $this->redirect("this");
             }
         };
         return $form;
