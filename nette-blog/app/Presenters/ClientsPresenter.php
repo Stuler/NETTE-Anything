@@ -76,7 +76,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
 	    $form->getElementPrototype()->class("ajax");
 
-        $form->addHidden("id");
+        $form->addHidden("id")
+        ->setDefaultValue($this->getParameter("id"));
 
         $form->addText("name", "Client name")
             ->addRule(Form::FILLED, "Enter client name");
@@ -115,6 +116,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
          * getInsertId mi donesie posledne pridane ID
          */
         $form->onSuccess[] = function (Form $form) {
+
             $values = $form->getValues();
             $data = (array)$values;
             if ($values['id']) {
@@ -160,10 +162,12 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $data = (array)$values;
             if ($values['id']) {
                 $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
-                $this->redirect("this");
+                $this->redrawControl("contactForm");
+                $this->redrawControl("contactList");
             } else {
                 $this->clientsPM->addContactPerson($data);
-                $this->redirect("this");
+                $this->redrawControl("contactForm");
+                $this->redrawControl("contactList");
             }
         };
         return $form;
@@ -206,6 +210,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $values = $this->clientsRepo->fetchContact($contactId);
         $this['personForm']->setDefaults($values);
+        $this->redrawControl("contactForm");
     }
 
     public function handleDeleteContact(int $contactId)
