@@ -72,7 +72,7 @@ class FileSystem extends Control
                 (int)$this->clientId,
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
-            $this->redirect("this");
+            $this->redrawControl("fileList");
         };
         return $form;
     }

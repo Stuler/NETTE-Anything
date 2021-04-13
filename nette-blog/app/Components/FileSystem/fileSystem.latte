@@ -1,20 +1,24 @@
 {block content}
 
     <div class="form-group">
-        {control formUpload}
+		{snippet formUpload}
+        	{control formUpload}
+		{/snippet}
     </div>
 
     <div class="form-group">
-        {control formCreate}
+		{snippet formCreate}
+        	{control formCreate}
+		{/snippet}
     </div>
 
-    <div>
+	{snippet formRename}
         {if $selectedId}
             {control formRename}
         {/if}
-    </div>
+	{/snippet}
 
-    <div>
+    {snippet fileList}
         <h3 class="display-6">Strom</h3>
 
         {* Po uploadnuti/vytvoreni sa stranka presmeruje na vybranu zlozku
@@ -60,7 +64,7 @@
                 </li>
             {/foreach}
         </ul>
-    </div>
+	{/snippet}
 
 
     {* Riesenie rekurziou:
@@ -71,4 +75,5 @@
     *}
 
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+{*	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>*}
 {/block}
