@@ -12,10 +12,7 @@ use App\Models\Repository\ClientsRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
-// TODO: upravit zobrazenie kontaktnych osob pre jednotlivych klientov
-// TODO: po uprave klienta sa neodosle client_id do formulara personForm - neda sa pridat novy klient
 // TODO: upravit spravanie suborov a zloziek
-// TODO: zobrazenie formulara pre kontaktnu osobu az po zalozeni klienta
 // TODO: modalne okno - pridat klienta
 
 
