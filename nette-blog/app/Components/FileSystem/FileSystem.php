@@ -30,7 +30,7 @@ class FileSystem extends Control
         $clientId = $this->clientId;
         $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
 
-        $fileId = $this->getParameter("id");
+        $fileId = $this->id;
         $this->template->selectedId = (int)$fileId;
 
         $this->template->linkSelectDir = function (int $dirId) use ($fileId) {
@@ -135,8 +135,10 @@ class FileSystem extends Control
                     (int)$values['id']
                 );
                 $this->flashMessage("Soubor byl přejmenován.", "ok");
+	            $form->setValues([], true);
+	            $this->redrawControl("fileList");
+	            $this->redrawControl("formRename");
 
-                $this->redirect("this");
             } catch (FileException $e) {
                 $this->flashMessage($e->getMessage(), "err");
             }
@@ -149,6 +151,7 @@ class FileSystem extends Control
         $this->redrawControl("fileList");
         $this->redrawControl("formUpload");
         $this->redrawControl("formCreate");
+	    $this->redrawControl("formRename");
 
     }
 
