@@ -52,6 +52,8 @@ class FileSystem extends Control
     {
         $form = new Form();
 
+        $form->getElementPrototype()->class("ajax");
+
         $form->addGroup("Upload souboru");
 
         $form->addUpload("file", "Připni soubor:");
@@ -72,6 +74,7 @@ class FileSystem extends Control
                 (int)$this->clientId,
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
+            $this->redrawControl("formUpload");
             $this->redrawControl("fileList");
         };
         return $form;
@@ -80,6 +83,8 @@ class FileSystem extends Control
     public function createComponentFormCreate(): Form
     {
         $form = new Form();
+
+        $form->getElementPrototype()->class("ajax");
 
         $form->addGroup("Vytvoření složky");
 
@@ -112,6 +117,9 @@ class FileSystem extends Control
     public function createComponentFormRename(): Form
     {
         $form = new Form();
+
+        
+
         $form->addGroup("Přejmenování");
 
         $form->addText("name", "Nový název: ");
