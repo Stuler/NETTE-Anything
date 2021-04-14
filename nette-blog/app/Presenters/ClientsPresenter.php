@@ -76,7 +76,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form();
 
-	    $form->getElementPrototype()->class("ajax");
+//	    $form->getElementPrototype()->class("ajax");
 
         $form->addHidden("id")
         ->setDefaultValue($this->getParameter("id"));
@@ -128,8 +128,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             } else {
                 $this->clientsPM->addClient($data);
                 $id = $this->clientsRepo->db->getInsertId();
-                $form->setValues($values, true);
-	            $this->redrawControl("contactList");
+//                $form->setValues($values, true);
+//	            $this->redrawControl("contactList");
                 $this->redirect("this", ["id" => $id]);
 
             }
