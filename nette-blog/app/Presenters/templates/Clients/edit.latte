@@ -27,7 +27,7 @@
 				<ul>
 					{snippet contactList}
 						<li n:foreach="$contacts as $contact">
-							<a href="{link deleteContact! contactId=>$contact[id]}">X</a>
+							<a class="ajax" href="{link deleteContact! contactId=>$contact[id]}">X</a>
 							<a class="ajax" n:href="editPerson! contactId => $contact['id']">
 							{$contact[name]}
 							</a>

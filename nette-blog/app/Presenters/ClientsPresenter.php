@@ -218,6 +218,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function handleDeleteContact(int $contactId)
     {
         $this->clientsPM->removeContact($contactId);
-        $this->redirect("this");
+        $this->redrawControl("contactList");
     }
 }
