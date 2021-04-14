@@ -106,7 +106,8 @@ class FileSystem extends Control
                     $values['parent_id'] ? (int)$values['parent_id'] : null
                 );
                 $this->flashMessage("Složka byla vytvořena.", "ok");
-                $this->redirect("this");
+                $this->redrawControl("formUpload");
+                $this->redrawControl("fileList");
             } catch (FileException $e) {
                 $this->flashMessage($e->getMessage(), "err");
             }
@@ -118,7 +119,7 @@ class FileSystem extends Control
     {
         $form = new Form();
 
-        
+        $form->getElementPrototype()->class("ajax");
 
         $form->addGroup("Přejmenování");
 
@@ -151,12 +152,12 @@ class FileSystem extends Control
 
     public function handleSelectDir(?int $id = null)
     {
-        $this->redirect("this", ["id" => $id]);
+        $this->redrawControl("fileList");
     }
 
     public function handleDelete(int $id)
     {
         $this->filesPM->remove($id);
-        $this->redirect("this", [$this->getName() . "-id" => null]);
+        $this->redrawControl("fileList");
     }
 }

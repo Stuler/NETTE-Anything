@@ -29,25 +29,25 @@
                 {if $item[is_dir]}
                     <li n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active" >
                     <div class="line">
-                        <a href="{$linkSelectDir($item[id])}">
+                        <a class="ajax" href="{$linkSelectDir($item[id])}">
                             <h5 class="mb-1">{$item[name]}</h5></a>
-                        <a href="{$linkDelete($item[id])}" class="hide btn-sm">Odstranit</a>
+                        <a href="{$linkDelete($item[id])}" class="hide btn-sm ajax">Odstranit</a>
                     </div>
                     <ul class="list-group">
                         {foreach $item[items] as $subItem}
                             <li n:class="list-group-item, list-group-item-action, $selectedId == $subItem[id] ? active">
                                 <div class="line">
                                     {if $subItem[is_dir]}
-                                        <a href="{$linkSelectDir($subItem[id])}">
+                                        <a class="ajax" href="{$linkSelectDir($subItem[id])}">
                                             <h6 class="mb-1">{$subItem[name]}</h6>
                                         </a>
-                                        <a href="{$linkDelete($subItem[id])}" class="hide btn-sm">Odstranit</a>
+                                        <a href="{$linkDelete($subItem[id])}" class="hide btn-sm ajax">Odstranit</a>
                                     {else}
                                         {*                                        <a href="{plink selectDir! id=>($selectedId == null ? $subItem[id]: null)}">*}
-                                        <a href="{$linkSelectDir($subItem[id])}">
+                                        <a class="ajax" href="{$linkSelectDir($subItem[id])}">
                                             <i>{$subItem[name]}</i>
                                         </a>
-                                        <a href="{$linkDelete($subItem[id])}" class="hide btn-sm">Odstranit</a>
+                                        <a href="{$linkDelete($subItem[id])}" class="hide btn-sm ajax">Odstranit</a>
                                     {/if}
                                 </div>
                             </li>
@@ -55,7 +55,7 @@
                     </ul>
                 {else}
                     <div class="line">
-                        <a href="{$linkSelectDir($item[id])}">
+                        <a class="ajax" href="{$linkSelectDir($item[id])}">
                             <i n:class="list-group-item, list-group-item-action, $selectedId == $item[id] ? active">{$item[name]}</i>
                         </a>
                         <a href="{$linkDelete($item[id])}" class="hide btn-sm">Odstranit</a>
