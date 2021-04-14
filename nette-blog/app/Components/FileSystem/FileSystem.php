@@ -20,6 +20,10 @@ class FileSystem extends Control
     public $filesRepo;
 
     public $clientId;
+    /**
+     * @persistent
+     */
+    public $id;
 
     public function render()
     {
@@ -60,19 +64,13 @@ class FileSystem extends Control
 
         $form->addHidden("id");
 
-        $form->addHidden("client_id");
-//            ->setDefaultValue($this->getPresenter()->getParameter("id"));
-
-        $form->addHidden("parent_id");
-//            ->setDefaultValue($this->getParameter("id"));
-
         $form->addSubmit("upload", "Připni");
 
         $form->onSuccess[] = function (Form $form, $values) {
             $this->filesPM->uploadFile(
                 $values['file'],
                 (int)$this->clientId,
-                $values['parent_id'] ? (int)$values['parent_id'] : null
+                $this->id ? (int)$this->id : null
             );
             
             $this->redrawControl("formUpload");
@@ -91,12 +89,6 @@ class FileSystem extends Control
 
         $form->addText("file", "Vytvoř složku:");
 
-        $form->addHidden("client_id");
-//            ->setDefaultValue($this->getPresenter()->getParameter("id")); //??
-
-        $form->addHidden("parent_id");
-//            ->setDefaultValue($this->getParameter("id"));
-
         $form->addSubmit("create", "Vytvoř");
 
         $form->onSuccess[] = function (Form $form, $values) {
@@ -104,7 +96,7 @@ class FileSystem extends Control
                 $this->filesPM->createDir(
                     $values['file'],
                     (int)$this->clientId,
-                    $values['parent_id'] ? (int)$values['parent_id'] : null
+                    $this->id ? (int)$this->id : null
                 );
                 $this->flashMessage("Složka byla vytvořena.", "ok");
                 $form->setValues([], true);
@@ -155,6 +147,9 @@ class FileSystem extends Control
     public function handleSelectDir(?int $id = null)
     {
         $this->redrawControl("fileList");
+        $this->redrawControl("formUpload");
+        $this->redrawControl("formCreate");
+
     }
 
     public function handleDelete(int $id)
