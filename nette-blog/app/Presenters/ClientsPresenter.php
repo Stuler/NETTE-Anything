@@ -17,7 +17,7 @@ use Nette\Application\UI\Form;
 // TODO: upravit spravanie suborov a zloziek
 // TODO: zobrazenie formulara pre kontaktnu osobu az po zalozeni klienta
 // TODO: modalne okno - pridat klienta
-// TODO: po vytvoreni klienta sa nevracia client_id
+
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
@@ -164,16 +164,16 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $data = (array)$values;
             if ($values['id']) {
                 $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
-                $form->setValues([], true);
                 $this->redrawControl("contactForm");
                 $this->redrawControl("contactList");
             } else {
                 $this->clientsPM->addContactPerson($data);
-	            $form->setValues([], true);
                 $this->redrawControl("contactForm");
                 $this->redrawControl("contactList");
             }
+            $form->setValues(['client_id'=>$values['client_id']], true);
         };
+
         return $form;
     }
 
