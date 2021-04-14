@@ -74,6 +74,7 @@ class FileSystem extends Control
                 (int)$this->clientId,
                 $values['parent_id'] ? (int)$values['parent_id'] : null
             );
+            
             $this->redrawControl("formUpload");
             $this->redrawControl("fileList");
         };
@@ -106,7 +107,8 @@ class FileSystem extends Control
                     $values['parent_id'] ? (int)$values['parent_id'] : null
                 );
                 $this->flashMessage("Složka byla vytvořena.", "ok");
-                $this->redrawControl("formUpload");
+                $form->setValues([], true);
+                $this->redrawControl("formCreate");
                 $this->redrawControl("fileList");
             } catch (FileException $e) {
                 $this->flashMessage($e->getMessage(), "err");
