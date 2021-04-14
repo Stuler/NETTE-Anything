@@ -13,7 +13,11 @@ use Nette;
 use Nette\Application\UI\Form;
 
 // TODO: upravit zobrazenie kontaktnych osob pre jednotlivych klientov
-// tak, aby po kliknuti na kontaktnu osobu sa zobrazili jej udaje v tabulke
+// TODO: po uprave klienta sa neodosle client_id do formulara personForm - neda sa pridat novy klient
+// TODO: upravit spravanie suborov a zloziek
+// TODO: zobrazenie formulara pre kontaktnu osobu az po zalozeni klienta
+// TODO: modalne okno - pridat klienta
+// TODO: po vytvoreni klienta sa nevracia client_id
 
 final class ClientsPresenter extends Nette\Application\UI\Presenter
 {
@@ -29,8 +33,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     /** @var ClientListFactory @inject @internal */
 	public $clientListFactory;
-
-	private $id;
 
 	protected function startup()
 	{
