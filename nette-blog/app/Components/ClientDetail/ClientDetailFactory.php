@@ -17,7 +17,7 @@ class ClientDetailFactory
         $this->container = $container;
     }
 
-    public function create(): ClientList {
+    public function create(): ClientDetail {
         return $this->container->createService("clientDetail");
     }
 }

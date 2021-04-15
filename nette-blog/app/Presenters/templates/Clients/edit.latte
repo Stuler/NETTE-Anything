@@ -5,8 +5,10 @@
 	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
 
 
+{control clientDetail}
 
-	<main class="jumbotron col-sm-4 float-left">
+
+	{*<main class="jumbotron col-sm-4 float-left">
 		<div>
 			<p><a n:href="default">Zpět na výpis klientů</a></p>
 		</div>
@@ -16,7 +18,7 @@
 			{control clientForm}
 		</div>
 
-		{if $isEdit} {*v presenteri v rendri musi byt definovana  premenna isEdit*}
+		{if $isEdit} *}{*v presenteri v rendri musi byt definovana  premenna isEdit*}{*
 
 				<div class="form-group">
 					<h3>Založenie kontaktnej osoby</h3>
@@ -44,19 +46,19 @@
 		{snippet modal}
 			{if isset($showModal)}
 				<div class="modal-content">
-{*					<div class="modal-dialog col-sm-6">*}
+*}{*					<div class="modal-dialog col-sm-6">*}{*
 					<a class="ajax float-right" n:href="closeModal!">X</a>
 
 						{control fileSystem}
-{*					</div>*}
+*}{*					</div>*}{*
 				</div>
 			{/if}
 		{/snippet}
 
-{*		{snippetArea fileSystem}*}
-{*			{control fileSystem}*}
-{*		{/snippetArea}*}
-	</main>
+*}{*		{snippetArea fileSystem}*}{*
+*}{*			{control fileSystem}*}{*
+*}{*		{/snippetArea}*}{*
+	</main>*}
 
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
