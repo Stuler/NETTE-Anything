@@ -69,7 +69,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $this->template->isEdit = $id != null;
     }
 
-    public function createComponentClientForm(): form
+/*    public function createComponentClientForm(): form
     {
         $form = new Form();
 
@@ -114,7 +114,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
          * a zobrazi sa mi formular na vyplnenie kontaktnej osoby
          * getInsertId mi donesie posledne pridane ID
          */
-        $form->onSuccess[] = function (Form $form) {
+/*        $form->onSuccess[] = function (Form $form) {
 
             $values = $form->getValues();
             $data = (array)$values;
@@ -132,9 +132,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             }
         };
         return $form;
-    }
+    }*/
 
-    public function createComponentPersonForm(): Form
+    /*public function createComponentPersonForm(): Form
     {
         $form = new Form();
 
@@ -172,44 +172,45 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         };
 
         return $form;
-    }
+    }*/
 
-    public function createComponentFileSystem(): FileSystem
+/*    public function createComponentFileSystem(): FileSystem
     {
         $fileSystem = $this->fileSystemFactory->create();
         $fileSystem->clientId = $this->getParameter("id");
         return $fileSystem;
-    }
+    }*/
 
-	public function createComponentClientList(): ClientList {
+/*	public function createComponentClientList(): ClientList {
 		$clientList = $this->clientListFactory->create();
         return $clientList;
-	}
+	}*/
+
     /*
      * Funkcia na vykreslenie a upravu kontaktov klienta
      * contactId ma doniest id klienta a vypisat potrebne udaje
      */
-    public function handleEditPerson(int $contactId)
+/*    public function handleEditPerson(int $contactId)
     {
         $values = $this->clientsRepo->fetchContact($contactId);
         $this['personForm']->setDefaults($values);
         $this->redrawControl("contactForm");
-    }
+    }*/
 
-    public function handleDeleteContact(int $contactId)
+/*    public function handleDeleteContact(int $contactId)
     {
         $this->clientsPM->removeContact($contactId);
         $this->redrawControl("contactList");
-    }
+    }*/
 
-    public function handleShowModal()
+/*    public function handleShowModal()
     {
         $this->template->showModal = true;
         $this->redrawControl("modal");
-    }
+    }*/
 
-    public function handleCloseModal()
+/*    public function handleCloseModal()
     {
         $this->redrawControl("modal");
-    }
+    }*/
 }
