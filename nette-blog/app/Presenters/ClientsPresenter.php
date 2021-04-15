@@ -207,4 +207,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $this->template->showModal = true;
         $this->redrawControl("modal");
     }
+
+    public function handleCloseModal()
+    {
+        $this->redrawControl("modal");
+    }
 }

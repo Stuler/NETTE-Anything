@@ -45,15 +45,20 @@
 		<a class="ajax" n:href="showModal!" >Souborový manažer</a>
 		{snippet modal}
 			{if isset($showModal)}
+
 {*				<div class="modal-dialog">*}
 
 						<div class="modal-content">
+							<a class="ajax" n:href="closeModal!" >Zavřít</a>
 							{control fileSystem}
 						</div>
 
 {*				</div>*}
+
 			{/if}
 		{/snippet}
+
+
 
 
 {*		{snippetArea fileSystem}*}
