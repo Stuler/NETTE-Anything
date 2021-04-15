@@ -17,7 +17,9 @@
             {foreach $clients as $client}
                 <tr>
                     <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>
-                    <td><a href="{plink Clients:edit id=>$client[id]}">{$client[name]}</a></td>
+                    <td><a data-toggle="modal" data-target="dialog" href="{plink Clients:edit id=>$client[id]}">
+                            {$client[name]}
+                        </a></td>
                     <td>{$client[ico]}</td>
                     <td>{$client[email]}</td>
                 </tr>

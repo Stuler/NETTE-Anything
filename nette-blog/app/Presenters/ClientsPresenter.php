@@ -174,24 +174,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-/*    public function createComponentFormSearch(): Form
-    {
-        $form = new Form();
-
-        $form->addText("term")->setValue($this->getParameter("term"));
-
-        $form->addSubmit("send", "Vyhledat");
-
-        $form->onSuccess[] = function (Form $form) {
-            $values = $form->getValues();
-            $this->redirect("this", [
-                    "term" => $values['term'] ? $values['term'] : null
-                ]
-            );
-        };
-        return $form;
-    }*/
-
     public function createComponentFileSystem(): FileSystem
     {
         $fileSystem = $this->fileSystemFactory->create();
@@ -218,5 +200,11 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $this->clientsPM->removeContact($contactId);
         $this->redrawControl("contactList");
+    }
+
+    public function handleShowModal()
+    {
+        $this->template->showModal = true;
+        $this->redrawControl("modal");
     }
 }

@@ -4,6 +4,8 @@
 	<link rel="stylesheet" href="{$basePath}/css/normalize.css">
 	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
 
+
+
 	<main class="jumbotron col-sm-4 float-left">
 		<div>
 			<p><a n:href="default">Zpět na výpis klientů</a></p>
@@ -39,9 +41,24 @@
 	</main>
 
 	<main class="jumbotron col-sm-4 float-left">
-		{snippetArea fileSystem}
-			{control fileSystem}
-		{/snippetArea}
+
+		<a class="ajax" n:href="showModal!" >Souborový manažer</a>
+		{snippet modal}
+			{if isset($showModal)}
+{*				<div class="modal-dialog">*}
+
+						<div class="modal-content">
+							{control fileSystem}
+						</div>
+
+{*				</div>*}
+			{/if}
+		{/snippet}
+
+
+{*		{snippetArea fileSystem}*}
+{*			{control fileSystem}*}
+{*		{/snippetArea}*}
 	</main>
 
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
