@@ -44,10 +44,11 @@
 		{snippet modal}
 			{if isset($showModal)}
 				<div class="modal-content">
+{*					<div class="modal-dialog col-sm-6">*}
 					<a class="ajax float-right" n:href="closeModal!">X</a>
-					<div class="modal-dialog col-sm-6">
+
 						{control fileSystem}
-					</div>
+{*					</div>*}
 				</div>
 			{/if}
 		{/snippet}
