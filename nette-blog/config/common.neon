@@ -55,3 +55,9 @@ services:
 		class: App\Components\ClientList\ClientList
 		inject: true
 		autowired: false
+
+	- App\Components\ClientList\ClientDetailFactory
+	clientDetail:
+		class: App\Components\ClientList\ClientDetail
+		inject: true
+		autowired: false

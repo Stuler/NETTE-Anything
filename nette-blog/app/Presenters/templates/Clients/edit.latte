@@ -25,7 +25,6 @@
 					{/snippet}
 				</div>
 
-
 				<ul>
 					{snippet contactList}
 						<li n:foreach="$contacts as $contact">
@@ -36,7 +35,6 @@
 						</li>
 					{/snippet}
 				</ul>
-
 		{/if}
 	</main>
 
@@ -45,23 +43,14 @@
 		<a class="ajax" n:href="showModal!" >Souborový manažer</a>
 		{snippet modal}
 			{if isset($showModal)}
-
-{*				<div class="modal-dialog">*}
-
-						<div class="modal-content">
-							<a class="ajax float-right" n:href="closeModal!">X</a>
-							<div class="modal-dialog col-sm-6">
-								{control fileSystem}
-							</div>
-						</div>
-
-{*				</div>*}
-
+				<div class="modal-content">
+					<a class="ajax float-right" n:href="closeModal!">X</a>
+					<div class="modal-dialog col-sm-6">
+						{control fileSystem}
+					</div>
+				</div>
 			{/if}
 		{/snippet}
-
-
-
 
 {*		{snippetArea fileSystem}*}
 {*			{control fileSystem}*}
