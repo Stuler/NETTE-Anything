@@ -49,8 +49,10 @@
 {*				<div class="modal-dialog">*}
 
 						<div class="modal-content">
-							<a class="ajax" n:href="closeModal!" >Zavřít</a>
-							{control fileSystem}
+							<a class="ajax float-right" n:href="closeModal!">X</a>
+							<div class="modal-dialog col-sm-6">
+								{control fileSystem}
+							</div>
 						</div>
 
 {*				</div>*}
