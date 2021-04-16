@@ -17,7 +17,7 @@
             {foreach $clients as $client}
                 <tr>
                     <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>
-                    <td><a href="{plink Clients:edit id=>$client[id]}">
+                    <td><a class="ajax" n:href="showModal! id=>$client[id]">
                             {$client[name]}
                         </a></td>
                     <td>{$client[ico]}</td>
@@ -26,4 +26,17 @@
             {/foreach}
         </tbody>
     </table>
+
+{*    <main class="jumbotron col-sm-4 float-left">*}
+        {snippet modal }
+            {if isset($showModal)}
+                <div class="modal-content">
+                    {*                    <div class="modal-dialog col-sm-6">*}
+                        <a class="ajax float-right" n:href="closeModal!">X</a>
+                            {control clientDetail}
+{*                    </div>*}
+                </div>
+            {/if}
+        {/snippet}
+{*    </main>*}
 {/snippet}

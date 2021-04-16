@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Components\ClientList;
 
+//use App\Components\ClientDetail\ClientDetail;
+//use App\Components\ClientDetail\ClientDetailFactory;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
@@ -19,6 +21,12 @@ class ClientList extends Control {
 
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
+
+//    /** @var ClientDetailFactory @inject @internal */
+//    public $clientDetailFactory;
+
+    /** @var array */
+    public $onClick; //registracia udalosti - mozem volat ako funkciu
 
 	private $count = null;
 	private $id;
@@ -64,7 +72,25 @@ class ClientList extends Control {
 		return $form;
 	}
 
-	public function handleDelete(int $id) {
+//    public function createComponentClientDetail(): ClientDetail {
+//        $clientDetail = $this->clientDetailFactory->create();
+//        return $clientDetail;
+//    }
+
+    public function handleShowModal(?int $id)
+    {
+//        $this->template->showModal = true;
+//        $this->redrawControl("modal");
+        $this->onClick($id);
+    }
+
+    public function handleCloseModal()
+    {
+        $this->redrawControl("modal");
+    }
+
+
+    public function handleDelete(int $id) {
         $this->clientsPM->removeClient($id);
         $this->redrawControl("list");
 	}

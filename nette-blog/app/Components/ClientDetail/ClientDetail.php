@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Components\ClientDetail;
 
-use App\Components\ClientList\ClientList;
-use App\Components\ClientList\ClientListFactory;
+//use App\Components\ClientList\ClientList;
+//use App\Components\ClientList\ClientListFactory;
 use App\Components\FileSystem\FileSystem;
 use App\Components\FileSystem\FileSystemFactory;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Database\Explorer;
+//use Nette\Database\Explorer;
 use App\Models\ProcessManagers\ClientsProcessManager;
 use App\Models\Repository\ClientsRepository;
 
@@ -24,10 +24,26 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-	/** @var ClientListFactory @inject @internal */
-	public $clientListFactory;
+//	/** @var ClientListFactory @inject @internal */
+//	public $clientListFactory;
+
+    /**
+     * @persistent
+     */
+    public $id;
 
     public function render() {
+
+/*        if ($id) {
+            $client = $this->clientsRepo->fetchById($id);
+            $this['clientForm']->setDefaults($client);
+
+            $client_person = $this->clientsRepo->fetchContactById($id);
+            $this->template->contacts = $client_person;
+
+        }
+        $this->template->isEdit = $id != null;*/
+
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
     }
@@ -88,9 +104,9 @@ class ClientDetail extends Control
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
-				//                $form->setValues($values, true);
-				//	            $this->redrawControl("contactList");
-				$this->redirect("this", ["id" => $id]);
+				$form->setValues($values, true);
+				$this->redrawControl("contactList");
+//				$this->redirect("this", ["id" => $id]);
 			}
 		};
 		return $form;

@@ -61,7 +61,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     * Ak je vyplnene ID, umozni pridat kontaktnu osobu
     *
     */
-    public function renderEdit(?int $id)
+    /*public function renderEdit(?int $id)
     {
         if ($id) {
             $client = $this->clientsRepo->fetchById($id);
@@ -72,12 +72,23 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
         }
         $this->template->isEdit = $id != null;
-    }
+    }*/
 
 	public function createComponentClientDetail(): ClientDetail {
 		$clientDetail = $this->clientDetailFactory->create();
 		return $clientDetail;
 	}
+
+    public function createComponentClientList(): ClientList {
+        $clientList = $this->clientListFactory->create();
+        $clientList->onClick[]=function($id){
+            $this["clientDetail"]->id = $id;
+            $this->template->showModal=true;
+            $this->redrawControl("modal");
+
+                    };
+        return $clientList;
+    }
 
 		/*    public function createComponentClientForm(): form
 			{
@@ -191,10 +202,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 				return $fileSystem;
 			}*/
 
-			public function createComponentClientList(): ClientList {
-				$clientList = $this->clientListFactory->create();
-				return $clientList;
-			}
+
 
 		/*
 		 * Funkcia na vykreslenie a upravu kontaktov klienta
@@ -213,14 +221,15 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 				$this->redrawControl("contactList");
 			}*/
 
-		/*    public function handleShowModal()
+		    public function handleShowModal()
 			{
 				$this->template->showModal = true;
 				$this->redrawControl("modal");
-			}*/
-		/*    public function handleCloseModal()
+			}
+
+		    public function handleCloseModal()
 			{
 				$this->redrawControl("modal");
-			}*/
+			}
 
 }
