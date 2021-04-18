@@ -10,7 +10,7 @@
                 {control clientForm}
             </div>
 
-            {*{if $isEdit}
+            {if $isEdit}
 
 				<div class="form-group">
 					<h3>Založenie kontaktnej osoby</h3>
@@ -27,29 +27,30 @@
 							{$contact[name]}
 							</a>
 						</li>
+
 					{/snippet}
+							{snippetArea fileSystem}
+						{control fileSystem}
+					{/snippetArea}
 				</ul>
-		{/if}*}
+		{/if}
 {*	</main>*}
 
 {*	<main class="jumbotron col-sm-4 float-left">*}
 
-		<a class="ajax" n:href="showModal!" >Souborový manažer</a>
+{*		<a class="ajax" n:href="showModal!" >Souborový manažer</a>
 		{snippet modal}
 			{if isset($showModal)}
 				<div class="modal-content">
 					<div class="modal-dialog col-sm-6">
 					<a class="ajax float-right" n:href="closeModal!">X</a>
-
 						{control fileSystem}
 					</div>
 				</div>
 			{/if}
-		{/snippet}
+		{/snippet}*}
 
-		{snippetArea fileSystem}
-			{control fileSystem}
-		{/snippetArea}
+
 {*	</main>*}
 
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>

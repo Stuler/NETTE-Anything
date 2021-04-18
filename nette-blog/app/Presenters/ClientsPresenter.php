@@ -82,7 +82,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function createComponentClientList(): ClientList {
         $clientList = $this->clientListFactory->create();
         $clientList->onClick[]=function($id){
-            $this["clientDetail"]->id = $id;
+            $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
             $this->template->showModal=true;
             $this->redrawControl("modal");
 

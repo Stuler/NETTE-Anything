@@ -81,7 +81,7 @@ class ClientList extends Control {
     {
 //        $this->template->showModal = true;
 //        $this->redrawControl("modal");
-        $this->onClick($id);
+        $this->onClick($id); //udalost
     }
 
     public function handleCloseModal()

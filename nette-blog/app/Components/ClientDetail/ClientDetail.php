@@ -34,15 +34,15 @@ class ClientDetail extends Control
 
     public function render() {
 
-/*        if ($id) {
-            $client = $this->clientsRepo->fetchById($id);
+    	$clientId = $this->id;
+        if ($this->id) {
+            $client = $this->clientsRepo->fetchById($clientId);
             $this['clientForm']->setDefaults($client);
 
-            $client_person = $this->clientsRepo->fetchContactById($id);
+            $client_person = $this->clientsRepo->fetchContactById($clientId);
             $this->template->contacts = $client_person;
-
         }
-        $this->template->isEdit = $id != null;*/
+        $this->template->isEdit = $clientId != null;
 
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
