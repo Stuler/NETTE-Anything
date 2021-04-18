@@ -29,7 +29,7 @@ class ClientList extends Control {
     public $onClick; //registracia udalosti - mozem volat ako funkciu
 
 	private $count = null;
-	private $id;
+//	private $id;
 
 	public function showOnlyFirst(int $count) {
 		$this->count = $count;

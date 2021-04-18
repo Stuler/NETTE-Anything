@@ -34,7 +34,7 @@ class ClientDetail extends Control
 
     public function render() {
 
-    	$clientId = $this->id;
+    	$clientId = (int)$this->id;
         if ($this->id) {
             $client = $this->clientsRepo->fetchById($clientId);
             $this['clientForm']->setDefaults($client);
@@ -52,7 +52,7 @@ class ClientDetail extends Control
 	{
 		$form = new Form();
 
-		//	    $form->getElementPrototype()->class("ajax");
+		$form->getElementPrototype()->class("ajax");
 
 		$form->addHidden("id")
 			->setDefaultValue($this->getParameter("id"));
@@ -88,11 +88,6 @@ class ClientDetail extends Control
 
 		$form->addSubmit("send", "Založit");
 
-		/*
-		 * pri uspesnom zalozeni noveho klienta sa vratim spat do vyplneneho formulara
-		 * a zobrazi sa mi formular na vyplnenie kontaktnej osoby
-		 * getInsertId mi donesie posledne pridane ID
-		 */
 		$form->onSuccess[] = function (Form $form) {
 
 			$values = $form->getValues();
@@ -100,7 +95,8 @@ class ClientDetail extends Control
 			if ($values['id']) {
 				$this->clientsPM->updateClient((int)$values['id'], (array)$data);
 				$form->setValues($values, true);
-				$this->redrawControl("contactForm");
+				$this->redrawControl("clientForm");
+				$this->redrawControl("default:detail"); //????
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
