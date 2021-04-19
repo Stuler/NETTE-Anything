@@ -96,7 +96,6 @@ class ClientDetail extends Control
 				$this->clientsPM->updateClient((int)$values['id'], (array)$data);
 				$form->setValues($values, true);
 				$this->redrawControl("clientForm");
-				$this->redrawControl("default:detail"); //????
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
