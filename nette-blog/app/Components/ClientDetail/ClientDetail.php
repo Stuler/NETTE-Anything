@@ -41,8 +41,12 @@ class ClientDetail extends Control
 
             $client_person = $this->clientsRepo->fetchContactById($clientId);
             $this->template->contacts = $client_person;
-        }
+        } else{
+		$this->template->contacts = [];
+		}
         $this->template->isEdit = $clientId != null;
+		bdump($clientId);
+		
 
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
@@ -54,8 +58,8 @@ class ClientDetail extends Control
 
 		$form->getElementPrototype()->class("ajax");
 
-		$form->addHidden("id")
-			->setDefaultValue($this->getParameter("id"));
+		$form->addHidden("id");
+		// 	->setDefaultValue($this->getParameter("id"));
 
 		$form->addText("name", "Client name")
 			->addRule(Form::FILLED, "Enter client name");
@@ -96,10 +100,12 @@ class ClientDetail extends Control
 				$this->clientsPM->updateClient((int)$values['id'], (array)$data);
 				$form->setValues($values, true);
 				$this->redrawControl("clientForm");
+				$this->redrawControl("clientList");
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
 				$form->setValues($values, true);
+				$this->redrawControl("clientForm");
 				$this->redrawControl("contactList");
 //				$this->redirect("this", ["id" => $id]);
 			}
@@ -154,10 +160,10 @@ class ClientDetail extends Control
 		return $fileSystem;
 	}
 
-	public function createComponentClientList(): ClientList {
-		$clientList = $this->clientListFactory->create();
-		return $clientList;
-	}
+	// public function createComponentClientList(): ClientList {
+	// 	$clientList = $this->clientListFactory->create();
+	// 	return $clientList;
+	// }
 
 	public function handleEditPerson(int $contactId)
 	{

@@ -85,8 +85,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
             $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
             $this->template->showModal=true;
             $this->redrawControl("modal");
-
-                    };
+		    };
         return $clientList;
     }
 
