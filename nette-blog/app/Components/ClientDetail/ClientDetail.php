@@ -44,8 +44,6 @@ class ClientDetail extends Control
 		$this->template->contacts = [];
 		}
         $this->template->isEdit = $clientId != null;
-		bdump($clientId);
-		
 
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
@@ -58,7 +56,7 @@ class ClientDetail extends Control
 		$form->getElementPrototype()->class("ajax");
 
 		$form->addHidden("id");
-		// 	->setDefaultValue($this->getParameter("id"));
+//		    ->setDefaultValue($this->getParameter("id"));
 
 		$form->addText("name", "Client name")
 			->addRule(Form::FILLED, "Enter client name");
@@ -103,11 +101,17 @@ class ClientDetail extends Control
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
-				$form->setValues($values, true);
+
+				$form->setValues([$values], true);
 				$this->redrawControl("clientForm");
+                $this->redrawControl("contactForm");
 				$this->redrawControl("contactList");
+
+				bdump($values);
+//				$values['id']=$this->id;
 //				$this->redirect("this", ["id" => $id]);
 			}
+//			$form->setValues(['id'=>$this->id], true);
 		};
 		return $form;
 	}
