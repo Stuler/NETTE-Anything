@@ -65,7 +65,7 @@ class ClientsRepository
 	public function addContactPerson(array $data)
 	{
 		unset($data['id']);
-      $client_id = $this->db->table('client')->get('id');
+//        $client_id = $this->db->table('client')->get('id');
 		$this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
 	}
 

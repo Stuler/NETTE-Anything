@@ -24,8 +24,7 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-//	/** @var ClientListFactory @inject @internal */
-//	public $clientListFactory;
+//	public $clientId;
 
     /**
      * @persistent
@@ -121,8 +120,8 @@ class ClientDetail extends Control
 
 		$form->addHidden("id");
 
-		$form->addHidden("client_id")
-			->setDefaultValue($this->getParameter("id"));
+        $form->addHidden("client_id")
+			->setDefaultValue($this->id);
 
 		$form->addText("name", "Meno")
 			->addRule(Form::FILLED, "Uveď meno kontaktnej osoby!");
@@ -147,7 +146,7 @@ class ClientDetail extends Control
 				$this->redrawControl("contactForm");
 				$this->redrawControl("contactList");
 			}
-			$form->setValues(['client_id'=>$values['client_id']], true);
+			$form->setValues(['client_id'=>$this->id], true);
 		};
 
 		return $form;
