@@ -107,8 +107,6 @@ class ClientDetail extends Control
 				$this->redrawControl("form");
 //              $this->redrawControl("contactForm");
 //				$this->redrawControl("contactList");
-
-				bdump($this->clientId);
 //				$values['id']=$this->id;
 //				$this->redirect("this", ["id" => $id]);
 			}
