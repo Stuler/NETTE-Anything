@@ -24,7 +24,7 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-//	public $clientId;
+	public $clientId;
 
     /**
      * @persistent
@@ -33,17 +33,17 @@ class ClientDetail extends Control
 
     public function render() {
 
-    	$clientId = (int)$this->id;
-        if ($this->id) {
-            $client = $this->clientsRepo->fetchById($clientId);
+    	$id = (int)$this->id;
+        if ($id) {
+            $client = $this->clientsRepo->fetchById($id);
             $this['clientForm']->setDefaults($client);
 
-            $client_person = $this->clientsRepo->fetchContactById($clientId);
+            $client_person = $this->clientsRepo->fetchContactById($id);
             $this->template->contacts = $client_person;
         } else{
 		$this->template->contacts = [];
 		}
-        $this->template->isEdit = $clientId != null;
+        $this->template->isEdit = $id != null || $this->clientId != null;
 
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
@@ -101,13 +101,14 @@ class ClientDetail extends Control
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
-
+				$this->clientId = $id;
 				$form->setValues([$values], true);
-				$this->redrawControl("clientForm");
-                $this->redrawControl("contactForm");
-				$this->redrawControl("contactList");
 
-				bdump($values);
+				$this->redrawControl("form");
+//              $this->redrawControl("contactForm");
+//				$this->redrawControl("contactList");
+
+				bdump($this->clientId);
 //				$values['id']=$this->id;
 //				$this->redirect("this", ["id" => $id]);
 			}
