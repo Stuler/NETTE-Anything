@@ -24,12 +24,14 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-	public $clientId;
+//	public $clientId;
 
     /**
      * @persistent
      */
     public $id;
+//    perzistentny parameter $id ziskavam z clientList handleShowModal cez clientsPresenter
+// menim ho po zalozeni koienta - mozem??
 
     public function render() {
 
@@ -43,7 +45,7 @@ class ClientDetail extends Control
         } else{
 		$this->template->contacts = [];
 		}
-        $this->template->isEdit = $id != null || $this->clientId != null;
+        $this->template->isEdit = $id != null; //
 
         $this->template->setFile(__DIR__ . "/clientDetail.latte");
         $this->template->render();
@@ -101,10 +103,10 @@ class ClientDetail extends Control
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
-				$this->clientId = $id;
-				$form->setValues([$values], true);
-
+				$this->id = $id;
+				$form->setDefaults([$values]);
 				$this->redrawControl("form");
+
 //              $this->redrawControl("contactForm");
 //				$this->redrawControl("contactList");
 //				$values['id']=$this->id;
