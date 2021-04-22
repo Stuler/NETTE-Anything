@@ -22,9 +22,6 @@ class ClientList extends Control {
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
 
-//    /** @var ClientDetailFactory @inject @internal */
-//    public $clientDetailFactory;
-
     /** @var array */
     public $onClick; //registracia udalosti - mozem volat ako funkciu
 
@@ -71,11 +68,6 @@ class ClientList extends Control {
 		};
 		return $form;
 	}
-
-//    public function createComponentClientDetail(): ClientDetail {
-//        $clientDetail = $this->clientDetailFactory->create();
-//        return $clientDetail;
-//    }
 
     public function handleShowModal(?int $id)
     {

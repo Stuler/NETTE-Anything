@@ -24,8 +24,6 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-//	public $clientId;
-
     /**
      * @persistent
      */
