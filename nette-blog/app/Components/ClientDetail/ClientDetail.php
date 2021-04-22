@@ -30,8 +30,8 @@ class ClientDetail extends Control
      * @persistent
      */
     public $id;
-//    perzistentny parameter $id ziskavam z clientList handleShowModal cez clientsPresenter
-// menim ho po zalozeni koienta - mozem??
+//   perzistentny parameter $id ziskavam z clientList handleShowModal cez clientsPresenter
+//   menim ho po zalozeni klienta - mozem??
 
     public function render() {
 
@@ -104,7 +104,7 @@ class ClientDetail extends Control
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
 				$this->id = $id;
-				$form->setDefaults([$values]);
+				$form->setDefaults([$values['id']=>$id]);
 				$this->redrawControl("form");
 
 //              $this->redrawControl("contactForm");
@@ -112,7 +112,10 @@ class ClientDetail extends Control
 //				$values['id']=$this->id;
 //				$this->redirect("this", ["id" => $id]);
 			}
-//			$form->setValues(['id'=>$this->id], true);
+
+            //nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta
+			$form->setValues(['id'=>$this->id], false);
+			bdump($this->id);
 		};
 		return $form;
 	}
