@@ -87,7 +87,8 @@ class FileSystem extends Control
 
         $form->addGroup("Vytvoření složky");
 
-        $form->addText("file", "Vytvoř složku:");
+        $form->addText("file", "Vytvoř složku:")
+            ->addRule(Form::FILLED, "Zadaj nazov polozky");
 
         $form->addSubmit("create", "Vytvoř");
 

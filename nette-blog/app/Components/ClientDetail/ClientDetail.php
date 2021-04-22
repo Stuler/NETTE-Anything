@@ -24,7 +24,7 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-//	public $clientId;
+	public $clientId;
 
     /**
      * @persistent
@@ -42,6 +42,7 @@ class ClientDetail extends Control
 
             $client_person = $this->clientsRepo->fetchContactById($id);
             $this->template->contacts = $client_person;
+
         } else{
 		$this->template->contacts = [];
 		}
@@ -98,8 +99,9 @@ class ClientDetail extends Control
 			if ($values['id']) {
 				$this->clientsPM->updateClient((int)$values['id'], (array)$data);
 				$form->setValues($values, true);
-				$this->redrawControl("clientForm");
-				$this->redrawControl("clientList");
+                $this->redrawControl("form");
+//				$this->redrawControl("clientForm");
+//				$this->redrawControl("clientList");
 			} else {
 				$this->clientsPM->addClient($data);
 				$id = $this->clientsRepo->db->getInsertId();
