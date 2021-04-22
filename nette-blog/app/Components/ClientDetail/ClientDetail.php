@@ -31,7 +31,6 @@ class ClientDetail extends Control
      */
     public $id;
 //   perzistentny parameter $id ziskavam z clientList handleShowModal cez clientsPresenter
-//   menim ho po zalozeni klienta - mozem??
 
     public function render() {
 
@@ -59,7 +58,6 @@ class ClientDetail extends Control
 		$form->getElementPrototype()->class("ajax");
 
 		$form->addHidden("id");
-//		    ->setDefaultValue($this->getParameter("id"));
 
 		$form->addText("name", "Client name")
 			->addRule(Form::FILLED, "Enter client name");
@@ -115,7 +113,7 @@ class ClientDetail extends Control
 //				$this->redirect("this", ["id" => $id]);
 			}
 
-            //nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta
+			//nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta
 			$form->setValues(['id'=>$this->id], false);
 			bdump($this->id);
 		};
