@@ -24,7 +24,7 @@ class ClientDetail extends Control
 	/** @var FileSystemFactory @inject @internal */
 	public $fileSystemFactory;
 
-	public $clientId;
+//	public $clientId;
 
     /**
      * @persistent
@@ -165,7 +165,7 @@ class ClientDetail extends Control
 	public function createComponentFileSystem(): FileSystem
 	{
 		$fileSystem = $this->fileSystemFactory->create();
-		$fileSystem->clientId = $this->getParameter("id");
+		$fileSystem->clientId = $this->id;
 		return $fileSystem;
 	}
 
