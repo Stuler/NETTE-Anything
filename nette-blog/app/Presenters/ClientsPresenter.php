@@ -90,7 +90,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $clientList = $this->clientListFactory->create();
 //        $clientList->table = "client";
-//        $clientList->columns = ["id", "name", "phone"];
+//        $clientList->columns = ["id", "name", "phone"]; akchcem zobrazit nejake konkretne stlpce
 //        $clientList->table = "client_person";
 //        $clientList->relationColumn = "client_id";
 //        $clientList->relationValue = 3;
