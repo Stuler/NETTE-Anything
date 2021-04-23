@@ -81,7 +81,6 @@ class ClientList extends Control {
         $this->redrawControl("modal");
     }
 
-
     public function handleDelete(int $id) {
         $this->clientsPM->removeClient($id);
         $this->redrawControl("list");

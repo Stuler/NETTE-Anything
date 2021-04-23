@@ -21,14 +21,21 @@ class ClientDetail extends Control
 	/** @var ClientsRepository @inject @internal */
 	public $clientsRepo;
 
-	/** @var FileSystemFactory @inject @internal */
-	public $fileSystemFactory;
+    /** @var FileSystemFactory @inject @internal */
+    public $fileSystemFactory;
+
+    /**
+     * zaregistrujem udalost - mozne len v triedach odvodenych od Control (komponenty)
+     * @var array
+     */
+    public $onChange;
 
     /**
      * @persistent
      */
     public $id;
-//   perzistentny parameter $id ziskavam z clientList handleShowModal cez clientsPresenter
+
+//   perzistentny parameter $id ziskavam z clientList handleShowModal
 
     public function render() {
 
@@ -141,22 +148,21 @@ class ClientDetail extends Control
 
 		$form->addSubmit("send", "Pridať kontaktnú osobu");
 
-		$form->onSuccess[] = function (Form $form, $values) {
-			$data = (array)$values;
-			if ($values['id']) {
-				$this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
-				$this->redrawControl("contactForm");
-				$this->redrawControl("contactList");
-			} else {
-				$this->clientsPM->addContactPerson($data);
-				$this->redrawControl("contactForm");
-				$this->redrawControl("contactList");
-			}
-			$form->setValues(['client_id'=>$this->id], true);
-		};
-
-		return $form;
-	}
+        $form->onSuccess[] = function (Form $form, $values) {
+            $data = (array)$values;
+            if ($values['id']) {
+                $this->clientsPM->updateContactPerson((int)$values['id'], (array)$data);
+                $this->redrawControl("contactForm");
+                $this->redrawControl("contactList");
+            } else {
+                $this->clientsPM->addContactPerson($data);
+                $this->redrawControl("contactForm");
+                $this->redrawControl("contactList");
+            }
+            $form->setValues(['client_id' => $this->id], true);
+        };
+        return $form;
+    }
 
 	public function createComponentFileSystem(): FileSystem
 	{
@@ -189,8 +195,8 @@ class ClientDetail extends Control
 		$this->redrawControl("modal");
 	}
 
-	public function handleCloseModal()
-	{
-		$this->redrawControl("modal");
-	}
+    public function handleCloseModal()
+    {
+        $this->redrawControl("modal");
+    }
 }
