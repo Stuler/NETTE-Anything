@@ -28,7 +28,6 @@ class FileSystem extends Control
     public function render()
     {
         $clientId = $this->clientId;
-        bdump($this->clientId);
         $this->template->items = $this->filesPM->getFilesAndDirs($clientId);
 
         $fileId = $this->id;
