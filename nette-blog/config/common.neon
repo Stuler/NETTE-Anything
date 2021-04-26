@@ -61,3 +61,9 @@ services:
 		class: App\Components\ClientDetail\ClientDetail
 		inject: true
 		autowired: false
+
+	- App\Components\CustomList\CustomListFactory
+	customList:
+		class: App\Components\CustomList\CustomList
+		inject: true
+		autowired: false
