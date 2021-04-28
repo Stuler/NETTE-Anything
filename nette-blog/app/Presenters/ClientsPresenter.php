@@ -112,6 +112,12 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
         $customList->setTable("client");
         $customList->setColumns(["name","email"]);
+
+        $customList->onClick[] = function ($id) {
+            $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
+            $this->template->showModal = true;
+            $this->redrawControl("modal");
+        };
         return $customList;
     }
 

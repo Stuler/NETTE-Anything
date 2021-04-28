@@ -28,6 +28,9 @@ class CustomList extends Control
     /** @var int */
     private $relationValue;
 
+    /** @var array */
+    public $onClick;
+
     public function render()
     {
         $searchTerm = $this->getParameter("term");
@@ -74,4 +77,19 @@ class CustomList extends Control
 		};
 		return $form;
 	}
+
+    public function handleShowModal(?int $id)
+    {
+        $this->onClick($id);
+    }
+
+    public function handleCloseModal()
+    {
+        $this->redrawControl("modal");
+    }
+
+    public function handleDelete(int $id) {
+        $this->clientsPM->removeClient($id);
+        $this->redrawControl("list");
+    }
 }

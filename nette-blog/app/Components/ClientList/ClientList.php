@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Components\ClientList;
 
-//use App\Components\ClientDetail\ClientDetail;
-//use App\Components\ClientDetail\ClientDetailFactory;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;

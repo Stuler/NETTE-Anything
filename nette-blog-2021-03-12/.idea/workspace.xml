@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="" />
+    <list default="true" id="9005876e-99d6-43ce-b4e7-111d707fb375" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../nette-blog-2021-03-14/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog-2021-03-14/.idea/nette-blog-2021-03-14.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog-2021-03-14/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog-2021-03-14/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog-2021-03-14/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nette-blog/app/www/workDir/nahoru.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nette-blog/app/Components/ClientList/clientList.latte" beforeDir="false" afterPath="$PROJECT_DIR$/../nette-blog/app/Components/ClientList/clientList.latte" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +67,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../nette-blog" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -85,6 +94,9 @@
       <workItem from="1617351999201" duration="5539000" />
       <workItem from="1617712839196" duration="1417000" />
       <workItem from="1618143822692" duration="616000" />
+      <workItem from="1619335618968" duration="715000" />
+      <workItem from="1619375424435" duration="2260000" />
+      <workItem from="1619550853627" duration="38000" />
     </task>
     <servers />
   </component>

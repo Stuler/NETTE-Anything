@@ -1,22 +1,22 @@
 {block content}
-
+    {snippet list}
         <table>
             <thead>
-            <tr>
-                <th></th>
-                <th>Název</th>
-                <th>IČO</th>
-                <th>Email</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Název</th>
+                    <th>IČO</th>
+                    <th>Email</th>
+                </tr>
             </thead>
 
             <tbody>
             {foreach $clients as $client}
                 <tr>
-{*                    <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>*}
-{*                    <td><a class="ajax" n:href="showModal! id=>$client[id]"> vyplnam formular klienta po kliknuti*}
-                                <td>{$client[name]}</td>
-{*                        </a></td>*}
+                    <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>
+                    <td><a class="ajax" n:href="showModal! id=>$client[id]">
+                                {$client[name]}
+                        </a></td>
                     <td>{$client[ico]}</td>
                     <td>{$client[email]}</td>
                 </tr>
@@ -24,4 +24,16 @@
             </tbody>
         </table>
 
+        {snippet modal }
+            {if isset($showModal)}
+                <div class="modal-content">
+
+                        <a class="ajax float-right" n:href="closeModal!">X</a>
+                            {control clientDetail}
+
+                </div>
+            {/if}
+        {/snippet}
+
+    {/snippet}
 {/block}
