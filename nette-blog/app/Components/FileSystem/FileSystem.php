@@ -12,7 +12,6 @@ use Nette\Application\UI\Form;
 
 class FileSystem extends Control
 {
-
     /** @var FilesProcessManager @inject @internal */
     public $filesPM;
 
