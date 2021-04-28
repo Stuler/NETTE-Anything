@@ -17,33 +17,44 @@ class CustomList extends Control
     public $clientsRepo;
 
     /** @var string tabulka z databaze */
-    private $table;
+    private $tableName;
 
     /** @var array zoznam dat na vykreslenie */
     private $columns = [];
 
-    /** @var spolocny kluc */
+    /** @var string spolocny kluc */
     private $relativeColumn;
 
     /** @var int */
     private $relationValue;
 
-    public function renderClientList()
+    public function render()
     {
         $searchTerm = $this->getParameter("term");
         if ($searchTerm) {
 			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
 		} else {
-			$this->template->clients = $this->clientsRepo->fetchAllActive();
+/* pre vypis klientov potrebujem:
+ *  - nazov tabulky
+ *  - vyber stlpcov z db
+*/
+            $this->template->columns = $this->columns;
+			$this->template->clients = $this->clientsRepo->fetchAllCustom($this->tableName);
 		}
         $this->template->setFile(__DIR__ . "/customList.latte");
         $this->template->render();
     }
 
-    public function renderContactList()
-    {
-        $this->template->setFile(__DIR__ . "/customList.latte");
-        $this->template->render();
+    public function setTable(string $tableName) {
+        $this->tableName=$tableName;
+    }
+
+    public function setColumns(array $columns) {
+        $this->columns = $columns;
+    }
+
+    public function setRelVal(int $relationValue) {
+        $this->relationValue = $relationValue;
     }
 
     public function createComponentFormSearch(): Form

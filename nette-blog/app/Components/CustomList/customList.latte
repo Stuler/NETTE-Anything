@@ -1,0 +1,27 @@
+{block content}
+
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>Název</th>
+                <th>IČO</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {foreach $clients as $client}
+                <tr>
+{*                    <td><a class="ajax" n:href="delete! id=>$client[id]">X</a></td>*}
+{*                    <td><a class="ajax" n:href="showModal! id=>$client[id]"> vyplnam formular klienta po kliknuti*}
+                                <td>{$client[name]}</td>
+{*                        </a></td>*}
+                    <td>{$client[ico]}</td>
+                    <td>{$client[email]}</td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+
+{/block}

@@ -88,4 +88,11 @@ class ClientsRepository
     {
         $this->db->query("DELETE FROM $this->clientPersonTable WHERE id=?", $id);
     }
+
+    //    Pre CustomList
+    public function fetchAllCustom(string $tableName): array
+    {
+        return $this->db->query("SELECT * FROM $tableName")->fetchAll();
+    }
+
 }
