@@ -15,9 +15,16 @@ class CustomList extends Control
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
 
+    /** @var string tabulka z databaze */
     private $table;
-    private $columns;
+
+    /** @var array zoznam dat na vykreslenie */
+    private $columns = [];
+
+    /** @var spolocny kluc */
     private $relativeColumn;
+
+    /** @var int */
     private $relationValue;
 
     public function renderClientList()
