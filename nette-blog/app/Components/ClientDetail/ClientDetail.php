@@ -9,6 +9,8 @@ use App\Components\FileSystem\FileSystem;
 use App\Components\FileSystem\FileSystemFactory;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use App\Components\CustomList\CustomList;
+use App\Components\CustomList\CustomListFactory;
 
 //use Nette\Database\Explorer;
 use App\Models\ProcessManagers\ClientsProcessManager;
@@ -21,6 +23,9 @@ class ClientDetail extends Control
 
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
+
+    /** @var CustomListFactory @inject @internal*/
+    public $customListFactory;
 
     /** @var FileSystemFactory @inject @internal */
     public $fileSystemFactory;
@@ -164,6 +169,20 @@ class ClientDetail extends Control
             $form->setValues(['client_id' => $this->id], true);
         };
         return $form;
+    }
+
+    public function createComponentCustomList(): CustomList
+    {
+        $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
+        $customList->setTable("client_person");
+        $customList->setColumns(["name"]);
+
+        $customList->onClick[] = function ($id) {
+            $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
+            $this->template->showModal = true;
+            $this->redrawControl("modal");
+        };
+        return $customList;
     }
 
     public function createComponentFileSystem(): FileSystem

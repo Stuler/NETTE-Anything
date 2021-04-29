@@ -20,14 +20,15 @@
 				</div>
 
 				<ul>
-					{snippet contactList}
+					{* {snippet contactList}
 						<li n:foreach="$contacts as $contact">
 							<a class="ajax" href="{link deleteContact! contactId=>$contact[id]}">X</a>
 							<a class="ajax" n:href="editPerson! contactId => $contact['id']">
 							{$contact[name]}
 							</a>
 						</li>
-					{/snippet}
+					{/snippet} *}
+					{control customList}
 
 					{snippet fileSystem}
 						{control fileSystem}
