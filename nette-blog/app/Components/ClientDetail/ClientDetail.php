@@ -176,7 +176,7 @@ class ClientDetail extends Control
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
         $customList->setTable("client_person");
         $customList->addColumn("name", "Jméno");
-        $customList->setRelation("client_id", $id);
+        $customList->setRelation("client_id", $id); // zadam foreign key pre dotaz z repozitara
 
         $customList->onClick[] = function ($id) {
             $this["customList"]->id = $id; //posielam perzistentny parameter do clientDetail

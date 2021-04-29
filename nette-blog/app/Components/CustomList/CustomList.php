@@ -57,6 +57,7 @@ class CustomList extends Control
         $this->columns[] = ["name"=>$columnName, "label"=>$label];
     }
 
+    /* Nastavim prepojenie tabuliek - foreign key a jeho hodnotu ID */
     public function setRelation(string $column, int $relationValue) {
         $this->relationColumn = $column;
         $this->relationValue = $relationValue;
