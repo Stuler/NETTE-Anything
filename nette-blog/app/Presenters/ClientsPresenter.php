@@ -37,7 +37,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     /** @var ClientDetailFactory @inject @internal */
     public $clientDetailFactory;
 
-    /** @var CustomListFactory @inject @internal*/
+    /** @var CustomListFactory @inject @internal */
     public $customListFactory;
 
     protected function startup()

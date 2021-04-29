@@ -23,13 +23,14 @@ class ClientsRepository
     /*
      * Vyskladanie vyhladavacieho stringu
      */
-    public function fetchAllActiveBySearchTerm(string $term): array {
+    public function fetchAllActiveBySearchTerm(string $term): array
+    {
         $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->clientTable' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME"); //preco neberie $this->db?
         $likes = [];
         $values = [];
         foreach ($cols as $column) {
-           $likes[] = "`$column` LIKE ?";
-           $values[] = "%$term%";
+            $likes[] = "`$column` LIKE ?";
+            $values[] = "%$term%";
         }
         $conditionQuery = implode(" OR ", $likes);
         return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
@@ -40,18 +41,18 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
     }
 
-	public function fetchContactById(?int $id): array
-	{
-		return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE client_id=?", $id)->fetchAll();
-	}
+    public function fetchContactById(?int $id): array
+    {
+        return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE client_id=?", $id)->fetchAll();
+    }
 
-	public function fetchContact(?int $id)
-	{
-		return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
-	}
+    public function fetchContact(?int $id)
+    {
+        return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+    }
 
 
-	public function add(string $name)
+    public function add(string $name)
     {
         $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
     }
@@ -62,22 +63,22 @@ class ClientsRepository
         $this->db->query("INSERT INTO $this->clientTable ?", $data);
     }
 
-	public function addContactPerson(array $data)
-	{
-		unset($data['id']);
+    public function addContactPerson(array $data)
+    {
+        unset($data['id']);
 //        $client_id = $this->db->table('client')->get('id');
-		$this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
-	}
+        $this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
+    }
 
     public function updateClient(int $id, array $data)
     {
-        $this->db->query("UPDATE $this->clientTable SET ? WHERE id=?",$data, $id);
+        $this->db->query("UPDATE $this->clientTable SET ? WHERE id=?", $data, $id);
     }
 
-	public function updateContactPerson(int $id, array $data)
-	{
-		$this->db->query("UPDATE $this->clientPersonTable SET ? WHERE id=?",$data, $id);
-	}
+    public function updateContactPerson(int $id, array $data)
+    {
+        $this->db->query("UPDATE $this->clientPersonTable SET ? WHERE id=?", $data, $id);
+    }
 
     public function remove(int $id)
     {
@@ -90,7 +91,7 @@ class ClientsRepository
     }
 
     //    Pre CustomList
-    public function fetchAllCustom(string $tableName): array
+    public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue): array
     {
         if (!$relativeColumn) {
             return $this->db->query("SELECT * FROM $tableName")->fetchAll();
