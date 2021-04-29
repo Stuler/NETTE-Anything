@@ -84,7 +84,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
         // volam udalost onChange
         $clientDetail->onChange[] = function () {
-            $this['clientList']->redrawControl();
+            $this['customList']->redrawControl();
         };
         return $clientDetail;
     }

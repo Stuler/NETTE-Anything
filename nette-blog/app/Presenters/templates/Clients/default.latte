@@ -14,8 +14,10 @@
             <p><a class="ajax" n:href="showModal!">Založit klienta</a></p>
         </div>
 
+        <h2>Seznam klientů</h2>
+
         {snippet detail}
-            {control clientList}
+            {control customList}
         {/snippet}
     </main>
 
@@ -32,9 +34,9 @@
         {/snippet}
     </main>
 
-    {snippet detail2}
-        {control customList}
-    {/snippet}
+{*    {snippet detail2}*}
+{*        {control customList}*}
+{*    {/snippet}*}
 
 
 <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
