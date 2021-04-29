@@ -41,4 +41,8 @@ class ClientsProcessManager {
 		$this->clientsRepo->removeContact($id);
 	}
 
+    public function removeCustom(string $tableName, int $id) {
+        $this->clientsRepo->removeCustom($tableName, $id);
+    }
+
 }

@@ -175,7 +175,7 @@ class ClientDetail extends Control
     {
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
         $customList->setTable("client_person");
-        $customList->setColumns(["name"]);
+        $customList->addColumn("name", "Jméno");
 
         $customList->onClick[] = function ($id) {
             $this["customList"]->id = $id; //posielam perzistentny parameter do clientDetail

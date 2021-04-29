@@ -95,4 +95,8 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM $tableName")->fetchAll();
     }
 
+    public function removeCustom(string $tableName, int $id)
+    {
+        $this->db->query("DELETE FROM $tableName WHERE id=?", $id);
+    }
 }

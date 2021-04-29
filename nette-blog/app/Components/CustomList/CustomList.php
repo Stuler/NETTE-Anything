@@ -54,15 +54,12 @@ class CustomList extends Control
         $this->tableName=$tableName;
     }
 
-    public function setRelCol(string $relationColumn) {
-        $this->relationColumn=$relationColumn;
+    public function addColumn(string $columnName, string $label) {
+        $this->columns[] = ["name"=>$columnName, "label"=>$label];
     }
 
-    public function setColumns(array $columns) {
-        $this->columns = $columns;
-    }
-
-    public function setRelVal(int $relationValue) {
+    public function setRelation(string $column, int $relationValue) {
+        $this->relationColumn = $column;
         $this->relationValue = $relationValue;
     }
 
@@ -94,8 +91,9 @@ class CustomList extends Control
         $this->redrawControl("modal");
     }
 
-    public function handleDelete(int $id) {
-        $this->clientsPM->removeClient($id);
+    public function handleRemoveCustom(int $id) {
+        $tableName = $this->tableName;
+        $this->clientsPM->removeCustom($tableName,$id);
         $this->redrawControl("list");
     }
 }
