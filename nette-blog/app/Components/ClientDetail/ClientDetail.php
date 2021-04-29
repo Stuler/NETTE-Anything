@@ -40,7 +40,6 @@ class ClientDetail extends Control
      * @persistent
      */
     public $id;
-
 //   perzistentny parameter $id ziskavam z clientList handleShowModal
 
     public function render()
@@ -173,9 +172,11 @@ class ClientDetail extends Control
 
     public function createComponentCustomList(): CustomList
     {
+        $id = (int)$this->id;
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
         $customList->setTable("client_person");
         $customList->addColumn("name", "Jméno");
+        $customList->setRelation("client_id", $id);
 
         $customList->onClick[] = function ($id) {
             $this["customList"]->id = $id; //posielam perzistentny parameter do clientDetail

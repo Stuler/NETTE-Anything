@@ -92,7 +92,11 @@ class ClientsRepository
     //    Pre CustomList
     public function fetchAllCustom(string $tableName): array
     {
-        return $this->db->query("SELECT * FROM $tableName")->fetchAll();
+        if (!$relativeColumn) {
+            return $this->db->query("SELECT * FROM $tableName")->fetchAll();
+        } else {
+            return $this->db->query("SELECT * FROM $tableName WHERE $relativeColumn = $relativeValue")->fetchAll();
+        }
     }
 
     public function removeCustom(string $tableName, int $id)

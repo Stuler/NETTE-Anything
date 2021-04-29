@@ -33,6 +33,7 @@ class CustomList extends Control
 
     public function render()
     {
+
         $searchTerm = $this->getParameter("term");
         if ($searchTerm) {
 			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
@@ -42,9 +43,7 @@ class CustomList extends Control
  *  - vyber stlpcov z db
 */
             $this->template->columns = $this->columns;
-            $this->template->relationValue = $this->relationValue;
-            $this->template->relationColumn = $this->relationColumn;
-			$this->template->clients = $this->clientsRepo->fetchAllCustom($this->tableName);
+			$this->template->items = $this->clientsRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue);
 		}
         $this->template->setFile(__DIR__ . "/customList.latte");
         $this->template->render();

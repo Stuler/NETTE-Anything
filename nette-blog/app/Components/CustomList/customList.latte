@@ -10,13 +10,13 @@
         </thead>
 
         <tbody>
-        {foreach $clients as $client}
+        {foreach $items as $item}
             <tr>
-                <td><a class="ajax" n:href="removeCustom! id=>$client[id]">X</a></td>
+                <td><a class="ajax" n:href="removeCustom! id=>$item[id]">X</a></td>
                 {foreach $columns as $column}
                     <td>
-                        <a class="ajax" n:href="showModal! id=>$client[id]">
-                            {$client[$column[name]]}
+                        <a class="ajax" n:href="showModal! id=>$item[id]">
+                            {$item[$column[name]]}
                         </a>
                     </td>
                 {/foreach}
