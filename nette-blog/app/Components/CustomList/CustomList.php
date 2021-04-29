@@ -23,7 +23,7 @@ class CustomList extends Control
     private $columns = [];
 
     /** @var string spolocny kluc */
-    private $relativeColumn;
+    private $relationColumn;
 
     /** @var int */
     private $relationValue;
@@ -42,6 +42,8 @@ class CustomList extends Control
  *  - vyber stlpcov z db
 */
             $this->template->columns = $this->columns;
+            $this->template->relationValue = $this->relationValue;
+            $this->template->relationColumn = $this->relationColumn;
 			$this->template->clients = $this->clientsRepo->fetchAllCustom($this->tableName);
 		}
         $this->template->setFile(__DIR__ . "/customList.latte");
@@ -50,6 +52,10 @@ class CustomList extends Control
 
     public function setTable(string $tableName) {
         $this->tableName=$tableName;
+    }
+
+    public function setRelCol(string $relationColumn) {
+        $this->relationColumn=$relationColumn;
     }
 
     public function setColumns(array $columns) {

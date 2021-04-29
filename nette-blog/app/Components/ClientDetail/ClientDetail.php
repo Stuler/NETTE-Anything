@@ -178,7 +178,7 @@ class ClientDetail extends Control
         $customList->setColumns(["name"]);
 
         $customList->onClick[] = function ($id) {
-            $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
+            $this["customList"]->id = $id; //posielam perzistentny parameter do clientDetail
             $this->template->showModal = true;
             $this->redrawControl("modal");
         };
