@@ -93,10 +93,30 @@ class ClientsRepository
     //    Pre CustomList
     public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue): array
     {
-        if (!$relativeColumn) {
-            return $this->db->query("SELECT * FROM $tableName")->fetchAll();
+        $allCols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME");
+        foreach ($allCols as $col) {
+
+        }
+        $likes = [];
+        $values = [];
+        foreach ($cols as $column) {
+            if (in_array($column, $columns)) {
+                $likes[] = "`$column` LIKE ?";
+                $values[] = "%$searchTerm%";
+                }
+            }
+        $conditionQuery = implode(" OR ", $likes);
+
+        if (!$searchTerm) {
+            if (!$relativeColumn) {
+                return $this->db->query("SELECT * FROM $tableName")->fetchAll();
+            } else {
+                return $this->db->query("SELECT * FROM $tableName WHERE $relativeColumn = $relativeValue")->fetchAll();
+            }
         } else {
-            return $this->db->query("SELECT * FROM $tableName WHERE $relativeColumn = $relativeValue")->fetchAll();
+            if (!$relativeColumn) {
+                return $this->db->query("SELECT * FROM $tableName WHERE $conditionQuery", ...$values)->fetchAll();
+            }
         }
     }
 
