@@ -15,6 +15,7 @@ use App\Components\CustomList\CustomListFactory;
 //use Nette\Database\Explorer;
 use App\Models\ProcessManagers\ClientsProcessManager;
 use App\Models\Repository\ClientsRepository;
+use Nette\Database\Explorer;
 
 class ClientDetail extends Control
 {
@@ -24,11 +25,14 @@ class ClientDetail extends Control
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
 
-    /** @var CustomListFactory @inject @internal*/
+    /** @var CustomListFactory @inject @internal */
     public $customListFactory;
 
     /** @var FileSystemFactory @inject @internal */
     public $fileSystemFactory;
+
+    /** @var Explorer @inject @internal */
+    public $db;
 
     /**
      * zaregistrujem udalost - mozne len v triedach odvodenych od Control (komponenty)
@@ -177,11 +181,10 @@ class ClientDetail extends Control
 
     public function createComponentCustomList(): CustomList
     {
-        $id = (int)$this->id;
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
         $customList->setTable("client_person");
         $customList->addColumn("name", "Jméno");
-        $customList->setRelation("client_id", $id); // zadam foreign key pre dotaz z repozitara
+        $customList->setRelation("client_id", (int)$this->id); // zadam foreign key pre dotaz z repozitara
 
         $customList->onClick[] = function ($contactId) {
             $this->contactId = $contactId;

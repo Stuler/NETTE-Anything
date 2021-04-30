@@ -31,36 +31,18 @@ class CustomList extends Control
     /** @var array */
     public $onClick;
 
+    private $searchTerm;
+
     public function render()
     {
-
-        $searchTerm = $this->getParameter("term");
-        if ($searchTerm) {
-			$this->template->clients = $this->clientsRepo->fetchAllActiveBySearchTerm($searchTerm);
-		} else {
-/* pre vypis klientov potrebujem:
- *  - nazov tabulky
- *  - vyber stlpcov z db
-*/
-            $this->template->columns = $this->columns;
-			$this->template->items = $this->clientsRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue);
-		}
+        /* pre vypis klientov potrebujem:
+         *  - nazov tabulky
+         *  - vyber stlpcov z db
+        */
+        $this->template->columns = $this->columns;
+        $this->template->items = $this->clientsRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue, $this->searchTerm, $this->columns);
         $this->template->setFile(__DIR__ . "/customList.latte");
         $this->template->render();
-    }
-
-    public function setTable(string $tableName) {
-        $this->tableName=$tableName;
-    }
-
-    public function addColumn(string $columnName, string $label) {
-        $this->columns[] = ["name"=>$columnName, "label"=>$label];
-    }
-
-    /* Nastavim prepojenie tabuliek - foreign key a jeho hodnotu ID */
-    public function setRelation(string $column, int $relationValue) {
-        $this->relationColumn = $column;
-        $this->relationValue = $relationValue;
     }
 
     public function createComponentFormSearch(): Form
@@ -69,19 +51,16 @@ class CustomList extends Control
         $form = new Form();
         $form->getElementPrototype()->class("ajax");
 
-		$form->addText("term")->setValue($this->getParameter("term"));
+        $form->addText("term");
 
-		$form->addSubmit("send", "Vyhledat");
+        $form->addSubmit("send", "Vyhledat");
 
-		$form->onSuccess[] = function (Form $form) {
-			$values = $form->getValues();
-			$this->redirect("this", [
-					"term" => $values['term'] ? $values['term'] : null
-				]
-			);
-		};
-		return $form;
-	}
+        $form->onSuccess[] = function (Form $form, $values) {
+            $this->searchTerm = $values['term'];
+            $this->redrawControl("list");
+        };
+        return $form;
+    }
 
     public function handleEditCustom(?int $id)
     {
@@ -93,9 +72,28 @@ class CustomList extends Control
         $this->redrawControl("modal");
     }
 
-    public function handleRemoveCustom(int $id) {
+    public function handleRemoveCustom(int $id)
+    {
         $tableName = $this->tableName;
-        $this->clientsPM->removeCustom($tableName,$id);
+        $this->clientsPM->removeCustom($tableName, $id);
         $this->redrawControl("list");
+    }
+
+
+    public function setTable(string $tableName)
+    {
+        $this->tableName = $tableName;
+    }
+
+    public function addColumn(string $columnName, string $label)
+    {
+        $this->columns[] = ["name" => $columnName, "label" => $label];
+    }
+
+    /* Nastavim prepojenie tabuliek - foreign key a jeho hodnotu ID */
+    public function setRelation(string $column, int $relationValue)
+    {
+        $this->relationColumn = $column;
+        $this->relationValue = $relationValue;
     }
 }

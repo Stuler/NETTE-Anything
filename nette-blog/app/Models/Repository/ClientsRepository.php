@@ -91,7 +91,7 @@ class ClientsRepository
     }
 
     //    Pre CustomList
-    public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue): array
+    public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue, ?string $searchTerm = null, ?array $columns): array
     {
         $allCols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME");
         foreach ($allCols as $col) {
