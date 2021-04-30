@@ -40,6 +40,9 @@ class ClientDetail extends Control
      * @persistent
      */
     public $id;
+
+    public $contactId;
+
 //   perzistentny parameter $id ziskavam z clientList handleShowModal
 
     public function render()
@@ -165,7 +168,9 @@ class ClientDetail extends Control
                 $this->redrawControl("contactForm");
                 $this->redrawControl("contactList");
             }
+
             $form->setValues(['client_id' => $this->id], true);
+
         };
         return $form;
     }
@@ -178,10 +183,11 @@ class ClientDetail extends Control
         $customList->addColumn("name", "Jméno");
         $customList->setRelation("client_id", $id); // zadam foreign key pre dotaz z repozitara
 
-        $customList->onClick[] = function ($id) {
-            $this["customList"]->id = $id; //posielam perzistentny parameter do clientDetail
-            $this->template->showModal = true;
-            $this->redrawControl("modal");
+        $customList->onClick[] = function ($contactId) {
+            $this->contactId = $contactId;
+            $clientPerson = $this->db->table("client_person")->where("id", $contactId)->fetch();
+            $this['personForm']->setDefaults($clientPerson);
+            $this->redrawControl("contactForm");
         };
         return $customList;
     }

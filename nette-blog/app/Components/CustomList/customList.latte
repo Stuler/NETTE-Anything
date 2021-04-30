@@ -15,7 +15,7 @@
                 <td><a class="ajax" n:href="removeCustom! id=>$item[id]">X</a></td>
                 {foreach $columns as $column}
                     <td>
-                        <a class="ajax" n:href="showModal! id=>$item[id]">
+                        <a class="ajax" n:href="editCustom! id=>$item[id]">
                             {$item[$column[name]]}
                         </a>
                     </td>

@@ -64,8 +64,10 @@ class CustomList extends Control
     }
 
     public function createComponentFormSearch(): Form
-	{
-		$form = new Form();
+    {
+        //upravit vyhladavacie dotazy podla columns
+        $form = new Form();
+        $form->getElementPrototype()->class("ajax");
 
 		$form->addText("term")->setValue($this->getParameter("term"));
 
@@ -81,7 +83,7 @@ class CustomList extends Control
 		return $form;
 	}
 
-    public function handleShowModal(?int $id)
+    public function handleEditCustom(?int $id)
     {
         $this->onClick($id);
     }
