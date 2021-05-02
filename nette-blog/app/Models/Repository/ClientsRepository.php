@@ -90,22 +90,28 @@ class ClientsRepository
         $this->db->query("DELETE FROM $this->clientPersonTable WHERE id=?", $id);
     }
 
-    //    Pre CustomList
+//        Pre CustomList
+
     public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue, ?string $searchTerm = null, ?array $columns): array
     {
         $allCols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME");
-        foreach ($allCols as $col) {
-
-        }
         $likes = [];
         $values = [];
-        foreach ($cols as $column) {
-            if (in_array($column, $columns)) {
+        $colNames = [];
+        $selectedCols = [];
+        foreach ($columns as $column){
+            array_push($selectedCols, array_values($column));
+            }
+        bdump($columns);
+
+        foreach ($allCols as $column) {
+            if (in_array($column, $colNames)) {
                 $likes[] = "`$column` LIKE ?";
                 $values[] = "%$searchTerm%";
                 }
             }
         $conditionQuery = implode(" OR ", $likes);
+
 
         if (!$searchTerm) {
             if (!$relativeColumn) {
