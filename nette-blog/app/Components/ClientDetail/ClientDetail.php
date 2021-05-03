@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Components\ClientDetail;
 
-//use App\Components\ClientList\ClientList;
-//use App\Components\ClientList\ClientListFactory;
 use App\Components\FileSystem\FileSystem;
 use App\Components\FileSystem\FileSystemFactory;
 use Nette\Application\UI\Control;
@@ -41,13 +39,10 @@ class ClientDetail extends Control
     public $onChange;
 
     /**
-     * @persistent
+     * @persistent perzistentny parameter $id ziskavam z clientList handleShowModal
      */
     public $id;
-
     public $contactId;
-
-//   perzistentny parameter $id ziskavam z clientList handleShowModal
 
     public function render()
     {
@@ -116,19 +111,12 @@ class ClientDetail extends Control
                 $this->clientsPM->updateClient((int)$values['id'], (array)$data);
                 $form->setValues($values, true);
                 $this->redrawControl("form");
-//				$this->redrawControl("clientForm");
-//				$this->redrawControl("clientList");
             } else {
                 $this->clientsPM->addClient($data);
                 $id = $this->clientsRepo->db->getInsertId();
                 $this->id = $id;
                 $form->setDefaults([$values['id'] => $id]);
                 $this->redrawControl("form");
-
-//              $this->redrawControl("contactForm");
-//				$this->redrawControl("contactList");
-//				$values['id']=$this->id;
-//				$this->redirect("this", ["id" => $id]);
             }
 
             //nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta
@@ -201,11 +189,6 @@ class ClientDetail extends Control
         $fileSystem->clientId = $this->id;
         return $fileSystem;
     }
-
-    // public function createComponentClientList(): ClientList {
-    // 	$clientList = $this->clientListFactory->create();
-    // 	return $clientList;
-    // }
 
     public function handleEditPerson(int $contactId)
     {

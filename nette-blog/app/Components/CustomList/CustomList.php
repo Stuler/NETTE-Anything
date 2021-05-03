@@ -16,16 +16,16 @@ class CustomList extends Control
     /** @var ClientsRepository @inject @internal */
     public $clientsRepo;
 
-    /** @var string tabulka z databaze */
+    /** @var string vytiahnem tabulku z databaze */
     private $tableName;
 
-    /** @var array zoznam dat na vykreslenie */
+    /** @var array zoznam dat na vykreslenie - zoznam stlpcov tabulky*/
     private $columns = [];
 
-    /** @var string spolocny kluc */
+    /** @var string spolocny stlpec - pre vykreslenie dat podla foreign ID*/
     private $relationColumn;
 
-    /** @var int */
+    /** @var int hodnota foreign ID*/
     private $relationValue;
 
     /** @var array */
@@ -62,6 +62,9 @@ class CustomList extends Control
         return $form;
     }
 
+    /**
+     * Vytvorim nasluchac onClick, ktory je spracovany v clientDetail
+     */
     public function handleEditCustom(?int $id)
     {
         $this->onClick($id);

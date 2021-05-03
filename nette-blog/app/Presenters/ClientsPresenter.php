@@ -82,7 +82,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $clientDetail = $this->clientDetailFactory->create();
 
-        // volam udalost onChange
+        // volam udalost onChange - prekresli zoznam klientov po vytvoreni noveho klienta
         $clientDetail->onChange[] = function () {
             $this['customList']->redrawControl();
         };
@@ -93,12 +93,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function createComponentClientList(): ClientList
     {
         $clientList = $this->clientListFactory->create();
-//        $customList->table = "client";
-//        $customList->columns = ["id", "name", "phone"]; akchcem zobrazit nejake konkretne stlpce
-//        $customList->table = "client_person";
-//        $customList->relationColumn = "client_id";
-//        $customList->relationValue = 3;
-
         $clientList->onClick[] = function ($id) {
             $this["clientDetail"]->id = $id; //posielam perzistentny parameter do clientDetail
             $this->template->showModal = true;
@@ -110,8 +104,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function createComponentCustomList(): CustomList
     {
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
+//      pouzijem SETTER metody pre vytvorenie zoznamu
         $customList->setTable("client");
-//        $customList->setColumns(["name","ico", "email"]);
         $customList->addColumn("name", "Název");
         $customList->addColumn("ico", "IČO");
         $customList->addColumn("email", "Email");
@@ -124,16 +118,10 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $customList;
     }
 
-    /*    public function createComponentFileSystem(): FileSystem
-        {
-            $fileSystem = $this->fileSystemFactory->create();
-            $fileSystem->clientId = $this->getParameter("id");
-            return $fileSystem;
-        }*/
-
     /*
      * Funkcia na vykreslenie a upravu kontaktov klienta
      * contactId ma doniest id klienta a vypisat potrebne udaje
+     * vyradena funkcia po vytvoreni komponenty customList
      */
     /*    public function handleEditPerson(int $contactId)
         {
