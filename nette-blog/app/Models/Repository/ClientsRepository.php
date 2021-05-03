@@ -97,15 +97,14 @@ class ClientsRepository
         $allCols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME");
         $likes = [];
         $values = [];
-        $colNames = [];
         $selectedCols = [];
         foreach ($columns as $column){
-            array_push($selectedCols, array_values($column));
-            }
-        bdump($columns);
+            array_push($selectedCols, $column['name']);
+        }
+        bdump($selectedCols);
 
         foreach ($allCols as $column) {
-            if (in_array($column, $colNames)) {
+            if (in_array($column, $selectedCols)) {
                 $likes[] = "`$column` LIKE ?";
                 $values[] = "%$searchTerm%";
                 }
