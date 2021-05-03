@@ -47,7 +47,6 @@ class CustomList extends Control
 
     public function createComponentFormSearch(): Form
     {
-        //upravit vyhladavacie dotazy podla columns
         $form = new Form();
         $form->getElementPrototype()->class("ajax");
 
@@ -88,6 +87,7 @@ class CustomList extends Control
         $this->tableName = $tableName;
     }
 
+    /* Pridam stlpce, ktore chcem v zozname zobrazit*/
     public function addColumn(string $columnName, string $label)
     {
         $this->columns[] = ["name" => $columnName, "label" => $label];

@@ -82,5 +82,4 @@ class FilesRepository
     {
         $this->db->query("UPDATE $this->fileTable SET ? WHERE id=?", ["name" => $name], $id);
     }
-
 }

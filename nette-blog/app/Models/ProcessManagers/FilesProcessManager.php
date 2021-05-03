@@ -7,12 +7,7 @@ use App\Models\Repository\FilesRepository;
 use Nette\Http\FileUpload;
 use Nette\Utils\Random;
 
-// TODO pri vytvoreni zlozky check, ci uz neexistuje
-// TODO Jednotna funkcia pre uploat aj create
-/* OTAZKY
-1. mazanie suborov s rovnakym nazvom ( a s hashom)
-2. po vymazani mi v URL ostane id vymazanej zlozky- ako odstranit?
-*/
+// TODO BUGFIX - vymazanie premenovaneho suboru!
 
 class FilesProcessManager
 {
