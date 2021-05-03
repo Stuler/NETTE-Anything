@@ -4,17 +4,17 @@ declare(strict_types=1);
 namespace App\Components\CustomList;
 
 use Nette\Application\UI\Control;
-use App\Models\ProcessManagers\ClientsProcessManager;
-use App\Models\Repository\ClientsRepository;
 use Nette\Application\UI\Form;
+use App\Components\CustomList\Models\CustomRepository;
+use App\Components\CustomList\Models\CustomProcessManager;
 
 class CustomList extends Control
 {
-    /** @var ClientsProcessManager @inject @internal */
-    public $clientsPM;
+    /** @var CustomProcessManager @inject @internal */
+    public $customPM;
 
-    /** @var ClientsRepository @inject @internal */
-    public $clientsRepo;
+    /** @var CustomRepository @inject @internal */
+    public $customRepo;
 
     /** @var string vytiahnem tabulku z databaze */
     private $tableName;
@@ -40,7 +40,7 @@ class CustomList extends Control
          *  - vyber stlpcov z db
         */
         $this->template->columns = $this->columns;
-        $this->template->items = $this->clientsRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue, $this->searchTerm, $this->columns);
+        $this->template->items = $this->customRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue, $this->searchTerm, $this->columns);
         $this->template->setFile(__DIR__ . "/customList.latte");
         $this->template->render();
     }
@@ -78,7 +78,7 @@ class CustomList extends Control
     public function handleRemoveCustom(int $id)
     {
         $tableName = $this->tableName;
-        $this->clientsPM->removeCustom($tableName, $id);
+        $this->customPM->removeCustom($tableName, $id);
         $this->redrawControl("list");
     }
 

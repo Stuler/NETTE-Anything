@@ -98,10 +98,10 @@ class ClientsRepository
         $likes = [];
         $values = [];
         $selectedCols = [];
+
         foreach ($columns as $column){
             array_push($selectedCols, $column['name']);
         }
-        bdump($selectedCols);
 
         foreach ($allCols as $column) {
             if (in_array($column, $selectedCols)) {
@@ -109,8 +109,8 @@ class ClientsRepository
                 $values[] = "%$searchTerm%";
                 }
             }
-        $conditionQuery = implode(" OR ", $likes);
 
+        $conditionQuery = implode(" OR ", $likes);
 
         if (!$searchTerm) {
             if (!$relativeColumn) {

@@ -67,3 +67,11 @@ services:
 		class: App\Components\CustomList\CustomList
 		inject: true
 		autowired: false
+
+	customProcessManager:
+	    factory: App\Components\CustomList\Models\CustomProcessManager
+	    inject: true
+
+	customRepository:
+	    factory: App\Components\CustomList\Models\CustomRepository
+	    inject: true
