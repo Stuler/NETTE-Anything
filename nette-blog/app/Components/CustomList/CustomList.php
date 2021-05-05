@@ -53,10 +53,17 @@ class CustomList extends Control
         $form->addText("term");
 
         $form->addSubmit("send", "Vyhledat");
+        $form->addSubmit("clear", "Vyčistit");
 
         $form->onSuccess[] = function (Form $form, $values) {
-            $this->searchTerm = $values['term'];
-            $this->redrawControl("list");
+            if ($form['send']->isSubmittedBy()) {
+                $this->searchTerm = $values['term'];
+                $this->redrawControl("list");
+            } else {
+                $form->reset();
+                $this->redrawControl("formSearch");
+                $this->redrawControl("list");
+            };
         };
         return $form;
     }

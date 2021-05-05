@@ -7,8 +7,6 @@ use App\Models\Repository\FilesRepository;
 use Nette\Http\FileUpload;
 use Nette\Utils\Random;
 
-// TODO BUGFIX - vymazanie premenovaneho suboru!
-
 class FilesProcessManager
 {
     const PATH = __DIR__ . '/../../www/workDir';
