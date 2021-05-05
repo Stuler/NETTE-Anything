@@ -1,0 +1,32 @@
+{block content}
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/css/normalize.css">
+	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+
+{*	<div>
+		<table>
+			<tbody>
+			{foreach $contacts as $contact}
+				<tr>
+					<td>{$contact->name}</td>
+					<td>{$contact->email}</td>
+				</tr>
+			{/foreach}
+			</tbody>
+		</table>
+	</div>*}
+
+	<div>
+		<table>
+			<tbody>
+				<tr>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	<script src="{$absoluteUrl}/bundle/dev.bundle.main.js"></script>
+{/block}

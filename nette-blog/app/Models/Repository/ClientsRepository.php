@@ -6,6 +6,8 @@ namespace App\Models\Repository;
 use Nette\Database\Context;
 use Nette\Database\Explorer;
 use Nette\Database\Row;
+use Nette\Database\Table\ActiveRow;
+use Nette\Database\Table\Selection;
 
 class ClientsRepository
 {
@@ -90,43 +92,16 @@ class ClientsRepository
         $this->db->query("DELETE FROM $this->clientPersonTable WHERE id=?", $id);
     }
 
-//        Pre CustomList
-
-    public function fetchAllCustom(string $tableName, ?string $relativeColumn, ?int $relativeValue, ?string $searchTerm = null, ?array $columns): array
+//    TEST DATABASE/EXPLORER
+    public function getAll(): Selection
     {
-        $allCols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$tableName' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME");
-        $likes = [];
-        $values = [];
-        $selectedCols = [];
-
-        foreach ($columns as $column){
-            array_push($selectedCols, $column['name']);
-        }
-
-        foreach ($allCols as $column) {
-            if (in_array($column, $selectedCols)) {
-                $likes[] = "`$column` LIKE ?";
-                $values[] = "%$searchTerm%";
-                }
-            }
-
-        $conditionQuery = implode(" OR ", $likes);
-
-        if (!$searchTerm) {
-            if (!$relativeColumn) {
-                return $this->db->query("SELECT * FROM $tableName")->fetchAll();
-            } else {
-                return $this->db->query("SELECT * FROM $tableName WHERE $relativeColumn = $relativeValue")->fetchAll();
-            }
-        } else {
-            if (!$relativeColumn) {
-                return $this->db->query("SELECT * FROM $tableName WHERE $conditionQuery", ...$values)->fetchAll();
-            }
-        }
+        return $this->db->table('client'); // vrati vsetkych klientov
     }
 
-    public function removeCustom(string $tableName, int $id)
+    public function getOne(int $id): ActiveRow
     {
-        $this->db->query("DELETE FROM $tableName WHERE id=?", $id);
+        return $this->db->table('client')->get($id);//vrati klienta so zadanym id
     }
+
+
 }

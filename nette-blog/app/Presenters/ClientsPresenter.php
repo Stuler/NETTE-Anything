@@ -15,6 +15,9 @@ use App\Components\ClientDetail\ClientDetail;
 use App\Components\ClientDetail\ClientDetailFactory;
 use App\Components\CustomList\CustomList;
 use App\Components\CustomList\CustomListFactory;
+use Nette\Database\Explorer;
+use Nette\Database\Table\ActiveRow;
+use Nette\Database\Table\Selection;
 
 // TODO: upravit spravanie suborov a zloziek
 // TODO: modalne okno - pridat klienta
@@ -39,6 +42,9 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 
     /** @var CustomListFactory @inject @internal */
     public $customListFactory;
+
+    /** @var Explorer @inject @internal */
+    public $db;
 
     protected function startup()
     {
@@ -78,6 +84,35 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         $this->template->isEdit = $id != null;
     }*/
 
+    public function renderTest(?int $id)
+    {
+
+        $clients = $this->clientsRepo->getAll();
+        $this->template->contacts = $clients;
+
+/*        $oneClient = $this->clientsRepo->getOne((int) $id=50);
+        $this->template->oneContact = $oneClient;*/
+
+//        $contacts = $this->clientsRepo->getAllContacts();
+//        $this->template->clientsContacts = $contacts;
+
+        $clients = $this->db->table('client')->where('name=? OR email=?', 'Moravia Cans','peter.jurek@gmail.com'  );
+        foreach ($clients as $client){
+            echo 'Name: '.$client->name.' <br />';
+            echo 'Contacts: ';
+            foreach ($client->related('client_person') as $clientPerson){
+                echo $clientPerson->name.' <br />';
+            }
+        };
+
+
+
+
+
+
+
+    }
+
     public function createComponentClientDetail(): ClientDetail
     {
         $clientDetail = $this->clientDetailFactory->create();
@@ -89,7 +124,6 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
         return $clientDetail;
     }
 
-// TODO: napisat univerzalnu komponentu pre zoznam klientov a kontaktov
     public function createComponentClientList(): ClientList
     {
         $clientList = $this->clientListFactory->create();
