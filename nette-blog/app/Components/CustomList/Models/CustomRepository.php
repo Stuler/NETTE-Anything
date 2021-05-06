@@ -19,16 +19,17 @@ class CustomRepository
         $values = [];
         $selectedCols = [];
 
-        foreach ($columns as $column){
-            array_push($selectedCols, $column['name']);
+        foreach ($columns as $column) {
+            $selectedCols[] = $column['name'];
+//            array_push($selectedCols, $column['name']);
         }
 
         foreach ($allCols as $column) {
             if (in_array($column, $selectedCols)) {
                 $likes[] = "`$column` LIKE ?";
                 $values[] = "%$searchTerm%";
-                }
             }
+        }
 
         $conditionQuery = implode(" OR ", $likes);
 
@@ -43,6 +44,26 @@ class CustomRepository
                 return $this->db->query("SELECT * FROM $tableName WHERE $conditionQuery", ...$values)->fetchAll();
             }
         }
+
+//        $query = $this->db->table($tableName);
+//        if ($searchTerm) {
+//            $likes = [];
+//            $values = [];
+//            foreach ($allCols as $column) {
+//                if (in_array($column, $selectedCols)) {
+//                    $likes[] = "`$column` LIKE ?";
+//                    $values[] = "%$searchTerm%";
+//                }
+//            }
+//            $query->where($conditionQuery, ...$values);
+//        }
+//        if ($relativeColumn) {
+//            $query->where($relativeColumn, $relativeValue);
+//        }
+//
+//
+//        return $query->fetchAll();
+
     }
 
     public function removeCustom(string $tableName, int $id)

@@ -90,8 +90,8 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
 //        $clients = $this->clientsRepo->getAll();
 //        $this->template->contacts = $clients;
 
-/*        $oneClient = $this->clientsRepo->getOne((int) $id=50);
-        $this->template->oneContact = $oneClient;*/
+        /*        $oneClient = $this->clientsRepo->getOne((int) $id=50);
+                $this->template->oneContact = $oneClient;*/
 
 //        $contacts = $this->clientsRepo->getAllContacts();
 //        $this->template->clientsContacts = $contacts;
