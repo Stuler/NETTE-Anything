@@ -87,28 +87,50 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     public function renderTest(?int $id)
     {
 
-        $clients = $this->clientsRepo->getAll();
-        $this->template->contacts = $clients;
+//        $clients = $this->clientsRepo->getAll();
+//        $this->template->contacts = $clients;
 
-/*        $oneClient = $this->clientsRepo->getOne((int) $id=50);
-        $this->template->oneContact = $oneClient;*/
+        /*        $oneClient = $this->clientsRepo->getOne((int) $id=50);
+                $this->template->oneContact = $oneClient;*/
 
 //        $contacts = $this->clientsRepo->getAllContacts();
 //        $this->template->clientsContacts = $contacts;
 
-        $clients = $this->db->table('client')->where('name=? OR email=?', 'Moravia Cans','peter.jurek@gmail.com'  );
-        foreach ($clients as $client){
-            echo 'Name: '.$client->name.' <br />';
-            echo 'Contacts: ';
-            foreach ($client->related('client_person') as $clientPerson){
-                echo $clientPerson->name.' <br />';
+//        $clients = $this->db->table('client')->where('name=? OR email=?', 'Moravia Cans','peter.jurek@gmail.com'  );
+//        $clients = $this->db->table('client')->select('id, name, ico, email');
+//        $contacts = $this->db->table('client_person');
+//        $contacts->group('client_person.client.');
+//        $clients->having('ico');
+        $clients = $this->db->table('client');
+        // ->where(":client_person.name LIKE ?", "%Rastislav%");
+        foreach ($clients as $client) {
+//            echo 'Name: ' . $client->name . ' <br />';
+//            echo 'Contacts: ';
+            foreach ($client->related('client_person')->where("name LIKE ?", "%Peter%") as $clientPerson) {
+                echo $clientPerson->name . '-' . $clientPerson->client->name . '<br />';
             }
-        };
+//        $contacts = $this->db->table('client_person');
+//        $contacts->where('client.name LIKE ?','%moravia%');
+//        foreach ($contacts as $contact){
+//            echo 'Contact: '.$contact->name.'<br/>';
 
+        }
+        echo "-----------------<br />";
+        $contacts = $this->db->table('client_person')
+            ->where("client_person.name LIKE ?", "%Peter%")
+            ->where("client.name LIKE ? ", "%Moravia%");
+//            ->where("client.date_created > ?", Explorer::literal("NOW()"));
+        foreach ($contacts as $contact) {
+            echo $contact->name . ' - ' . $contact->client->name . ' <br />';
+//            echo $contact->name . " - " . $contact->ref("client", "client_id")->name;
+//            echo $contact->name . " - " . $contact->ref("login", "created_by")->name;
+//            echo $contact->name . " - " . $contact->ref("login", "for_login_id")->name;
+        }
 
-
-
-
+//        $this->db->table("client")->insert([
+//            "name" => "Anything",
+//            "date_created" => Explorer::literal("NOW()")
+//        ]);
 
 
     }

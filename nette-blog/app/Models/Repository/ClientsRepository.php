@@ -100,7 +100,7 @@ class ClientsRepository
 //    TEST DATABASE/EXPLORER
     public function getAll(): Selection
     {
-        return $this->db->table('client'); // vrati vsetkych klientov
+        return $this->db->table('client')->select('name'); // vrati vsetkych klientov
     }
 
     public function getOne(int $id): ActiveRow
