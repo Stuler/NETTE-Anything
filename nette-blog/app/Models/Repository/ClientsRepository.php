@@ -17,9 +17,14 @@ class ClientsRepository
     /** @var Explorer @inject @internal */
     public $db;
 
-    public function fetchAllActive(): array
+/*    public function fetchAllActive(): array
     {
         return $this->db->query("SELECT * FROM $this->clientTable")->fetchAll();
+    }*/
+
+    public function fetchAllActive(): Selection
+    {
+        return $this->db->table('client');
     }
 
     /*
