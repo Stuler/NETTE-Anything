@@ -41,13 +41,13 @@ class CustomRepository
             } else {
 //                return $this->db->query("SELECT * FROM $tableName WHERE $relativeColumn = $relativeValue")->fetchAll();
                 return $this->db->table($tableName)
-                    ->where('$relativeColumn = ?', $relativeValue);
+                    ->where($relativeColumn, $relativeValue);
             }
         } else {
             if (!$relativeColumn) {
 //                return $this->db->query("SELECT * FROM $tableName WHERE $conditionQuery", ...$values)->fetchAll();
                 return $this->db->table($tableName)
-                    ->where('$conditionQuery', ...$values);
+                    ->where($conditionQuery, ...$values);
             }
         }
 

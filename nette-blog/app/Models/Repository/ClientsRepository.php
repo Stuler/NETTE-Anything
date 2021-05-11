@@ -43,21 +43,26 @@ class ClientsRepository
         return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
     }
 
-    public function fetchById(int $id): ?Row
+    public function fetchById(int $id): ActiveRow
     {
-        return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
+        // return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
+        return $this->db->table('client')
+            ->get($id);
     }
 
-    public function fetchContactById(?int $id): array
+    public function fetchContactById(?int $id): ?ActiveRow
     {
-        return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE client_id=?", $id)->fetchAll();
+        // return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE client_id=?", $id)->fetchAll();
+        return $this->db->table('client_person')
+            ->get($id);
     }
 
     public function fetchContact(?int $id)
     {
-        return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+        // return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+        return $this->db->table('client_person')
+            ->get($id);
     }
-
 
     public function add(string $name)
     {
