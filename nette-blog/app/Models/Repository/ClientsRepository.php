@@ -28,9 +28,10 @@ class ClientsRepository
     }
 
     /*
-     * Vyskladanie vyhladavacieho stringu
+     * Vyskladanie vyhladavacieho
+     * Obsolete
      */
-    public function fetchAllActiveBySearchTerm(string $term): array
+/*    public function fetchAllActiveBySearchTerm(string $term): Selection
     {
         $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->clientTable' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME"); //preco neberie $this->db?
         $likes = [];
@@ -40,8 +41,10 @@ class ClientsRepository
             $values[] = "%$term%";
         }
         $conditionQuery = implode(" OR ", $likes);
-        return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
-    }
+//        return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
+        return $this->db->table('client')
+            ->where($conditionQuery, ...$values);
+    }*/
 
     public function fetchById(int $id): ActiveRow
     {
@@ -57,29 +60,37 @@ class ClientsRepository
             ->get($id);
     }
 
-    public function fetchContact(?int $id)
+    /** Obsolete */
+/*    public function fetchContact(?int $id)
     {
         // return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
         return $this->db->table('client_person')
             ->get($id);
-    }
+    }*/
 
+/*    OBSOLETE
     public function add(string $name)
     {
-        $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
-    }
+//        $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
+        $this->db->table('client')->insert([
+            'name' => $name
+        ]);
+    }*/
 
     public function addClient(array $data)
     {
         unset($data['id']);
-        $this->db->query("INSERT INTO $this->clientTable ?", $data);
+//        $this->db->query("INSERT INTO $this->clientTable ?", $data);
+        $this->db->table('client')->insert($data);
+        $id = $this->db->getInsertId();
+        bdump($id);
     }
 
     public function addContactPerson(array $data)
     {
         unset($data['id']);
-//        $client_id = $this->db->table('client')->get('id');
-        $this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
+//        $this->db->query("INSERT INTO $this->clientPersonTable ?", $data);
+        $this->db->table('client_person')->insert([$data]);
     }
 
     public function updateClient(int $id, array $data)

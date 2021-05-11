@@ -117,6 +117,7 @@ class ClientDetail extends Control
                 $this->id = $id;
                 $form->setDefaults([$values['id'] => $id]);
                 $this->redrawControl("form");
+                bdump($this->id);
             }
 
             //nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta
@@ -190,12 +191,13 @@ class ClientDetail extends Control
         return $fileSystem;
     }
 
-    // public function handleEditPerson(int $contactId)
-    // {
-    //     $values = $this->clientsRepo->fetchContact($contactId);
-    //     $this['personForm']->setDefaults($values);
-    //     $this->redrawControl("contactForm");
-    // }
+    /** Obsolete */
+    /*     public function handleEditPerson(int $contactId)
+     {
+         $values = $this->clientsRepo->fetchContact($contactId);
+         $this['personForm']->setDefaults($values);
+         $this->redrawControl("contactForm");
+     }*/
 
     public function handleDeleteContact(int $contactId)
     {

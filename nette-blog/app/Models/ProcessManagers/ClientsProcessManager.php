@@ -13,9 +13,10 @@ class ClientsProcessManager {
 	public function __construct() {
 	}
 
-	public function add(string $name) {
+/*	Obsolete
+    public function add(string $name) {
 		$this->clientsRepo->add($name);
-	}
+	}*/
 
     public function addClient(array $data) {
         $this->clientsRepo->addClient($data);
