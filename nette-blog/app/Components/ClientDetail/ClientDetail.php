@@ -113,9 +113,7 @@ class ClientDetail extends Control
                 $this->redrawControl("form");
             } else {
                 $id = $this->clientsPM->addClient($data);
-                // $id = $this->clientsRepo->db->getInsertId(); - nefunguje s explorer db
                 $this->id = $id;
-                $form->setDefaults([$values['id'] => $id]);
                 $this->redrawControl("form");
             }
 

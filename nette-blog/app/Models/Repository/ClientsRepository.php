@@ -27,25 +27,6 @@ class ClientsRepository
         return $this->db->table('client');
     }
 
-    /*
-     * Vyskladanie vyhladavacieho
-     * Obsolete
-     */
-/*    public function fetchAllActiveBySearchTerm(string $term): Selection
-    {
-        $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->clientTable' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME"); //preco neberie $this->db?
-        $likes = [];
-        $values = [];
-        foreach ($cols as $column) {
-            $likes[] = "`$column` LIKE ?";
-            $values[] = "%$term%";
-        }
-        $conditionQuery = implode(" OR ", $likes);
-//        return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
-        return $this->db->table('client')
-            ->where($conditionQuery, ...$values);
-    }*/
-
     public function fetchById(int $id): ActiveRow
     {
         // return $this->db->query("SELECT * FROM $this->clientTable WHERE id=?", $id)->fetch();
@@ -59,23 +40,6 @@ class ClientsRepository
         return $this->db->table('client_person')
             ->get($id);
     }
-
-    /** Obsolete */
-/*    public function fetchContact(?int $id)
-    {
-        // return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
-        return $this->db->table('client_person')
-            ->get($id);
-    }*/
-
-/*    OBSOLETE
-    public function add(string $name)
-    {
-//        $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
-        $this->db->table('client')->insert([
-            'name' => $name
-        ]);
-    }*/
 
     public function addClient(array $data)
     {
@@ -94,34 +58,72 @@ class ClientsRepository
 
     public function updateClient(int $id, array $data)
     {
-        $this->db->query("UPDATE $this->clientTable SET ? WHERE id=?", $data, $id);
+//        $this->db->query("UPDATE $this->clientTable SET ? WHERE id=?", $data, $id);
+        $this->db->table('client')
+            ->where('id', $id)
+            ->update($data);
     }
 
     public function updateContactPerson(int $id, array $data)
     {
-        $this->db->query("UPDATE $this->clientPersonTable SET ? WHERE id=?", $data, $id);
+//        $this->db->query("UPDATE $this->clientPersonTable SET ? WHERE id=?", $data, $id);
+        $this->db->table('client_person')
+            ->where('id', $id)
+            ->update($data);
     }
 
-    public function remove(int $id)
+    /** Obsolete */
+    /*
+     * Vyskladanie vyhladavacieho stringu
+     * Obsolete
+     */
+    /*    public function fetchAllActiveBySearchTerm(string $term): Selection
+        {
+            $cols = $this->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '$this->clientTable' AND TABLE_SCHEMA='clients'")->fetchPairs(null, "COLUMN_NAME"); //preco neberie $this->db?
+            $likes = [];
+            $values = [];
+            foreach ($cols as $column) {
+                $likes[] = "`$column` LIKE ?";
+                $values[] = "%$term%";
+            }
+            $conditionQuery = implode(" OR ", $likes);
+    //        return $this->db->query("SELECT * FROM `$this->clientTable` WHERE $conditionQuery", ...$values)->fetchAll();
+            return $this->db->table('client')
+                ->where($conditionQuery, ...$values);
+        }*/
+
+    /*    public function fetchContact(?int $id)
+        {
+            // return $this->db->query("SELECT * FROM $this->clientPersonTable WHERE id=?", $id)->fetch();
+            return $this->db->table('client_person')
+                ->get($id);
+        }*/
+
+    /*    OBSOLETE
+        public function add(string $name)
+        {
+    //        $this->db->query("INSERT INTO $this->clientTable ?", ["name" => $name]);
+            $this->db->table('client')->insert([
+                'name' => $name
+            ]);
+        }*/
+
+
+/*  OBSOLETE
+ *     public function remove(int $id)
     {
         $this->db->query("DELETE FROM $this->clientTable WHERE id=?", $id);
-    }
+        $this->db->table('client')
+            ->where('id',$id)
+            ->delete();
+    }*/
 
-    public function removeContact(int $id)
+/*     OBSOLETE
+ *     public function removeContact(int $id)
     {
         $this->db->query("DELETE FROM $this->clientPersonTable WHERE id=?", $id);
-    }
-
-//    TEST DATABASE/EXPLORER
-    public function getAll(): Selection
-    {
-        return $this->db->table('client')->select('name'); // vrati vsetkych klientov
-    }
-
-    public function getOne(int $id): ActiveRow
-    {
-        return $this->db->table('client')->get($id);//vrati klienta so zadanym id
-    }
-
-
+        $this->db->table('client_person')
+            ->where('id', $id)
+            ->delete();
+    }*/
 }
