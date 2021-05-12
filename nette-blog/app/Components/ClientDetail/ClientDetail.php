@@ -112,12 +112,11 @@ class ClientDetail extends Control
                 $form->setValues($values, true);
                 $this->redrawControl("form");
             } else {
-                $this->clientsPM->addClient($data);
-                $id = $this->clientsRepo->db->getInsertId();
+                $id = $this->clientsPM->addClient($data);
+                // $id = $this->clientsRepo->db->getInsertId(); - nefunguje s explorer db
                 $this->id = $id;
                 $form->setDefaults([$values['id'] => $id]);
                 $this->redrawControl("form");
-                bdump($this->id);
             }
 
             //nastavi id do formulara a nevymaze jeho hodnoty - mozem editovat klienta

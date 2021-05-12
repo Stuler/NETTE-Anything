@@ -19,7 +19,8 @@ class ClientsProcessManager {
 	}*/
 
     public function addClient(array $data) {
-        $this->clientsRepo->addClient($data);
+        $id = $this->clientsRepo->addClient($data);
+		return $id;
     }
 
 	public function addContactPerson(array $data) {
