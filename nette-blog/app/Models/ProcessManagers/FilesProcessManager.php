@@ -120,13 +120,14 @@ class FilesProcessManager
         $file = $this->filesRepo->fetchById($id);
 
         if (!$file['is_dir']) {
-            $filePath = $this->getFilePath($id);
+//            $filePath = $this->getFilePath($id);
+//            bdump($filePath);
             $newFilePath = $this->setFilePath($name);
-            rename($filePath, $newFilePath);
+            rename($path, $newFilePath);
             $this->filesRepo->rename($name, $newFilePath, $id);
         } else
             if (empty($similar)) {
-                $this->filesRepo->rename($name, $newFilePath, $id);
+                $this->filesRepo->rename($name, $path, $id);
             } else {
                 throw new FileException("Složka již existuje");
             }
