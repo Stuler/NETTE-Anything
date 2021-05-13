@@ -78,7 +78,7 @@ class FilesRepository
             ->fetchAll();
     }
 
-    public function fetchByParent(?int $id): array
+    public function fetchByParent(?int $id)
     {
         // return $this->db->query("SELECT * from $this->fileTable WHERE parent_id=?", $id)->fetchAll();
         return $this->db->table('file')
@@ -96,11 +96,14 @@ class FilesRepository
     }
 
     // UPDATE functions
-    public function rename(string $name, int $id)
+    public function rename(string $name, string $path, int $id)
     {
         // $this->db->query("UPDATE $this->fileTable SET ? WHERE id=?", ["name" => $name], $id);
         $this->db->table('file')
             ->where('id', $id)
-            ->update(['name'=>$name]);
+            ->update([
+                'name'=>$name,
+                'file_path'=>$path
+            ]);
     }
 }

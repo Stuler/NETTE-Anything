@@ -124,6 +124,8 @@ class FileSystem extends Control
         $form->addHidden("id")
             ->setDefaultValue($this->getParameter("id"));
 
+        $form->addHidden("file_path");
+
         $form->addSubmit("rename", "Přejmenuj");
 
         $form->onSuccess[] = function (Form $form) {
@@ -131,6 +133,7 @@ class FileSystem extends Control
             try {
                 $this->filesPM->rename(
                     $values['name'],
+                    $values['file_path'],
                     $values['client_id'],
                     (int)$values['id']
                 );

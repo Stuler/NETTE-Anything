@@ -114,7 +114,7 @@ class FilesProcessManager
         a rovnakym rodicom
     * - vyvola vynimku, ak zlozka uz existuje
     */
-    public function rename(string $name, $clientId, int $id)
+    public function rename(string $name, string $path, $clientId, int $id)
     {
         $similar = $this->getSimilar($name, $clientId, $id);
         $file = $this->filesRepo->fetchById($id);
@@ -123,10 +123,10 @@ class FilesProcessManager
             $filePath = $this->getFilePath($id);
             $newFilePath = $this->setFilePath($name);
             rename($filePath, $newFilePath);
-            $this->filesRepo->rename($name, $id);
+            $this->filesRepo->rename($name, $newFilePath, $id);
         } else
             if (empty($similar)) {
-                $this->filesRepo->rename($name, $id);
+                $this->filesRepo->rename($name, $newFilePath, $id);
             } else {
                 throw new FileException("Složka již existuje");
             }
