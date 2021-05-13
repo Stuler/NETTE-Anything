@@ -14,6 +14,9 @@ class FilesProcessManager
     /** @var FilesRepository @inject @internal */
     public $filesRepo;
 
+//  TODO: zabranit priradeniu parent_id pri uploade, ked mam oznaceny subor
+//  TODO: zabranit premenovaniu zlozky na rovnaky nazov na tej istej urovni
+
     public function getFilesAndDirs($id)
     {
         $itemsByLevel1 = $this->filesRepo->findAllItemByLevel(1, (int)$id)->fetchAssoc("[]"); // vrati pole poli - vsetky data
