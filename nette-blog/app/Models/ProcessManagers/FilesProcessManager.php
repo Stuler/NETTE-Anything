@@ -32,7 +32,6 @@ class FilesProcessManager
         return $itemsByLevel1;
     }
 
-// TODO: prekopat remove funkciu
     public function uploadFile(FileUpload $file, ?int $client_id, ?int $parentId)
     {
         /*  1. potrebujem zistit, ci na disku uz podobny subor nemam
@@ -121,11 +120,21 @@ class FilesProcessManager
     {
         $similar = $this->getSimilar($name, $clientId, $id);
         $file = $this->filesRepo->fetchById($id);
+        $fileName = $file['name'];
+        $files = scandir(self::PATH);
+        bdump($name);
+        bdump($files);
 
         if (!$file['is_dir']) {
-//            $filePath = $this->getFilePath($id);
-//            bdump($filePath);
-            $newFilePath = $this->setFilePath($name);
+            if (!in_array($name, $files)) {
+                $ext = substr($fileName, strrpos($fileName, '.')); // oddelim priponu suboru
+                $baseName = substr($fileName, 0, strrpos($fileName, '.')); // basename = nazov bez koncovky
+                $nameHash = Random::generate(7, '0-9a-z');
+                $baseNameMod = $baseName . $nameHash . $ext;
+                $newFilePath = $this->setFilePath($baseNameMod);
+            } else {
+                $newFilePath = $this->setFilePath($name);
+            }
             rename($path, $newFilePath);
             $this->filesRepo->rename($name, $newFilePath, $id);
         } else
