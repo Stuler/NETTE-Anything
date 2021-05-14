@@ -15,7 +15,6 @@ class FilesProcessManager
     public $filesRepo;
 
 //  TODO: zabranit priradeniu parent_id pri uploade, ked mam oznaceny subor
-//  TODO: zabranit premenovaniu zlozky na rovnaky nazov na tej istej urovni
 
     public function getFilesAndDirs($id)
     {
