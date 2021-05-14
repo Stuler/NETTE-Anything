@@ -1,6 +1,10 @@
-{snippet formSearch}
-    {form formSearch} {input term} {input send} {input clear}{/form}
-{/snippet}
+{*{if includeForm}*}
+    <p n:if="$includeForm = true">
+        {snippet formSearch}
+            {form formSearch} {input term} {input send} {input clear}{/form}
+        {/snippet}
+    </p>
+{*{/if}*}
 
 {snippet list}
     <table>

@@ -43,6 +43,7 @@ class ClientDetail extends Control
      */
     public $id;
     public $contactId;
+    public $includeForm;
 
     public function render()
     {
@@ -54,6 +55,8 @@ class ClientDetail extends Control
 
             $client_person = $this->clientsRepo->fetchContactById($id);
             $this->template->contacts = $client_person;
+            $this->template->includeForm = false;
+
 
         } else {
             $this->template->contacts = [];
