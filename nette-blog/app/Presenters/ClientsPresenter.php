@@ -161,6 +161,7 @@ final class ClientsPresenter extends Nette\Application\UI\Presenter
     {
         $customList = $this->customListFactory->create(); // ekvivalent "new" - aby fungovalo inject
 //      pouzijem SETTER metody pre vytvorenie zoznamu
+        $customList->showFilter();
         $customList->setTable("client");
         $customList->addColumn("name", "Název");
         $customList->addColumn("ico", "IČO");
