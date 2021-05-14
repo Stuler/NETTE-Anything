@@ -155,7 +155,6 @@ class FileSystem extends Control
         $this->redrawControl("formUpload");
         $this->redrawControl("formCreate");
 	    $this->redrawControl("formRename");
-
     }
 
     public function handleDelete(int $id)
