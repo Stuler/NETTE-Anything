@@ -46,7 +46,6 @@ class ClientDetail extends Control
 
     public function render()
     {
-
         $id = (int)$this->id;
         if ($id) {
             $client = $this->clientsRepo->fetchById($id);
@@ -171,7 +170,7 @@ class ClientDetail extends Control
         $customList->setTable("client_person");
         $customList->addColumn("name", "Jméno");
         $customList->setRelation("client_id", (int)$this->id); // zadam foreign key pre dotaz z repozitara
-
+//        $customList->isShowFilter = false;
         $customList->onClick[] = function ($contactId) {
             $this->contactId = $contactId;
             $clientPerson = $this->db->table("client_person")->where("id", $contactId)->fetch();

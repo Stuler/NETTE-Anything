@@ -1,6 +1,8 @@
-{snippet formSearch}
-    {form formSearch} {input term} {input send} {input clear}{/form}
-{/snippet}
+{if $isShowFilter}
+    {snippet formSearch}
+        {form formSearch} {input term} {input send} {input clear}{/form}
+    {/snippet}
+{/if}
 
 {snippet list}
     <table>

@@ -44,32 +44,9 @@ class CustomRepository
                     ->where($relativeColumn, $relativeValue);
             }
         } else {
-            if (!$relativeColumn) {
-//                return $this->db->query("SELECT * FROM $tableName WHERE $conditionQuery", ...$values)->fetchAll();
-                return $this->db->table($tableName)
-                    ->where($conditionQuery, ...$values);
-            }
+            return $this->db->table($tableName)
+                ->where($conditionQuery, ...$values);
         }
-
-//        $query = $this->db->table($tableName);
-//        if ($searchTerm) {
-//            $likes = [];
-//            $values = [];
-//            foreach ($allCols as $column) {
-//                if (in_array($column, $selectedCols)) {
-//                    $likes[] = "`$column` LIKE ?";
-//                    $values[] = "%$searchTerm%";
-//                }
-//            }
-//            $query->where($conditionQuery, ...$values);
-//        }
-//        if ($relativeColumn) {
-//            $query->where($relativeColumn, $relativeValue);
-//        }
-//
-//
-//        return $query->fetchAll();
-
     }
 
     public function removeCustom(string $tableName, int $id)

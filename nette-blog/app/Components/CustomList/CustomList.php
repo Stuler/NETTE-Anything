@@ -33,12 +33,15 @@ class CustomList extends Control
 
     private $searchTerm;
 
+    private $isShowFilter = false;
+
     public function render()
     {
         /* pre vypis klientov potrebujem:
          *  - nazov tabulky
          *  - vyber stlpcov z db
         */
+        $this->template->isShowFilter = $this->isShowFilter;
         $this->template->columns = $this->columns;
         $this->template->items = $this->customRepo->fetchAllCustom($this->tableName, $this->relationColumn, $this->relationValue, $this->searchTerm, $this->columns);
         $this->template->setFile(__DIR__ . "/customList.latte");
@@ -94,16 +97,22 @@ class CustomList extends Control
         $this->tableName = $tableName;
     }
 
-    /* Pridam stlpce, ktore chcem v zozname zobrazit*/
+    /** Pridam stlpce, ktore chcem v zozname zobrazit*/
     public function addColumn(string $columnName, string $label)
     {
         $this->columns[] = ["name" => $columnName, "label" => $label];
     }
 
-    /* Nastavim prepojenie tabuliek - foreign key a jeho hodnotu ID */
+    /** Nastavim prepojenie tabuliek - foreign key a jeho hodnotu ID */
     public function setRelation(string $column, int $relationValue)
     {
         $this->relationColumn = $column;
         $this->relationValue = $relationValue;
+    }
+
+    /** Moznost zobrazenia vyhladavacieho formulara */
+    public function showFilter()
+    {
+        $this->isShowFilter = true;
     }
 }
